@@ -1,0 +1,502 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: i123 hjemmeside\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-06-11 11:14+0100\n"
+"PO-Revision-Date: 2012-06-11 11:14+0100\n"
+"Last-Translator: Internet 123 <support@i123.dk>\n"
+"Language-Team: Internet 123 <support@i123.dk>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;_e;__\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-Language: Danish\n"
+"X-Poedit-Country: DENMARK\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../404.php:2
+msgid "404 - not found"
+msgstr ""
+
+#: ../archive.php:2
+#, php-format
+msgid "Archive for %s"
+msgstr ""
+
+#: ../comments.php:3
+msgid "This post is password protected. Enter the password to view any comments."
+msgstr ""
+
+#: ../comments.php:14
+#: ../comments.php:26
+msgid "Comment navigation"
+msgstr ""
+
+#: ../comments.php:15
+#: ../comments.php:27
+msgid "&larr; Older Comments"
+msgstr ""
+
+#: ../comments.php:16
+#: ../comments.php:28
+msgid "Newer Comments &rarr;"
+msgstr ""
+
+#: ../comments.php:33
+msgid "Comments are closed."
+msgstr ""
+
+#: ../comments.php:58
+#, php-format
+msgid "Post a comment on \"%1$s\""
+msgstr ""
+
+#: ../content-list.php:3
+#, php-format
+msgid "</p><p class=\"listreadmore\"><a href=\"%1$s\">Read the full entry</a>"
+msgstr ""
+
+#: ../content-page.php:4
+msgid "Pages:"
+msgstr ""
+
+#: ../functions.php:13
+msgid "Top bar"
+msgstr ""
+
+#: ../functions.php:39
+msgid "Top menu"
+msgstr ""
+
+#: ../functions.php:82
+msgid "Absolute top"
+msgstr ""
+
+#: ../functions.php:84
+msgid "The widget area on the very top of all pages above the logo"
+msgstr ""
+
+#: ../functions.php:91
+msgid "Below logo"
+msgstr ""
+
+#: ../functions.php:93
+msgid "The widget area just below the logo"
+msgstr ""
+
+#: ../functions.php:100
+msgid "SideBar"
+msgstr ""
+
+#: ../functions.php:102
+msgid "The widget area to the side of all pages"
+msgstr ""
+
+#: ../functions.php:109
+msgid "Topbar 1"
+msgstr ""
+
+#: ../functions.php:111
+msgid "First box in the top-bar"
+msgstr ""
+
+#: ../functions.php:118
+msgid "Topbar 2"
+msgstr ""
+
+#: ../functions.php:120
+msgid "Second box in the top-bar"
+msgstr ""
+
+#: ../functions.php:127
+msgid "Topbar 3"
+msgstr ""
+
+#: ../functions.php:129
+msgid "Third box in the top-bar"
+msgstr ""
+
+#: ../functions.php:136
+msgid "Above content"
+msgstr ""
+
+#: ../functions.php:138
+msgid "The widget area just above the page-content"
+msgstr ""
+
+#: ../functions.php:145
+msgid "Below content"
+msgstr ""
+
+#: ../functions.php:147
+#: ../functions.php:156
+msgid "The widget area just below the page-content"
+msgstr ""
+
+#: ../functions.php:154
+msgid "Absolute bottom"
+msgstr ""
+
+#: ../functions.php:185
+#: ../i123_hjemmeside_options.php:12
+msgid "Theme options"
+msgstr ""
+
+#: ../functions.php:192
+msgid "You do not have sufficient permissions to access this page."
+msgstr ""
+
+#: ../functions.php:212
+msgid "Pingback:"
+msgstr ""
+
+#: ../functions.php:212
+#: ../functions.php:248
+msgid "Edit"
+msgstr ""
+
+#: ../functions.php:228
+#, php-format
+msgid "%2$s, %1$s"
+msgstr ""
+
+#: ../functions.php:233
+#, php-format
+msgid "%1$s at %2$s"
+msgstr ""
+
+#: ../functions.php:240
+msgid "Your comment is awaiting moderation."
+msgstr ""
+
+#: ../functions.php:268
+msgid " and "
+msgstr ""
+
+#: ../functions.php:280
+msgid "&larr; Older Posts"
+msgstr ""
+
+#: ../functions.php:281
+msgid "Newer Posts &rarr;"
+msgstr ""
+
+#: ../header.php:29
+#, php-format
+msgid "Page %s"
+msgstr ""
+
+#: ../i123_hjemmeside_options_actions.php:31
+#: ../i123_hjemmeside_options_actions.php:131
+msgid "Error during upload!"
+msgstr ""
+
+#: ../i123_hjemmeside_options_actions.php:73
+#: ../i123_hjemmeside_options_actions.php:156
+#, php-format
+msgid "The file \"%s\" was uploaded to \"%s\"!"
+msgstr ""
+
+#: ../i123_hjemmeside_options_actions.php:76
+#: ../i123_hjemmeside_options_actions.php:159
+#, php-format
+msgid "The file \"%s\" could not be moved to \"%s\"!"
+msgstr ""
+
+#: ../i123_hjemmeside_options_actions.php:122
+msgid "Your settings were saved!"
+msgstr ""
+
+#: ../i123_hjemmeside_options_actions.php:124
+#: ../i123_hjemmeside_options_actions.php:169
+msgid "There was an error in the input..."
+msgstr ""
+
+#: ../i123_hjemmeside_options_actions.php:137
+#, php-format
+msgid "The file \"%s\" is not a valid image file!"
+msgstr ""
+
+#: ../i123_hjemmeside_options_actions.php:194
+msgid "There was no file to crop..."
+msgstr ""
+
+#: ../i123_hjemmeside_options_actions.php:204
+msgid "The logo was deleted!"
+msgstr ""
+
+#: ../i123_hjemmeside_options_actions.php:206
+msgid "The logo file did not exist!"
+msgstr ""
+
+#: ../i123_hjemmeside_options_default_form.php:4
+#: ../i123_hjemmeside_options_default_form.php:7
+msgid "Options"
+msgstr ""
+
+#: ../i123_hjemmeside_options_default_form.php:12
+#: ../i123_hjemmeside_options_new_logo.php:10
+msgid "Logo-image:"
+msgstr ""
+
+#: ../i123_hjemmeside_options_default_form.php:14
+msgid "Upload a new image to use as logo."
+msgstr ""
+
+#: ../i123_hjemmeside_options_default_form.php:16
+msgid "Delete current logo."
+msgstr ""
+
+#: ../i123_hjemmeside_options_default_form.php:22
+msgid "Logo-position:"
+msgstr ""
+
+#: ../i123_hjemmeside_options_default_form.php:24
+#: ../i123_hjemmeside_options_default_form.php:50
+#: ../i123_hjemmeside_options_default_form.php:178
+#: ../i123_hjemmeside_options_default_form.php:203
+#: ../i123_hjemmeside_options_default_form.php:206
+#: ../i123_hjemmeside_options_default_form.php:209
+msgid "Left"
+msgstr ""
+
+#: ../i123_hjemmeside_options_default_form.php:25
+#: ../i123_hjemmeside_options_default_form.php:179
+#: ../i123_hjemmeside_options_default_form.php:204
+#: ../i123_hjemmeside_options_default_form.php:207
+#: ../i123_hjemmeside_options_default_form.php:210
+msgid "Center"
+msgstr ""
+
+#: ../i123_hjemmeside_options_default_form.php:26
+#: ../i123_hjemmeside_options_default_form.php:51
+#: ../i123_hjemmeside_options_default_form.php:180
+#: ../i123_hjemmeside_options_default_form.php:205
+#: ../i123_hjemmeside_options_default_form.php:208
+#: ../i123_hjemmeside_options_default_form.php:211
+msgid "Right"
+msgstr ""
+
+#: ../i123_hjemmeside_options_default_form.php:31
+msgid "Menu-position:"
+msgstr ""
+
+#: ../i123_hjemmeside_options_default_form.php:33
+#: ../i123_hjemmeside_options_default_form.php:152
+#: ../i123_hjemmeside_options_default_form.php:203
+#: ../i123_hjemmeside_options_default_form.php:204
+#: ../i123_hjemmeside_options_default_form.php:205
+msgid "Top"
+msgstr ""
+
+#: ../i123_hjemmeside_options_default_form.php:34
+msgid "Sidebar"
+msgstr ""
+
+#: ../i123_hjemmeside_options_default_form.php:39
+msgid "Menu-title:"
+msgstr ""
+
+#: ../i123_hjemmeside_options_default_form.php:42
+msgid "Enter a title for the menu or leave empty to remove."
+msgstr ""
+
+#: ../i123_hjemmeside_options_default_form.php:47
+msgid "Sidebar-position:"
+msgstr ""
+
+#: ../i123_hjemmeside_options_default_form.php:53
+msgid "Choose the position for the widget sidebar."
+msgstr ""
+
+#: ../i123_hjemmeside_options_default_form.php:58
+msgid "Theme colors:"
+msgstr ""
+
+#: ../i123_hjemmeside_options_default_form.php:61
+msgid "Choose a color for links, headings, bullets etc."
+msgstr ""
+
+#: ../i123_hjemmeside_options_default_form.php:64
+msgid "Choose a color for contrast to the theme color (fx. for text with the theme color as background)."
+msgstr ""
+
+#: ../i123_hjemmeside_options_default_form.php:67
+msgid "Choose a color for the background of the main content area and widget."
+msgstr ""
+
+#: ../i123_hjemmeside_options_default_form.php:70
+msgid "Choose a color for normal text."
+msgstr ""
+
+#: ../i123_hjemmeside_options_default_form.php:74
+msgid "Background-type:"
+msgstr ""
+
+#: ../i123_hjemmeside_options_default_form.php:77
+msgid "Solid"
+msgstr ""
+
+#: ../i123_hjemmeside_options_default_form.php:78
+msgid "Gradient"
+msgstr ""
+
+#: ../i123_hjemmeside_options_default_form.php:79
+msgid "Tiled"
+msgstr ""
+
+#: ../i123_hjemmeside_options_default_form.php:80
+msgid "Repeat horizontally"
+msgstr ""
+
+#: ../i123_hjemmeside_options_default_form.php:81
+msgid "Repeat vertically"
+msgstr ""
+
+#: ../i123_hjemmeside_options_default_form.php:82
+msgid "Static image"
+msgstr ""
+
+#: ../i123_hjemmeside_options_default_form.php:84
+msgid "Choose one of the available background types to use as main background."
+msgstr ""
+
+#: ../i123_hjemmeside_options_default_form.php:89
+msgid "Background base-color:"
+msgstr ""
+
+#: ../i123_hjemmeside_options_default_form.php:92
+#, php-format
+msgid "Choose a base color for the page background. This has no effect if the background image is 100% opaque."
+msgstr ""
+
+#: ../i123_hjemmeside_options_default_form.php:97
+msgid "Gradient type:"
+msgstr ""
+
+#: ../i123_hjemmeside_options_default_form.php:116
+msgid "Choose a gradient type for the page background."
+msgstr ""
+
+#: ../i123_hjemmeside_options_default_form.php:121
+#: ../i123_hjemmeside_options_default_form.php:136
+#: ../i123_hjemmeside_options_default_form.php:162
+#: ../i123_hjemmeside_options_default_form.php:187
+msgid "Background-image:"
+msgstr ""
+
+#: ../i123_hjemmeside_options_default_form.php:125
+#: ../i123_hjemmeside_options_default_form.php:140
+#: ../i123_hjemmeside_options_default_form.php:166
+#: ../i123_hjemmeside_options_default_form.php:191
+msgid "Upload new"
+msgstr ""
+
+#: ../i123_hjemmeside_options_default_form.php:131
+#: ../i123_hjemmeside_options_default_form.php:146
+#: ../i123_hjemmeside_options_default_form.php:172
+#: ../i123_hjemmeside_options_default_form.php:197
+msgid "Choose an image to use as background."
+msgstr ""
+
+#: ../i123_hjemmeside_options_default_form.php:149
+#: ../i123_hjemmeside_options_default_form.php:175
+#: ../i123_hjemmeside_options_default_form.php:200
+msgid "Background-position:"
+msgstr ""
+
+#: ../i123_hjemmeside_options_default_form.php:153
+#: ../i123_hjemmeside_options_default_form.php:206
+#: ../i123_hjemmeside_options_default_form.php:207
+#: ../i123_hjemmeside_options_default_form.php:208
+msgid "Middle"
+msgstr ""
+
+#: ../i123_hjemmeside_options_default_form.php:154
+#: ../i123_hjemmeside_options_default_form.php:209
+#: ../i123_hjemmeside_options_default_form.php:210
+#: ../i123_hjemmeside_options_default_form.php:211
+msgid "Bottom"
+msgstr ""
+
+#: ../i123_hjemmeside_options_default_form.php:156
+#: ../i123_hjemmeside_options_default_form.php:182
+#: ../i123_hjemmeside_options_default_form.php:213
+msgid "Choose the position for the background image."
+msgstr ""
+
+#: ../i123_hjemmeside_options_default_form.php:218
+msgid "Upload new background:"
+msgstr ""
+
+#: ../i123_hjemmeside_options_default_form.php:221
+msgid "Upload an image to use as background. Make sure to select the type of background you are uploading."
+msgstr ""
+
+#: ../i123_hjemmeside_options_default_form.php:224
+msgid "Save options"
+msgstr ""
+
+#: ../i123_hjemmeside_options_default_form.php:227
+msgid "Preview:"
+msgstr ""
+
+#: ../i123_hjemmeside_options_default_form.php:264
+#: ../i123_hjemmeside_options_default_form.php:271
+msgid "Widget-heading"
+msgstr ""
+
+#: ../i123_hjemmeside_options_default_form.php:279
+msgid "Page-heading"
+msgstr ""
+
+#: ../i123_hjemmeside_options_logo_crop_form.php:78
+#: ../i123_hjemmeside_options_logo_crop_form.php:81
+msgid "Crop and resize new logo."
+msgstr ""
+
+#: ../i123_hjemmeside_options_logo_crop_form.php:86
+msgid "Preview"
+msgstr ""
+
+#: ../i123_hjemmeside_options_logo_crop_form.php:88
+#: ../i123_hjemmeside_options_new_logo.php:15
+msgid "Save logo"
+msgstr ""
+
+#: ../i123_hjemmeside_options_new_logo.php:4
+#: ../i123_hjemmeside_options_new_logo.php:7
+msgid "Upload new logo."
+msgstr ""
+
+#: ../loop-list.php:10
+msgid "Nothing found..."
+msgstr ""
+
+#: ../search.php:2
+#, php-format
+msgid "Search results for \"%s\""
+msgstr ""
+
+#: ../tags.php:6
+#, php-format
+msgid "This entry was posted in %1$s and tagged %2$s by <a href=\"%6$s\">%5$s</a>. Bookmark the <a href=\"%3$s\" title=\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
+msgstr ""
+
+#: ../tags.php:8
+#, php-format
+msgid "This entry was posted in %1$s by <a href=\"%6$s\">%5$s</a>. Bookmark the <a href=\"%3$s\" title=\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
+msgstr ""
+
+#: ../tags.php:10
+#, php-format
+msgid "This entry was tagged %2$s by <a href=\"%6$s\">%5$s</a>. Bookmark the <a href=\"%3$s\" title=\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
+msgstr ""
+
+#: ../tags.php:12
+#, php-format
+msgid "This entry was posted by <a href=\"%6$s\">%5$s</a>. Bookmark the <a href=\"%3$s\" title=\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
+msgstr ""
+

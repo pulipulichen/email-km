@@ -1,0 +1,139 @@
+/*
+Theme Name: '-'
+Theme URI: http://www.euqueroaprender.ismywebsite.com/
+Description: oi, precisa descrição? ._.
+Author: Eduardo Mozart de Oliveira
+Version: 1.0
+Tags: blue, white, one-column, fixed-width
+*/
+
+/*
+**********************************
+EXPLICAÇÕES
+**********************************
+
+
+1.margin: valor1......as 4 margens terão valor1;
+2.margin: valor1 valor2......margem superior e inferior terão valor1 - margem direita e esquerda terão valor2
+3.margin: valor1 valor2 valor3......margem superior terá valor1 - margem direita e esquerda terão valor2 - margem inferior terá valor3
+4.margin: valor1 valor2 valor3 valor4....margens superior, direita, inferior e esquerda nesta ordem.
+
+*/
+
+#container a {
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 24px;
+	margin-left: 13px;
+	position: relative;
+	top: 41px;
+	color: #776A60;
+	border-bottom: 1px dashed #776A60;	
+	text-decoration: none;
+}
+
+#container a:hover, a:active, a:focus {
+    color: #EB4E43; !important;
+}
+
+/*
+**********************************
+CORPO
+**********************************
+*/
+
+body {
+	font-family: Helvetica,Arial,sans-serif;
+}	
+
+#container {
+	width: 800px;
+	background: #EDF4FF;
+	margin: 0 auto;
+	overflow: hidden;
+	border: 1px solid #ccc;
+}
+
+#logo {
+    background: url("imgs/logo.png");
+	width: 129px;
+    height: 159px;
+	
+	margin-top: -43px;
+	margin-bottom: -51px;
+	margin-left: 305px;
+}
+
+/*
+**********************************
+ONDE ESTOU? (BREADCRUMBS)
+**********************************
+*/
+
+#breadcrumb-top {
+	background: url("imgs/breadcrumb_top.gif") repeat-x;
+	height: 31px;
+	width: 780px;
+	margin: 41px 0 0 10px;
+}
+
+/*
+**********************************
+POSTS
+**********************************
+*/
+
+#principal {
+	overflow: hidden; /* Esconde barra de rolagem (baixo) */
+	background: #fff;
+	padding: 0 0 15px 0;
+	width: 780px;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+#post {
+	float: left;
+	width: 690px;
+	border: 10px solid #F2F2F2;
+	
+	margin-top: 33px;
+	margin-left: 10px;
+	
+	padding-left: 1.7em;
+	padding-right: 1.7em;
+	
+	font-size: 14px;
+	line-height: 32px;
+}
+
+blockquote {
+	background: url("imgs/pagerror.gif") no-repeat left center;
+	
+	padding-top: 9px;
+	padding-bottom: 9px;
+	padding-left: 40px;
+	padding-right: 9px;
+}
+
+/*
+**********************************
+RODAPÉ
+**********************************
+*/
+
+#footer-plugin {
+	background: url("imgs/footer.png") repeat-x;
+	width: 780px;
+	height: 46px;
+	margin-left: 10px;
+}
+
+#copyright {
+	width: 944px;
+	height: 12px;
+	padding: 9px;
+}
+
+small {
+	font-size: 62.5%;	
+}

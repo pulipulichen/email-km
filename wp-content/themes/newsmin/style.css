@@ -1,0 +1,964 @@
+/*
+Theme Name: Newsmin
+Author URI: http://wpmole.com
+Description: It is a magazine theme with minimalistic style. Suitable for any niche, especially for news or magazine sites.
+Author: WPMOLE
+Version: 1.0.9
+License: GNU/GPL Version 3 or later. 
+License URI: http://www.gnu.org/licenses/gpl.html
+Tags: white, two-columns, right-sidebar, fixed-width, custom-menu, translation-ready
+Copyright: (c) 2011 WPMOLE
+*/
+
+html,
+body,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+em,
+i,
+table,
+tr,
+td,
+th,
+form,
+input,
+textarea,
+select,
+li,
+ol,
+ul,
+strong {
+	margin:0;
+	padding:0;
+}
+html {
+	font-size:62.5%;
+}
+em,
+i{
+	font-style:normal;
+}
+li {
+	list-style-type:none;
+}
+h1,
+h2,
+h3,
+h4,
+h5 {
+	font-weight:400;
+	line-height: 1.5em;
+	padding:5px;
+	
+}
+p {
+	padding:5px 0;
+}
+a:active,
+a:focus,
+img,
+input,
+select {
+	outline:0;
+}
+a,a:link,
+a:active,
+a:visited {
+	color:red;
+	cursor:pointer;
+	text-decoration:underline;
+}
+a:hover {
+	color:red;
+	text-decoration:underline;
+}
+img {
+	border:none;
+}
+.clear {
+	clear:both;
+	font-size:0;
+	height:0;
+	line-height:0;
+	
+}
+body {
+	background-color:gray;
+	color:green;
+	font-size:12px;
+	font-family:georgia,"times new roman",times,serif;
+	line-height: 1.4em;
+	padding:5px;
+}
+
+.wrapper {
+	margin: 0 auto; 
+	min-height: 100%;
+	position: relative; 
+	width: 1000px; 
+
+}
+::selection {
+	background:blue;
+	color:yellow;
+}
+
+.header {
+	background:white; 
+	border: 1px solid #999;
+	width:100%; 
+}
+.header  .title {
+	left: 0px;
+	top: 5px;
+	width:100%;
+}
+.header  .title  h1 {
+	font-size: 40px;
+	margin: 0px;
+	padding:0px;
+	text-align: center;
+}
+.header  .title  h1 a:link,
+a:visited {
+	color: #000;
+	text-decoration: none;
+}
+.header  .title  h1 a:visited {
+	color: #000;
+	text-decoration: none;
+}
+.header  .title  h1 a:hover {
+	color: #000;
+	text-decoration:underline;
+}
+.header  .title  p {
+	color: #000;
+	font-size: 14px;
+	text-align: center;
+	text-transform:uppercase;
+}
+
+.footer {
+	background-color:red;
+	clear:left;
+	color: #fff;
+	margin-top:2px;
+	width:100%;
+	height:60px;
+}
+.footer  a:hover {
+	color:#fff;
+	text-decoration:underline;
+}
+.footer .fl,
+.footer .fr {
+	display:inline;
+}
+.footer .fl { 
+	float:left; 
+	padding: 20px 0px 0px 10px;
+}
+.footer .fr { 
+	float:right;
+	padding: 20px 10px 0px 0px;
+}
+	
+.footer  .fr a:link {
+	color:#fff;
+	text-decoration:none;
+	}
+.footer  .fr a:hover {
+	color:#fff;
+	text-decoration:underline;
+}
+.footer  .fr a:visited {
+	color:#fff;
+	text-decoration:none;
+}
+.footer  .fl a:link {
+	color:#fff;
+	text-decoration:none;
+}
+.footer  .fl a:hover {
+	color:#fff;
+	text-decoration:underline;
+}
+.footer  .fl a:visited {
+	color:#fff;
+	text-decoration:none;
+}
+
+.middle {
+	background-color:#ADD8E6;
+	overflow:hidden;
+	width:100%;
+}
+
+.middle .content,
+.middle .sidebar {
+	display:inline;
+	margin-bottom:2px;
+}
+.middle .content {
+	float:left; 
+	margin-left: 1px; 
+	overflow:hidden; 
+	padding:0px;
+	width:670px; 
+}
+.middle .sidebar {
+	float:left; 
+	margin:0 0px 0 1px;
+	overflow:hidden;
+	width: 324px; 
+}
+
+.sidebar-big {
+	clear:both; 
+	margin-top:0px;
+	overflow:hidden; 
+} 
+
+.sidebar-2column1 {
+	clear:both; 
+	float: left; 
+	margin-top:1px;
+	overflow:hidden;
+	width:161px;
+}
+.sidebar-2column2 {
+	float: right; 
+	margin-top:1px;
+	overflow:hidden;
+	width:161px; 
+}
+
+.widget {
+	border: 1px solid #999; 
+	overflow:hidden;
+	padding:2px; 
+	margin-top:2px;
+}
+.widget h3 {
+	color:#000;
+	font-size: 14px; 
+	font-variant: small-caps; 
+	margin-bottom:5px;
+	padding-bottom:5px; 
+	text-transform:uppercase; 
+
+}
+.widget {
+	padding-bottom: 10px;
+	padding-top: 5px; 
+}
+.widget, 
+.widget p, 
+.widget li {
+	font-size: 14px;
+}
+.widget p {
+	margin-bottom: 5px;
+	padding: 0px;
+}
+.widget a {
+	color: red;
+	text-decoration: none;
+}
+.widget a:hover {
+	border-color: #000;
+	text-decoration:underline;
+}
+.widget ul ul {
+	border: none;
+	margin-left: 1.3em;
+	padding: 0; 
+}
+
+.post {
+	border: 1px solid #999;
+	margin-top: 2px;
+	padding: 9px; 
+	width: 650px;  
+}
+.post  h1 {
+	color: red;
+	font-size: 2em;
+	line-height: 1.1em;
+	margin-top: 5px;
+	overflow:hidden;
+	padding: 0px; 
+}
+.post  h1 a {
+	color:#000;
+	font-weight: bold;
+	text-decoration:none;
+}
+.post  h1 a:hover {
+	font-weight: bold;
+	text-decoration:underline;
+}
+.col {
+	border: 1px solid #999;
+	float: left; 
+	margin-right: 2px;
+	margin-top: 2px;
+	padding: 9px;
+	width: 313px;
+	height:300px;
+}
+.col h1 a:hover {
+	font-weight: bold;
+	text-decoration:underline; 
+}
+.col  h1{
+	color: red;
+	font-size: 2em;
+	line-height: 1.2em;
+	margin-top: 5px;
+	overflow: hidden; 
+	padding: 0px;
+}
+.col  h1 a {
+	color:#000;
+	font-weight: bold;
+	text-decoration:none;
+}
+.meta {
+	color: gray;  
+	font-size: 12px; 
+	padding-bottom: 0px;  
+	padding-top: 5px;
+}
+.meta-by {
+	color: gray;
+	float:left;
+	font-size: 11px; 
+	padding-bottom: 0px; 
+	padding-right: 2px;
+	text-transform:uppercase; 
+}
+.meta-date {
+	color: #A81817; 
+	font-size: 12px; 
+	padding-bottom: 0px;
+}
+.meta-cat {
+	clear:both;
+	color: #000; 
+	font-size: 12px; 
+	overflow:hidden;
+	padding-top: 5px;
+	text-overflow:ellipsis;
+	text-transform:uppercase; 
+	white-space:nowrap;
+}
+.meta-cat1 {
+	color: #000; 
+	padding-top: 5px;
+	font-size: 12px; 
+	text-transform:uppercase; 
+}
+.meta-cat a:hover {
+	color: #000; 
+	text-decoration:underline; 
+}
+.meta-cat a:visited {
+	color: #000;
+	text-decoration:none; 
+ }
+.meta-cat a:link {
+	color: #000;
+}
+.meta-cat1 a:hover {
+	color: #000;
+	text-decoration:underline;
+}
+.meta-cat1 a:visited {
+	color: #000; 
+	text-decoration:none; 
+}
+.meta-cat1 a:link {
+	color: #000;
+}
+.post-content {
+	font-size: 1.2em;
+	line-height: 1.25em;
+	overflow:hidden;
+}
+.post-content  p {
+	padding-bottom: 5px;
+}
+.post .addcomment, 
+.footer .readmore {
+	display:inline;
+}
+.readmore {
+	float:left;
+	padding-top: 1px; 
+}
+.addcomment {
+	float:right;
+	padding-top: 1px;
+}
+.nopage {
+	padding: 9px; 
+	margin-top: 2px; 
+	width: 650px; 
+}
+
+.page-link {
+	clear:both; 
+	padding-bottom:10px;
+	padding-top:5px;
+}
+
+.tags {
+	clear:both; 
+	padding-top:5px; 
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap;
+}
+.tags1 {
+	clear:both;
+	padding-top:10px;
+}
+.navigation,
+.nav-previous, 
+.nav-next {
+	padding-top: 25px;
+	text-align: center; 
+}
+
+.sticky {
+	background: red;
+}
+.post-content ul li {
+	list-style-type: disc;
+	margin-left: 20px;	
+	padding: 2px;
+}
+
+.post-content ol li {
+	list-style-type: decimal;
+	margin-left: 30px;	
+	padding: 2px;
+}
+	
+.post-content ul ul {
+	border: none;
+	margin-left: 1.3em;
+	padding: 0; 
+}
+.post-content ol ol {
+	border: none;
+	margin-left: 1.3em;
+	padding: 0; 
+}
+
+#comments {
+	clear: both;
+}
+#comments .navigation {
+	padding: 0 0 18px 0;
+}
+h3#comments-title,
+h3#reply-title {
+	color: #000;
+	font-size: 20px;
+	margin-bottom: 0;
+}
+h3#comments-title {
+	padding: 24px 0;
+}
+.commentlist {
+	list-style: none;
+	margin: 0;
+}
+.commentlist li.comment {
+	border-bottom: 1px solid #e7e7e7;
+	line-height: 24px;
+	margin: 0 0 24px 0;
+	padding: 0 0 0 56px;
+	position: relative;
+}
+.commentlist li:last-child {
+	border-bottom: none;
+	margin-bottom: 0;
+}
+#comments .comment-body ul,
+#comments .comment-body ol {
+	margin-bottom: 18px;
+}
+
+#comments .comment-body ul li {
+	list-style-type: disc;
+	margin-left: 20px;	
+	padding: 2px;
+	}
+	
+#comments .comment-body ol li {
+	list-style-type: decimal;
+	margin-left: 30px;	
+	padding: 2px;
+	}
+	
+#comments .comment-body ul ul {
+	border: none; 
+	margin-left: 1.3em;
+	padding: 0; 
+}
+#comments .comment-body ol ol {
+	border: none; 
+	margin-left: 1.3em; 
+	padding: 0; 
+}
+	
+#comments .comment-body p:last-child {
+	margin-bottom: 6px;
+}
+#comments .comment-body blockquote p:last-child {
+	margin-bottom: 24px;
+}
+.commentlist ol {
+	list-style: decimal;
+}
+.commentlist .avatar {
+	position: absolute;
+	top: 4px;
+	left: 0;
+}
+.comment-author {
+}
+.comment-author cite {
+	color: #000;
+	font-style: normal;
+	font-weight: bold;
+}
+.comment-author .says {
+	font-style: italic;
+}
+.comment-meta {
+	font-size: 12px;
+	margin: 0 0 18px 0;
+}
+.comment-meta a:link,
+.comment-meta a:visited {
+	color: #888;
+	text-decoration: none;
+}
+.comment-meta a:active,
+.comment-meta a:hover {
+	color: #ff4b33;
+	text-decoration:underline;
+}
+.commentlist .even {
+}
+.commentlist .bypostauthor {
+}
+.reply {
+	font-size: 12px;
+	padding: 0 0 24px 0;
+}
+.reply a,
+a.comment-edit-link {
+	color: #888;
+}
+.reply a:hover,
+a.comment-edit-link:hover {
+	color: #ff4b33;
+	text-decoration:underline;
+}
+.commentlist .children {
+	list-style: none;
+	margin: 0;
+}
+.commentlist .children li {
+	border: none;
+	margin: 0;
+}
+.nopassword,
+.nocomments {
+	display: none;
+}
+#comments .pingback {
+	border-bottom: 1px solid #e7e7e7;
+	margin-bottom: 18px;
+	padding-bottom: 18px;
+}
+.commentlist li.comment+li.pingback {
+	margin-top: -6px;
+}
+#comments .pingback p {
+	color: #888;
+	display: block;
+	font-size: 12px;
+	line-height: 18px;
+	margin: 0;
+}
+#comments .pingback .url {
+	font-size: 13px;
+	font-style: italic;
+}
+
+/* Comments form */
+input[type=submit] {
+	color: #333;
+}
+#respond {
+	border-top: 1px solid #999;
+	margin: 24px 0;
+	overflow: hidden;
+	position: relative;
+}
+#respond p {
+	margin: 0;
+}
+#respond .comment-notes {
+	margin-bottom: 1em;
+}
+.form-allowed-tags {
+	line-height: 1em;
+}
+.children #respond {
+	margin: 0 48px 0 0;
+}
+h3#reply-title {
+	margin: 18px 0;
+}
+#comments-list #respond {
+	margin: 0 0 18px 0;
+}
+#comments-list ul #respond {
+	margin: 0;
+}
+#cancel-comment-reply-link {
+	font-size: 12px;
+	font-weight: normal;
+	line-height: 18px;
+}
+#respond .required {
+	color: #ff4b33;
+	font-weight: bold;
+}
+#respond label {
+	color: #888;
+	font-size: 12px;
+}
+#respond input {
+	margin: 0 0 9px;
+	width: 98%;
+}
+#respond textarea {
+	width: 98%;
+}
+#respond .form-allowed-tags {
+	color: #888;
+	font-size: 12px;
+	line-height: 18px;
+}
+#respond .form-allowed-tags code {
+	font-size: 11px;
+}
+#respond .form-submit {
+	margin: 12px 0;
+}
+#respond .form-submit input {
+	font-size: 14px;
+	width: auto;
+}
+
+img.size-auto,
+img.size-full,
+img.size-large,
+img.size-medium,
+.attachment img {
+	max-width: 600px; 
+	height: auto; 
+}
+.alignleft,
+img.alignleft {
+	display: inline;
+	float: left;
+	margin-right: 24px;
+	margin-top: 4px;
+}
+.alignright,
+img.alignright {
+	display: inline;
+	float: right;
+	margin-left: 24px;
+	margin-top: 4px;
+}
+.aligncenter,
+img.aligncenter {
+	clear: both;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+img.alignleft,
+img.alignright,
+img.aligncenter {
+	margin-bottom: 12px;
+}
+.wp-caption {
+	background: #f1f1f1;
+	line-height: 18px;
+	margin-bottom: 20px;
+	max-width: 630px !important; 
+	padding: 4px;
+	text-align: center;
+}
+.wp-caption img {
+	margin: 5px 5px 0;
+}
+.wp-caption p.wp-caption-text {
+	color: #888;
+	font-size: 12px;
+	margin: 5px;
+}
+.wp-smiley {
+	margin: 0;
+}
+.gallery {
+	margin: 0 auto 18px;
+}
+.gallery .gallery-item {
+	float: left;
+	margin-top: 0;
+	text-align: center;
+	width: 33%;
+}
+.gallery-columns-2 .gallery-item {
+	width: 50%;
+}
+.gallery-columns-4 .gallery-item {
+	width: 25%;
+}
+.gallery img {
+	border: 1px solid #999;
+}
+.gallery-columns-2 .attachment-medium {
+	max-width: 92%;
+	height: auto;
+}
+.gallery-columns-4 .attachment-thumbnail {
+	max-width: 84%;
+	height: auto;
+}
+.gallery .gallery-caption {
+	color: #888;
+	font-size: 12px;
+	margin: 0 0 12px;
+}
+.gallery dl {
+	margin: 0;
+}
+.gallery img {
+	border: 10px solid #f1f1f1;
+}
+.gallery br+br {
+	display: none;
+}
+.post-content .attachment img {
+	display: block;
+	margin: 0 auto;
+}
+
+#access, #access ul {
+  background: #00386e;
+  float: left;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+#access li {
+  background: #79BCFF;
+  color: #000;
+  float: left;
+  position: relative;
+}
+
+#access li ul {
+  background: #79BCFF;
+  color: #000;
+  display: none;
+  padding: 8px 0;
+  position: absolute;
+  width: 138px;
+  z-index: 99999;
+}
+
+#access a {
+  background-color: #003366;
+  color: #fff;
+  display: block;
+  padding: 4px 10px;
+  text-decoration: none;
+}
+#access a:hover {
+  background-color: #79BCFF
+  color: #000;
+}
+#access li:hover {
+  color: #000;
+  background-color: #79BCFF;
+}
+#access li li a:hover  {
+  color: #000;
+  background: #79BCFF;
+}
+#access li li a {
+  background: none;
+  width: 118px;
+}
+#access li:hover ul {
+  display: block;
+}
+#access  li:hover li ul {
+  display: none;
+  left: 133px;
+  top: -9px;
+  width: 138px;
+}
+#access  li:hover li:hover ul {
+  color: #000;
+  display: block;
+}
+
+.widget-tag-cloud {
+	width: 154px;
+}
+#wp-calendar {
+	width: 100%;
+}
+#wp-calendar caption {
+	color: #222;
+	font-size: 14px;
+	padding-bottom: 4px;
+	text-align: center;
+}
+#wp-calendar thead {
+	font-size: 11px;
+}
+#wp-calendar thead th {
+}
+#wp-calendar tbody {
+	color: #aaa;
+}
+#wp-calendar tbody td {
+	background: #f5f5f5;
+	border: 1px solid #fff;
+	padding: 3px 0 2px;
+	text-align: center;
+}
+#wp-calendar tbody .pad {
+	background: none;
+}
+#wp-calendar tfoot #next {
+	text-align: right;
+}
+
+.widget-rss a.rsswidget {
+	color: #000;
+}
+
+.widget-rss .widget-title img {
+	width: 11px;
+	height: 11px;
+}
+
+table {
+	padding:5px;
+	width:100%;
+}
+td {
+	padding:10px;
+	}
+	
+	
+.big-pic {
+	margin: 10px;
+	text-align:center;
+	width: 70px;
+}
+.prev-pic {
+	float: left; 
+	font-size: 16px;
+	margin-left: 10px;
+}
+.next-pic {
+	float: right;
+	font-size: 16px;	
+	margin-right: 10px;
+}
+
+/* --- */
+
+body {
+	color: #333;
+	background-color:white;
+}
+.header {
+	color: black;
+	background-color:white;
+}
+.ads468-60 {
+	color: black;
+	background:#00386e; 
+}
+.middle {
+	background-color:white;
+}  
+.sticky {
+	background: #CEE3FF;
+}
+a,
+a:link,
+a:active, 
+a:visited {
+	color:#004276;
+	text-decoration:none;
+}
+a:hover {
+	color:#004276;
+	text-decoration:underline;
+}
+.footer {
+	background: #00386e;
+}
+.content {
+	width: 630px;
+}
+
+.header .title span {
+	color: #000; 
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+.widget-rss a.rsswidget, 
+.post h1 a, 
+.header .title h1 a, 
+.col h1 a, 
+#comments h3 {
+	color: #004276;
+}
+.row {
+	clear: both;
+}
+
+
+
+

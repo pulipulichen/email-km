@@ -1,0 +1,483 @@
+/***Browser reset***/
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline;color:inherit}
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block;}
+body {line-height:1.4em;}
+ol,ul{list-style: none;}
+blockquote,q{quotes:none;margin:20px;font-style:italic}
+blockquote:before,blockquote:after,q:before,q:after{content:'';content:none;}
+table{border-collapse:collapse;border-spacing:0;}
+/***Default styles***/
+h1{font-size:100%;font-weight:bold;}
+h2{font-size:100%;font-weight:bold;}
+h3{font-size:100%;text-transform: uppercase;}
+h4{font-size:100%;}
+h5{font-size:100%;}
+h6{font-size:100%;}
+h1,h2,h3,h4,h5,h6{display:block;clear:both;margin:10px 0;color:#000000;}
+strong{font-weight:bold;}
+em,cite{font-style:italic;}
+sup,sub{font-size:0.8em;}
+sup{vertical-align:super;}
+sub{vertical-align:sub;}
+pre,code,kbd,samp,var{font-family:"Courier New",Courier,monospace;}
+p{margin:10px 0;}
+strike,s,del{text-decoration:line-through;}
+/***Hjemmeside-tema styles***/
+h3 {font-size: 10px}
+td {
+    vertical-align: top;
+    padding: 5px;
+}
+body {
+    background: #fff;
+    color: #494949;
+    font-family: Arial,Trebuchet MS,Helvetica,sans-serif;
+    font-size: 12px;
+    line-height: 18px;
+}
+a, a:visited, a:active {
+    text-decoration:none;
+}
+#topbar {
+    width: 100%;
+    height: 24px;
+}
+.pagewidth {
+    width: 960px;
+    margin: 0 auto;
+}
+#header {
+    height: 49px;
+    padding: 31px 0;
+    margin-bottom: 20px;
+}
+#sidebar_venstre {
+    width: 222px;
+    float: left;
+    margin: 20px 10px 20px 0;
+}
+#contentarea {
+    float: left;
+    margin: 20px 0 0 0;
+}
+#contentbg {
+    border-radius: 10px;
+}
+.padding20 {
+    padding: 20px;
+}
+
+h2.page_heading {
+    font-size: 140%;
+}
+
+.widget_header {
+    background: #F5F5F5;
+    border-radius: 10px 10px 0 0;
+    color: #9A9A9A;
+    font-size: 22px;
+    line-height: 30px;
+    padding: 10px 20px;
+    margin: -10px -20px 20px;
+}
+#belowcontent_widgets {
+    margin-top: 20px;
+}
+#abstop_widgets {
+    margin-bottom: -20px;
+    margin-top: 20px;
+}
+#belowmenu_widgets {
+    margin-bottom: -20px;
+}
+.i123_widget {
+    background: #FFF;
+    border-radius: 10px;
+    padding: 10px 20px 40px;
+    margin: 0 0 20px 0;
+}
+#headermenu {
+    border-radius: 10px 10px 10px 10px;
+}
+#headermenu, .menulogo {
+    position: absolute;
+    top: 31px;
+}
+
+#headermenu, .menulogo {
+    height: 49px;
+}
+#headermenu ul {
+    padding: 5px;
+}
+#headermenu li ul {
+    position: absolute;
+    top: 39px;
+    left: 0;
+    padding: 0 5px 5px 5px;
+    border-radius: 0 0 10px 10px;
+}
+#headermenu li {
+    display: block;
+    float: left;
+    position: relative;
+    white-space: nowrap;
+}
+#headermenu li li {
+    width: 100%;
+}
+#headermenu li li ul {
+    top: -5px;
+    padding: 5px;
+    left: 100%;
+    border-radius: 0 10px 10px 10px;
+}
+
+#headermenu li ul {
+    display: none;
+}
+#headermenu li:hover ul,
+#headermenu li:hover li:hover ul,
+#headermenu li:hover li:hover li:hover ul,
+#headermenu li:hover li:hover li:hover li:hover ul {
+    display: block;
+}
+#headermenu ul li:hover ul li ul,
+#headermenu ul li:hover li:hover ul li ul,
+#headermenu ul li:hover li:hover li:hover ul li ul,
+#headermenu ul li:hover li:hover li:hover li:hover ul li ul {
+    display: none;
+}
+
+#headermenu a {
+    display: block;
+    height: 27px;
+    line-height: 27px;
+    padding: 5px 10px;
+    border: 1px solid transparent;
+    border-radius: 3px;
+}
+#headermenu li ul a {
+    padding: 5px 25px;
+}
+#headermenu .current-menu-ancestor li a {
+    border-color: transparent;
+}
+
+
+.page_heading {
+    margin-bottom: 20px;
+}
+.bullet {
+    background-image: url(images/arrow.png);
+    background-position: top left;
+    background-repeat: no-repeat;
+    height: 18px;
+    width: 18px;
+    float: left;
+}
+
+#sidebar_venstre .menu {
+    padding-top: 30px;
+}
+#sidebar_venstre .menu li a {
+    display: block;
+}
+#sidebar_venstre .menu li {
+    background-image: url(images/arrow.png);
+    background-position: 3px 3px;
+    background-repeat: no-repeat;
+    padding: 3px 3px 3px 26px;
+}
+#sidebar_venstre .menu ul.sub-menu {
+    display: none;
+}
+#sidebar_venstre .menu li.current-menu-ancestor ul.sub-menu,
+#sidebar_venstre .menu li.current-menu-item ul.sub-menu {
+    display: block;
+}
+
+#sidebar_venstre .menu li.current-menu-item, #sidebar_venstre .menu li.current_page_item {
+    background-image: url(images/arrow_down.png);
+}
+
+#forside-box .i123_widget {
+    min-height: 115px;
+    margin-bottom: 10px;
+}
+#forside-box .i123_widget div div a {
+    display: block;
+    float: left;
+    margin-left: 30px;
+    margin-top: -18px;
+}
+.onethird {
+    width: 33.3%;
+    float: left;
+}
+
+#header {
+    position: relative;
+}
+
+
+.comment {
+    clear:both;
+    position: relative;
+    padding: 10px 0;
+}
+.comment .avatar {
+    float: left;
+    margin: 0 10px 10px 0;
+}
+.comment-author.vcard {
+    font-size: 125%;
+    font-weight: bold;
+}
+.comment-meta {
+    margin-left: 80px;
+}
+.comment-content, .reply {
+    margin-left: 100px;
+}
+.commentlist ul.children .comment-meta {
+    margin-left: 50px;
+}
+.commentlist ul.children .comment-content, .commentlist ul.children .reply {
+    margin-left: 70px;
+}
+.commentlist ul.children {
+    margin-left: 30px;
+}
+.commentlist ul.children .comment {
+    padding: 5px 0;
+}
+.form-allowed-tags {
+    display: none;
+}
+#commentform .required, #commentform .comment-notes {
+    display: none;
+}
+#commentform label {
+    display: block;
+    font-size: 125%;
+    font-weight: bold;
+}
+#commentform {
+    margin-left: 100px;
+}
+#commentform textarea {
+    height: 100px;
+}
+#commentform textarea, #commentform #submit, #commentform input[type=text] {
+    display: block;
+    width: 400px;
+    padding: 5px;
+    border: 1px solid #000;
+    font-family: inherit;
+    font-size: inherit;
+    margin-left: 20px;
+}
+#commentform #submit {
+    width: 412px;
+    font-size: 125%;
+    font-weight: bold;
+    background: #fff;
+}
+#commentform input:hover, #commentform textarea:hover {
+    border-color: #888;
+}
+#commentform #submit:hover {
+    background: #eee;
+}
+
+.postinfo {
+    color: #888;
+    font-style: italic;
+}
+
+.listexcerpt p {
+    margin: 0;
+}
+.listexcerpt {
+    margin-bottom: 20px;
+}
+
+#comments {
+    margin-top: 40px;
+}
+
+.nav-next, .nav-previous {
+    padding: 5px;
+}
+.nav-next {
+    float: right;
+}
+.nav-previous {
+    float: left;
+}
+.listheading {
+    font-size: 125%;
+    font-weight: bold;
+}
+.listexcerpt {
+    margin-left: 50px;
+}
+
+.wp-caption, .wp-caption-text, .sticky, .gallery-caption, .bypostauthor {}
+
+img[class*="align"] {
+    border: 1px solid #DDDDDD;
+    padding: 6px;
+}
+.alignright {
+    float: right;
+    text-align: right;
+    margin: 6px 0 20px 20px;
+}
+.alignleft {
+    float: left;
+    text-align: left;
+    margin: 6px 20px 20px 0;
+}
+.aligncenter {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.medarbejder {
+    float: left;
+    width: 300px;
+    position: relative;
+    height: 120px;
+}
+.medarbejder img {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    border: 1px solid;
+}
+.medarbejder .medarbejdertitel {
+    position: absolute;
+    top: 10px;
+    left: 120px;
+    width: 180px;
+}
+.medarbejder .medarbejdernavn {
+    position: absolute;
+    top: 30px;
+    left: 120px;
+    width: 180px;
+}
+.medarbejder .medarbejderbeskrivelse {
+    position: absolute;
+    top: 50px;
+    left: 120px;
+    width: 180px;
+}
+
+.page_content img {
+    max-width: 100%;
+}
+.page_content table {
+    width: 100%;
+}
+
+#contentbg, .i123_widget {
+    background-color: #fff;
+}
+#sidebar_venstre {
+    float: left;
+    margin: 20px 20px 20px 0;
+}
+#contentarea {
+    float: right;
+    width: 718px;
+}
+.magicclear {
+    clear:both;
+}
+th {
+    background: #eee;
+    text-align: left;
+}
+table {
+    border: 1px solid #eee;
+}
+#sidebar_venstre ul ul {
+    margin-left: -10px;
+}
+#sidebar_venstre ul {
+    margin-left: 0;
+    list-style: none;
+}
+ul, ol, dl {
+    margin-left: 30px;
+}
+ul {
+    list-style: outside circle;
+}
+ol {
+    list-style-type: decimal-leading-zero;
+}
+ol ol {
+    list-style-type: lower-alpha;
+}
+ol ol ol {
+    list-style-type: upper-roman;
+}
+
+dl.gallery-item {
+    margin: 50px 0;
+}
+
+blockquote {
+    background: url(images/quote.png) top left no-repeat #eee;
+    padding: 12px 20px 10px 50px;
+    border-radius: 10px;
+}
+dt {
+    font-weight: bold;
+}
+dd {
+    margin-left: 10px;
+}
+address {
+    background: #eee;
+    padding: 12px 20px;
+    border-radius: 10px;
+}
+
+
+a, a:visited, a:active {
+    color: #0eb7fc;
+    }
+a:hover {
+    color: #f00;
+    }
+#headermenu a:hover, #headermenu li.current-menu-item a, #headermenu .current-menu-ancestor li a:hover {
+    color: #0eb7fc;
+    border-color: #0eb7fc;
+}
+abbr, acronym, dfn {
+    cursor:help;
+    border-bottom: 1px dotted #666666;
+}
+big {
+    font-size: 130%;
+}
+#site-title {
+    font-size: 20px;
+    position:absolute;
+    top: 31px;
+    right: 0;
+    text-align: right;
+}
+#site-description {
+    font-size: 14px;
+    position:absolute;
+    top: 51px;
+    right: 0;
+    text-align: right;
+}
