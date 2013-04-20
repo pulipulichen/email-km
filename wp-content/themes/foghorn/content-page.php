@@ -11,7 +11,7 @@
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<header class="entry-header">
 		<h1 class="entry-title page-entry-title"><?php the_title(); ?></h1>
-        <?php edit_post_link( __( 'Edit', 'foghorn' ), '<span class="edit-link">', '</span>' ); ?>
+        <?php edit_post_link( __( '編輯頁面', 'foghorn' ), '<span class="edit-link">', '</span>' ); ?>
 	</header><!-- .entry-header -->
 
 	<div class="entry-content">

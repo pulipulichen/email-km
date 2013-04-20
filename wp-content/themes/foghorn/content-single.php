@@ -11,15 +11,43 @@
 <article id="post-<?php the_ID(); ?>" <?php post_class('clearfix'); ?>>
 	<header class="entry-header">
 		<h1 class="entry-title"><?php the_title(); ?></h1>
-		<div class="entry-meta">
+		<div class="entry-meta inline">
 			<?php
-				printf( __( '<span class="sep">Posted </span><a href="%1$s" title="%2$s" rel="bookmark"><time class="entry-date" datetime="%3$s" pubdate>%4$s</time></a>', 'foghorn' ),
+				printf( __( '<span class="sep"></span><a href="%1$s" title="%2$s" rel="bookmark"><time class="entry-date" datetime="%3$s" pubdate>%4$s</time></a>', 'foghorn' ),
 				esc_url( get_permalink() ),
 				esc_attr( get_the_time() ),
 				esc_attr( get_the_date( 'c' ) ),
 				esc_html( get_the_date() )
 			);
 			?>
+                    
+                        <span class="sep"> | </span>
+                        <span class="author">
+                            <?php
+                            $id = get_the_author_ID();
+                            $name = get_the_author_meta('display_name');
+                            $link = get_author_posts_url($id);
+                            $avatar = get_avatar( $id, 15 );
+
+                            echo '<a href="'.$link.'">'.$avatar.' '.$name.'</a>';
+                            ?>
+                        </span>
+                        <?php
+                /* translators: used between list items, there is a space after the comma */
+                $categories_list = get_the_category_list( __( ', ', 'foghorn' ) );
+                if ( $categories_list ):
+            ?>
+                        <span class="sep"> | </span>
+            <?php printf( __( '<span class="%1$s">分類:</span> %2$s', 'foghorn' ), 'entry-utility-prep entry-utility-prep-cat-links', $categories_list );
+            $show_sep = true; ?>
+            <?php endif; // End if categories ?>
+        <?php $tag_list = get_the_tag_list( '', ', ' );
+        if ( '' != $tag_list ) {
+            echo '<span class="sep"> | </span>';
+            printf( __( '<span class="%1$s">標籤:</span> %2$s', 'foghorn' ), 'entry-utility-prep entry-utility-prep-tag-links', $tag_list );
+        } ?>
+                <span class="title"> </span>
+                <span class="content"><?php edit_post_link( __( '編輯文章', 'foghorn' ), '', '' ); ?></span>
 		</div><!-- .entry-meta -->
 	</header><!-- .entry-header -->
 	<div class="entry-content">
@@ -41,7 +69,14 @@
 </article><!-- #post-<?php the_ID(); ?> -->
 
 <footer class="entry-meta">
-		<div class="post-date"><span class="sep">Posted </span><time class="entry-date" datetime="<?php echo get_the_date( 'c' ); ?>" pubdate><span class="month"><?php echo get_the_date('M'); ?> </span><span class="day"><?php echo get_the_date('d'); ?> <span class="sep">, </span></span><span class="year"><?php echo get_the_date('Y'); ?></span></time></div>
+		<div class="post-date">
+                        <span class="sep">Posted </span>
+                        <time class="entry-date" datetime="<?php echo get_the_date( 'c' ); ?>" pubdate>
+                            <span class="month"><?php echo get_the_date('M'); ?> </span>
+                            <span class="day"><?php echo get_the_date('d'); ?> <span class="sep">, </span></span>
+                            <span class="year"><?php echo get_the_date('Y'); ?></span>
+                        </time>
+                </div>
         <div class="tags">
                 <span class="title">作者</span>
                 <span class="author">
@@ -58,14 +93,20 @@
         <?php $categories_list = get_the_category_list( __( ', ', 'foghorn' ) );
 		if ( '' != $categories_list ) { ?>
             <div class="categories">
-                <span class="title">分類:</span> 
+                <span class="title">
+                    <?php printf( __( '<span class="%1$s">分類:</span>', 'foghorn' ), 'entry-utility-prep entry-utility-prep-cat-links' ); ?>
+                    分類:
+                </span> 
                 <span class="content"><?php echo $categories_list; ?></span>
             </div>
         <?php } ?>
         <?php $tag_list = get_the_tag_list( '', ', ' );
 		if ( '' != $tag_list ) { ?>
             <div class="tags">
-                <span class="title">標籤:</span> 
+                <span class="title">
+                    <?php printf( __( '<span class="%1$s">標籤:</span>', 'foghorn' ), 'entry-utility-prep entry-utility-prep-tag-links'); ?>
+                    標籤:
+                </span> 
                 <span class="content"><?php echo $tag_list; ?></span>
             </div>
         <?php } ?>

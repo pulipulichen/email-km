@@ -471,11 +471,13 @@ body {
 }
 .entry-content {
 	padding: .7em 0 0;
+        clear:both;
 }
 .entry-summary {
 	padding: 0.35em 0 0;
 }
-footer.entry-meta .entry-utility-prep-cat-links {
+footer.entry-meta .entry-utility-prep-cat-links,
+.inline.entry-meta .entry-utility-prep-cat-links{
 	display:inline-block;
 	background:#ccc;
 	text-indent:-9999em;
@@ -486,7 +488,8 @@ footer.entry-meta .entry-utility-prep-cat-links {
 	text-decoration:none;
 }
 
-footer.entry-meta .entry-utility-prep-tag-links {
+footer.entry-meta .entry-utility-prep-tag-links,
+.inline.entry-meta .entry-utility-prep-tag-links{
 	display:inline-block;
 	background:#ccc;
 	text-indent:-9999em;
@@ -1553,7 +1556,6 @@ a.post-edit-link {
 	text-decoration:none;
 	text-shadow:1px 1px 0px #ffffff;
 	margin-bottom: 5px;
-	float: right;
 }a.post-edit-link:hover {
 	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
 	background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
@@ -1563,7 +1565,6 @@ a.post-edit-link {
 	position:relative;
 	top:1px;
 }
-
 .index a.post-edit-link {
 	-moz-box-shadow:inset 0px 0px 0px 0px #ffffff;
 	-webkit-box-shadow:inset 0px 0px 0px 0px #ffffff;
@@ -1582,12 +1583,15 @@ a.post-edit-link {
 	text-decoration:none;
 	text-shadow:0px 0px 0px #ffffff;
 	margin-bottom: auto;
-	float: right;
 }.index a.post-edit-link:hover {
 	background:none;
 	background-color:none;
 }.index a.post-edit-link:active {
 	position:static;
+}
+
+.page a.post-edit-link {
+    float:right;
 }
 
 .page .entry-title.page-entry-title {
@@ -1698,4 +1702,8 @@ a.post-edit-link {
 
 .user-list .entry-title.category {
 	font-size: 1.2em;
+}
+
+.entry-meta.inline {
+    float:right;
 }
