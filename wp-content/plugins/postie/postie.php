@@ -193,6 +193,7 @@ function postie_whitelist($options) {
 }
 
 function check_postie() {
+    //echo "check_postie: ";
     $host = get_option('siteurl');
     preg_match("/https?:\/\/(.[^\/]*)(.*)/i", $host, $matches);
     $host = $matches[1];
@@ -201,6 +202,7 @@ function check_postie() {
         $url .= $matches[2];
     }
     $url .= "/wp-content/plugins/postie/get_mail.php";
+    //echo $url;
     $port = 80;
     $fp = fsockopen($host, $port, $errno, $errstr);
     if ($fp) {
