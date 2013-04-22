@@ -69,6 +69,12 @@ foreach ($emails as $email) {
 }
 
 if (function_exists('memory_get_usage'))
+{
     DebugEcho("memory at end of e-mail processing:" . memory_get_usage());
-
+    ?>
+<script type="text/javascript">
+location.href = "<?php echo $_SERVER["HTTP_REFERER"]  ?>";
+</script>
+    <?php
+}
 ?>
