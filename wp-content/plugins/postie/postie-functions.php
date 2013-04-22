@@ -1,7 +1,7 @@
 <?php
 
 /*
-  $Id: postie-functions.php 692601 2013-04-06 06:41:51Z WayneAllen $
+  $Id: postie-functions.php 697183 2013-04-14 05:39:42Z WayneAllen $
  */
 
 //to turn on debug output add the following line to wp-config.php
@@ -378,12 +378,11 @@ function PostEmail($poster, $mimeDecodedEmail, $config) {
 
         if ($confirmation_email != '') {
             if ($confirmation_email == 'sender') {
-                $recipients = array($postAuthorDetails['email']);
+                $recipients = array($details['email_author']);
             } elseif ($confirmation_email == 'admin') {
                 $recipients = array(get_option("admin_email"));
             } elseif ($confirmation_email == 'both') {
-                $recipients = array($postAuthorDetails['email'],
-                    get_option("admin_email"));
+                $recipients = array($details['email_author'], get_option("admin_email"));
             }
             MailToRecipients($mimeDecodedEmail, false, $recipients, false, false);
         }
@@ -408,7 +407,6 @@ function tag_PostType(&$subject, $postmodifiers) {
         // Captures the custom post type in the subject before $custom_post_type_delim
         $separated_subject = explode($custom_post_type_delim, $subject);
         $custom_post_type = $separated_subject[0];
-        $subject = trim($separated_subject[1]);
 
         $custom_post_type = trim(strtolower($custom_post_type));
         DebugEcho("post type: found possible type '$custom_post_type'");
@@ -421,9 +419,11 @@ function tag_PostType(&$subject, $postmodifiers) {
         if (in_array($custom_post_type, array_map('strtolower', $known_post_types))) {
             DebugEcho("post type: found type '$post_type'");
             $post_type = $custom_post_type;
+            $subject = trim($separated_subject[1]);
         } elseif (in_array($custom_post_type, array_keys(get_post_format_slugs()))) {
             DebugEcho("post type: found format '$custom_post_type'");
             $postmodifiers->PostFormat = $custom_post_type;
+            $subject = trim($separated_subject[1]);
         }
     }
 
@@ -538,10 +538,13 @@ function make_links($text) {
 function getPostAuthorDetails(&$subject, &$content, &$mimeDecodedEmail) {
 
     $theDate = $mimeDecodedEmail->headers['date'];
-    $theEmail = RemoveExtraCharactersInEmailAddress(trim($mimeDecodedEmail->headers["from"]));
 
+    $theEmail = $mimeDecodedEmail->headers["from"];
+    DebugEcho("getPostAuthorDetails: pre email filter $theEmail");
     $theEmail = apply_filters("postie_filter_email", $theEmail);
     DebugEcho("getPostAuthorDetails: post email filter $theEmail");
+
+    $theEmail = RemoveExtraCharactersInEmailAddress($theEmail);
 
     $regAuthor = get_user_by('email', $theEmail);
     if ($regAuthor) {
@@ -653,7 +656,7 @@ function ConfigurePostie() {
  * This function handles determining the protocol and fetching the mail
  * @return array
  */
-function FetchMail($server = NULL, $port = NULL, $email = NULL, $password = NULL, $protocol = NULL, $offset = NULL, $test = NULL, $deleteMessages = true, $maxemails = 0) {
+function FetchMail($server = NULL, $port = NULL, $email = NULL, $password = NULL, $protocol = NULL, $offset = NULL, $test = NULL, $deleteMessages = true, $maxemails = 0, $email_tls = false) {
     $emails = array();
     if (!$server || !$port || !$email) {
         EchoInfo("Missing Configuration For Mail Server");
@@ -678,7 +681,7 @@ function FetchMail($server = NULL, $port = NULL, $email = NULL, $password = NULL
             if (!HasIMAPSupport()) {
                 EchoInfo("Sorry - you do not have IMAP php module installed - it is required for this mail setting.");
             } else {
-                $emails = IMAPMessageFetch($server, $port, $email, $password, $protocol, $offset, $test, $deleteMessages, $maxemails);
+                $emails = IMAPMessageFetch($server, $port, $email, $password, $protocol, $offset, $test, $deleteMessages, $maxemails, $email_tls);
             }
             break;
         case 'pop3':
@@ -692,11 +695,14 @@ function FetchMail($server = NULL, $port = NULL, $email = NULL, $password = NULL
 /**
  * Handles fetching messages from an imap server
  */
-function IMAPMessageFetch($server = NULL, $port = NULL, $email = NULL, $password = NULL, $protocol = NULL, $offset = NULL, $test = NULL, $deleteMessages = true, $maxemails = 0) {
+function IMAPMessageFetch($server = NULL, $port = NULL, $email = NULL, $password = NULL, $protocol = NULL, $offset = NULL, $test = NULL, $deleteMessages = true, $maxemails = 0, $tls = false) {
     require_once("postieIMAP.php");
     $emails = array();
     $mail_server = &PostieIMAP::Factory($protocol);
-    EchoInfo("Connecting to $server:$port ($protocol)");
+    if ($tls) {
+        $mail_server->TLSOn();
+    }
+    EchoInfo("Connecting to $server:$port ($protocol)" . ($tls ? " with TLS" : ""));
     if ($mail_server->connect($server, $port, $email, $password)) {
         $msg_count = $mail_server->getNumberOfMessages();
     } else {
@@ -733,6 +739,9 @@ function POP3MessageFetch($server = NULL, $port = NULL, $email = NULL, $password
 
     $emails = array();
     $pop3 = new POP3();
+    if (defined('POSTIE_DEBUG')) {
+        $pop3->DEBUG = POSTIE_DEBUG;
+    }
 
     EchoInfo("Connecting to $server:$port ($protocol)");
 
@@ -1022,6 +1031,13 @@ function GetContent($part, &$attachments, $post_id, $poster, $config) {
                 DebugEcho("image Attachement: $filename");
                 $file_id = postie_media_handle_upload($part, $post_id, $poster);
                 if (!is_wp_error($file_id)) {
+                    //featured image logic
+                    //set the first image we come across as the featured image
+                    DebugEcho("has_post_thumbnail: " . has_post_thumbnail($post_id));
+                    if ($featured_image && !has_post_thumbnail($post_id)) {
+                        DebugEcho("featured image: $file_id");
+                        set_post_thumbnail($post_id, $file_id);
+                    }
                     $file = wp_get_attachment_url($file_id);
                     $cid = "";
                     if (array_key_exists('content-id', $part->headers)) {
@@ -1264,18 +1280,23 @@ function ValidatePoster(&$mimeDecodedEmail, $config) {
             EchoInfo("posting as user $poster");
         } else {
             $poster = $wpdb->get_var("SELECT ID FROM $wpdb->users WHERE user_login  = '$admin_username'");
+            if (!$poster) {
+                EchoInfo("Your 'Admin username' setting '$admin_username' is not a valid WordPress user (1)");
+                $poster = 1;
+            }
         }
     } elseif ($turn_authorization_off || isEmailAddressAuthorized($from, $authorized_addresses) || isEmailAddressAuthorized($resentFrom, $authorized_addresses)) {
         DebugEcho("ValidatePoster: looking up default user $admin_username");
-
         $poster = $wpdb->get_var("SELECT ID FROM $wpdb->users WHERE user_login  = '$admin_username'");
         DebugEcho("ValidatePoster: found user '$poster'");
         if (empty($poster)) {
-            EchoInfo("Your 'Admin username' setting '$admin_username' is not a valid WordPress user");
+            EchoInfo("Your 'Admin username' setting '$admin_username' is not a valid WordPress user (2)");
+            $poster = 1;
         }
     }
 
     $validSMTP = isValidSmtpServer($mimeDecodedEmail, $smtp);
+
     if (!$poster || !$validSMTP) {
         EchoInfo('Invalid sender: ' . htmlentities($from) . "! Not adding email!");
         if ($forward_rejected_mail) {
@@ -1888,7 +1909,7 @@ function filter_PreferedText($mimeDecodedEmail, $preferTextType) {
  * It accepts an object containing the entire message
  */
 function MailToRecipients(&$mail_content, $testEmail = false, $recipients = array(), $returnToSender, $reject = true) {
-    DebugEcho("send mail");
+    DebugEcho("MailToRecipients: send mail");
     if ($testEmail) {
         return false;
     }
@@ -1899,13 +1920,14 @@ function MailToRecipients(&$mail_content, $testEmail = false, $recipients = arra
     $blogurl = get_option("siteurl");
 
     if (count($recipients) == 0) {
-        DebugEcho("send mail: no recipients");
+        DebugEcho("MailToRecipients: no recipients");
         return false;
     }
 
     $from = trim($mail_content->headers["from"]);
     $subject = $mail_content->headers['subject'];
     if ($returnToSender) {
+        DebugEcho("MailToRecipients: return to sender $returnToSender");
         array_push($recipients, $from);
     }
 
@@ -1916,9 +1938,10 @@ function MailToRecipients(&$mail_content, $testEmail = false, $recipients = arra
             $headers .= "Cc: " . $recipient . "\r\n";
         }
     }
+    DebugEcho($headers);
     // Set email subject
     if ($reject) {
-        DebugEcho("send mail: sending reject mail");
+        DebugEcho("MailToRecipients: sending reject mail");
         $alert_subject = $blogname . ": Unauthorized Post Attempt from $from";
         if (is_array($mail_content->ctype_parameters) && array_key_exists('boundary', $mail_content->ctype_parameters) && $mail_content->ctype_parameters['boundary']) {
             $boundary = $mail_content->ctype_parameters["boundary"];
@@ -1958,8 +1981,8 @@ function MailToRecipients(&$mail_content, $testEmail = false, $recipients = arra
                 $mailtext .= $part->body;
         }
     } else {
-        DebugEcho("send mail: sending success mail");
         $alert_subject = "Successfully posted to $blogname";
+        DebugEcho("MailToRecipients: $alert_subject");
         $mailtext = "Your post '$subject' has been successfully published to $blogname <$blogurl>.\n";
     }
 
@@ -2021,8 +2044,10 @@ function RemoveExtraCharactersInEmailAddress($address) {
     $matches = array();
     if (preg_match('/^[^<>]+<([^<> ()]+)>$/', $address, $matches)) {
         $address = $matches[1];
+        DebugEcho("RemoveExtraCharactersInEmailAddress: $address (1)");
     } else if (preg_match('/<([^<> ()]+)>/', $address, $matches)) {
         $address = $matches[1];
+        DebugEcho("RemoveExtraCharactersInEmailAddress: $address (2)");
     }
 
     return $address;
@@ -2384,17 +2409,15 @@ function tag_Categories(&$subject, $defaultCategory, $category_match) {
     if (preg_match_all('/\[(.[^\[]*)\]/', $subject, $matches)) { // [<category1>] [<category2>] <Subject>
         preg_match("/]([^\[]*)$/", $subject, $subject_matches);
         //DebugDump($subject_matches);
-        //print_r($subject_matches);
         $subject = trim($subject_matches[1]);
-
         $matchtypes[] = $matches;
     }
-    else if (preg_match_all('/-(.[^-]*)-/', $subject, $matches)) { // -<category>- -<category2>- <Subject>
+    if (preg_match_all('/-(.[^-]*)-/', $subject, $matches)) { // -<category>- -<category2>- <Subject>
         preg_match("/-(.[^-]*)$/", $subject, $subject_matches);
         $subject = trim($subject_matches[1]);
         $matchtypes[] = $matches;
     }
-    else if (preg_match('/(.+): (.*)/', $subject, $matches)) { // <category>:<Subject>
+    if (preg_match('/(.+): (.*)/', $subject, $matches)) { // <category>:<Subject>
         $category = lookup_category($matches[1], $category_match);
         if (!empty($category)) {
             DebugEcho("colon category: $category");
@@ -2541,12 +2564,7 @@ function config_ResetToDefault() {
 function config_Update($data) {
     UpdatePostiePermissions($data["role_access"]);
     // We also update the cron settings
-    if ($data['interval'] != '') {
-        postie_decron();
-        if ($data['interval'] != 'manual') {
-            postie_cron($data['interval']);
-        }
-    }
+    postie_cron($data['interval']);
 }
 
 /**
@@ -2619,7 +2637,9 @@ function config_GetDefaults() {
         'video2types' => array('x-flv'),
         'video1templates' => $video1Templates,
         'video2templates' => $video2Templates,
-        'wrap_pre' => 'no'
+        'wrap_pre' => 'no',
+        'featured_image' => false,
+        'email_tls' => false
     );
 }
 
@@ -3014,8 +3034,6 @@ function DebugEmailOutput($email, $mimeDecodedEmail) {
             $file = fopen($fname . ".php ", "w");
             fwrite($file, serialize($email));
             fclose($file);
-        } else {
-            DebugEcho("The directory $dname does not exist, creating this optional directory will allow saving copies of emails for debugging purposes.");
         }
     }
 }

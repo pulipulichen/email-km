@@ -90,7 +90,7 @@
         <?php _e("this will run a special script to test your configuration options", 'postie'); ?>
     </form>
 
-    <form name="postie-options" method="post" action='options.php'>
+    <form name="postie-options" method="post" action='options.php' autocomplete="off">
         <?php
         settings_fields('postie-settings');
         ?>
@@ -127,6 +127,9 @@
                             <?php endif; ?>
                         </td>
                     </tr>
+                        
+                    <?php echo BuildBooleanSelect(__("Use Transport Layer Security (TLS)"), 'postie-settings[email_tls]', $email_tls, __("Choose Yes if your server requres TLS")); ?>
+
                     <tr>
                         <th scope="row"><?php _e('Port:', 'postie') ?><br />
                             <span class='recommendation'><?php _e("Standard Ports:", 'postie'); ?><br />
@@ -157,12 +160,12 @@
                     </tr>
                     <tr valign="top">
                         <th width="33%" scope="row"><?php _e('Mail Userid:', 'postie') ?></th>
-                        <td><input name='postie-settings[mail_userid]' type="text" id='postie-settings-mail_userid' value="<?php echo esc_attr($mail_userid); ?>" size="40" /></td>
+                        <td><input name='postie-settings[mail_userid]' type="text" id='postie-settings-mail_userid' autocomplete='off' value="<?php echo esc_attr($mail_userid); ?>" size="40" /></td>
                     </tr>
                     <tr valign="top">
                         <th scope="row"><?php _e('Mail Password:', 'postie') ?></th>
                         <td>
-                            <input name='postie-settings[mail_password]' type="password" id='postie-settings-mail_password' value="<?php echo esc_attr($mail_password); ?>" size="40" />
+                            <input name='postie-settings[mail_password]' type="password" id='postie-settings-mail_password' autocomplete='off' value="<?php echo esc_attr($mail_password); ?>" size="40" />
                         </td>
                     </tr>
                     <tr>
@@ -416,6 +419,7 @@
                 <table class='form-table'>
 
                     <?php
+                    echo BuildBooleanSelect("Use First Image as Featured Image", "postie-settings[featured_image]", $featured_image, "If any images are attached, the first one will be the featured image for the post");
                     echo BuildBooleanSelect("Automatically insert image gallery", "postie-settings[auto_gallery]", $auto_gallery, "If any images are attached, they will automatically be inserted as a gallery");
                     echo BuildBooleanSelect("Post Images At End", "postie-settings[images_append]", $images_append, "No means they will be put before the text of the message.");
                     echo BuildBooleanSelect("Start Image Count At 0", "postie-settings[start_image_count_at_zero]", $start_image_count_at_zero);

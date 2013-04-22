@@ -4,7 +4,7 @@
   Plugin Name: Postie
   Plugin URI: http://PostiePlugin.com/
   Description: Signifigantly upgrades the posting by mail features of Word Press (See <a href='options-general.php?page=postie/postie.php'>Settings and options</a>) to configure your e-mail settings. See the <a href='http://wordpress.org/extend/plugins/postie/other_notes'>Readme</a> for usage. Visit the <a href='http://wordpress.org/support/plugin/postie'>postie forum</a> for support.
-  Version: 1.5.0
+  Version: 1.5.3
   Author: Wayne Allen
   Author URI: http://allens-home.com/
   License: GPL2
@@ -27,7 +27,7 @@
  */
 
 /*
-  $Id: postie.php 692601 2013-04-06 06:41:51Z WayneAllen $
+  $Id: postie.php 697184 2013-04-14 05:43:22Z WayneAllen $
  */
 
 define("POSTIE_ROOT", dirname(__FILE__));
@@ -154,6 +154,16 @@ function postie_warnings() {
 
         add_action('admin_notices', 'postie_imap_warning');
     }
+    if ($p == 'pop3' && $config['email_tls']) {
+
+        function postie_tls_warning() {
+            echo "<div id='postie-lst-warning' class='error'><p><strong>";
+            echo __('Warning: The POP3 connector does not support TLS.', 'postie');
+            echo "</strong></p></div>";
+        }
+
+        add_action('admin_notices', 'postie_tls_warning');
+    }
 
     if (!function_exists('mb_detect_encoding')) {
 
@@ -166,10 +176,10 @@ function postie_warnings() {
         add_action('admin_notices', 'postie_mbstring_warning');
     }
 
-    if (!function_exists('get_user_by')){
+    if (!function_exists('get_user_by')) {
         include ABSPATH . 'wp-includes/pluggable.php';
     }
-    $adminuser = get_user_by( 'login', $config['admin_username']);
+    $adminuser = get_user_by('login', $config['admin_username']);
     if ($adminuser === false) {
 
         function postie_adminuser_warning() {
@@ -192,8 +202,9 @@ function postie_whitelist($options) {
     return $options;
 }
 
+//don't use DebugEcho or EchoInfo here as it is not defined when called as an action
 function check_postie() {
-    //echo "check_postie: ";
+    error_log("check_postie");
     $host = get_option('siteurl');
     preg_match("/https?:\/\/(.[^\/]*)(.*)/i", $host, $matches);
     $host = $matches[1];
@@ -202,7 +213,7 @@ function check_postie() {
         $url .= $matches[2];
     }
     $url .= "/wp-content/plugins/postie/get_mail.php";
-    //echo $url;
+    
     $port = 80;
     $fp = fsockopen($host, $port, $errno, $errstr);
     if ($fp) {
@@ -215,16 +226,16 @@ function check_postie() {
             $page.=fgets($fp, 128);
         }
         fclose($fp);
+        echo $page;
     } else {
-        EchoInfo("Cannot connect to server on port $port. Please check to make sure that this port is open on your webhost. Additional information: $errno: $errstr");
+        error_log("Cannot connect to server on port $port. Please check to make sure that this port is open on your webhost. Additional information: $errno: $errstr");
     }
 }
 
 function postie_cron($interval = false) {
     //Do not echo output in filters, it seems to break some installs
     //error_log("postie_cron: setting up cron task: $interval");
-
-    $schedules = wp_get_schedules();
+    //$schedules = wp_get_schedules();
     //error_log("postie_cron\n" . print_r($schedules, true));
 
     if (!$interval) {
@@ -240,10 +251,17 @@ function postie_cron($interval = false) {
         postie_decron();
         //error_log("postie_cron: clearing cron (manual)");
     } else {
-        if (false === wp_schedule_event(time(), $interval, 'check_postie_hook')) {
-            //error_log("postie_cron: Failed to set up cron task: $interval");
+        if ($interval != wp_get_schedule('check_postie_hook')) {
+            postie_decron(); //remove existing
+            //try to create the new schedule with the first run in 5 minutes
+            if (false === wp_schedule_event(time() + 5 * 60, $interval, 'check_postie_hook')) {
+                //error_log("postie_cron: Failed to set up cron task: $interval");
+            } else {
+                //error_log("postie_cron: Set up cron task: $interval");
+            }
         } else {
-            //error_log("postie_cron: Set up cron task: $interval");
+            //error_log("postie_cron: OK: $interval");
+            //don't need to do anything, cron already scheduled
         }
     }
 }

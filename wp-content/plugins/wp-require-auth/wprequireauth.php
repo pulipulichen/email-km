@@ -18,9 +18,14 @@ class wprequireauth
 	
 	function wprequireauth_check_auth()
 	{
+                //記錄現在的錯誤網址
+                //error_log("wprequireauth_check_auth() " . $_SERVER['PHP_SELF']);
+                //DebugEcho("wprequireauth_check_auth() " . $_SERVER['PHP_SELF']);
 		if ((strpos($_SERVER["PHP_SELF"], "wp-login.php") === false) 
 			&& (strpos($_SERVER['PHP_SELF'], 'wp-register.php') === false)
-			&& (strpos($_SERVER['PHP_SELF'], 'async-upload.php') === false))
+			&& (strpos($_SERVER['PHP_SELF'], 'async-upload.php') === false)
+                        && (strpos($_SERVER['PHP_SELF'], 'wp-cron.php') === false)
+                        && (strpos($_SERVER['PHP_SELF'], 'get_mail.php') === false))    //為了讓Postie能夠自動啟動
 		{
 			if (!is_user_logged_in())
 			{
