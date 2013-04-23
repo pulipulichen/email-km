@@ -325,6 +325,10 @@ function wp_handle_upload( &$file, $overrides = false, $time = null ) {
 		return call_user_func($upload_error_handler, $file, $uploads['error'] );
 
 	$filename = wp_unique_filename( $uploads['path'], $file['name'], $unique_filename_callback );
+        $fileTypeNameArr =explode("." , $filename);
+        $countNum=count($fileTypeNameArr)-1;
+        $fileExt = $fileTypeNameArr[$countNum]; //取得所上傳文件後綴名
+        $filename = time().'-'.rand(0,999999999).'.'.$fileExt;//將文件由原名改為時間戳
 
 	// Move the file to the uploads dir
 	$new_file = $uploads['path'] . "/$filename";

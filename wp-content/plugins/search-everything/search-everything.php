@@ -827,19 +827,35 @@ Class SearchEverything {
 				if (preg_match('/\>/', $term))
         			continue; //don't try to highlight this one
 					$term = preg_quote($term);
-
-				if ($highlight_color != '')
-				$postcontent = preg_replace(
-					'"(?<!\<)(?<!\w)(\pL*'.$term.'\pL*)(?!\w|[^<>]*>)"i'
-					, '<span class="search-everything-highlight-color" style="background-color:'.$highlight_color.'">$1</span>'
-					, $postcontent
-					);
-				else
-				$postcontent = preg_replace(
+                                
+				if ($highlight_color != '') {
+                                    
+                                    //$parts = explode($term, $postcontent);
+                                    $postcontent = str_replace($term, 
+                                            '<span class="search-everything-highlight-color" style="background-color:'.$highlight_color.'">'.$term.'</span>'
+                                            , $postcontent);
+                                    /*
+                                    $postcontent = preg_replace(
+                                            '"(?<!\<)(?<!\w)(\pL*'.$term.'\pL*)(?!\w|[^<>]*>)"i'
+                                            , '<span class="search-everything-highlight-color" style="background-color:'.$highlight_color.'">$1</span>'
+                                            , $postcontent
+                                            );
+                                     
+                                     */
+                                }
+				else {
+                                    /*
+                                    $postcontent = preg_replace(
 					'"(?<!\<)(?<!\w)(\pL*'.$term.'\pL*)(?!\w|[^<>]*>)"i'
 					, '<span class="search-everything-highlight" style="'.$highlight_style.'">$1</span>'
 					, $postcontent
 					);
+                                     */
+                                    $postcontent = str_replace($term, 
+                                            '<span class="search-everything-highlight" style="'.$highlight_style.'">'.$term.'</span>'
+                                            , $postcontent);
+                                }
+				
 			}
 		}
 		return $postcontent;

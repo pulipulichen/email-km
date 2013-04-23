@@ -657,6 +657,7 @@ dl.gallery-item {
 /* =Attachments
 ----------------------------------------------- */
 
+/*
 .attachment #main {
 	margin:0;
 }
@@ -665,6 +666,7 @@ dl.gallery-item {
 	margin:0 auto;
 	float:none;
 }
+*/
 .attachment .hentry {
 	float:none;
 	width:auto;

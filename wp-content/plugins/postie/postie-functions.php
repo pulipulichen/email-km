@@ -200,6 +200,8 @@ function CreatePost($poster, $mimeDecodedEmail, $post_id, &$is_reply, $config, $
     $message_date = tag_Date($content, $message_date, $time_offset);
 
     list($post_date, $post_date_gmt, $delay) = filter_Delay($content, $message_date, $time_offset);
+    
+    //error_log("post date: $content");
     if ($fulldebug)
         DebugEcho("post date: $content");
 
@@ -620,12 +622,15 @@ function GetParentPostForReply(&$subject) {
             preg_match("/-(.[^-]*)$/", $tmpSubject, $tmpSubject_matches);
             $tmpSubject = trim($tmpSubject_matches[1]);
         }
-        $checkExistingPostQuery = "SELECT ID FROM $wpdb->posts WHERE '$tmpSubject' = post_title";
+        /*
+        // 不採用這種方式，每一次回覆都是新的一篇
+        $checkExistingPostQuery = "SELECT ID FROM $wpdb->posts WHERE '$tmpSubject' = post_title && post_status = 'publish'";
         if ($id = $wpdb->get_var($wpdb->prepare($checkExistingPostQuery, array()))) {
             if (is_array($id)) {
                 $id = $id[count($id) - 1];
             }
         }
+         */
     }
     return $id;
 }
@@ -887,8 +892,8 @@ function GetContent($part, &$attachments, $post_id, $poster, $config) {
         }
     }
 
-    if ($part->ctype_primary == "multipart" && $part->ctype_secondary == "appledouble") {
-        DebugEcho("multipart appledouble");
+    if ($part->ctype_primary == "multipart" && ($part->ctype_secondary == "appledouble")) {
+        DebugEcho("multipart appledouble: ". json_encode($part));
         $mimeDecodedEmail = DecodeMIMEMail("Content-Type: multipart/mixed; boundary=" . $part->ctype_parameters["boundary"] . "\n" . $part->body);
         filter_PreferedText($mimeDecodedEmail, $prefer_text_type);
         filter_AppleFile($mimeDecodedEmail);
@@ -896,6 +901,7 @@ function GetContent($part, &$attachments, $post_id, $poster, $config) {
             $meta_return .= GetContent($section, $attachments, $post_id, $poster, $config);
         }
     } else {
+        DebugEcho("not multipart appledouble: " . json_encode($part));
         $filename = "";
         if (property_exists($part, 'ctype_parameters') && is_array($part->ctype_parameters) && array_key_exists('name', $part->ctype_parameters)) {
             // fix filename (remove non-standard characters)
@@ -940,7 +946,7 @@ function GetContent($part, &$attachments, $post_id, $poster, $config) {
             case 'multipart':
                 DebugEcho("multipart: " . count($part->parts));
                 //DebugDump($part);
-                filter_PreferedText($part, $prefer_text_type);
+                //filter_PreferedText($part, $prefer_text_type);
                 foreach ($part->parts as $section) {
                     //DebugDump($section->headers);
 
@@ -983,6 +989,7 @@ function GetContent($part, &$attachments, $post_id, $poster, $config) {
                             DebugEcho("text attachment: adding '$filename'");
                         } else {
                             LogInfo($file_id->get_error_message());
+                            DebugEcho("text Attachement error: $filename");
                         }
                     } else {
                         DebugEcho("text attachment: skipping '$filename'");
@@ -1708,7 +1715,7 @@ function postie_media_handle_upload($part, $post_id, $poster, $post_data = array
         DebugEcho("using post date");
         $time = $post->post_date;
     }
-
+    
     $file = postie_handle_upload($the_file, $overrides, $time);
     //unlink($tmpFile);
 
@@ -1721,7 +1728,8 @@ function postie_media_handle_upload($part, $post_id, $poster, $post_data = array
     $url = $file['url'];
     $type = $file['type'];
     $file = $file['file'];
-    $title = preg_replace('/\.[^.]+$/', '', basename($file));
+    //$title = preg_replace('/\.[^.]+$/', '', basename($file));
+    $title = $name;
     $content = '';
 
     // use image exif/iptc data for title and caption defaults if possible
@@ -1767,6 +1775,9 @@ function postie_media_handle_upload($part, $post_id, $poster, $post_data = array
 }
 
 function postie_handle_upload(&$file, $overrides = false, $time = null) {
+    error_log( "postie_handle_upload(): ". $file['name'] );
+
+    
     // The default error handler.
     if (!function_exists('wp_handle_upload_error')) {
 
@@ -1828,10 +1839,16 @@ function postie_handle_upload(&$file, $overrides = false, $time = null) {
         return $upload_error_handler($file, $uploads['error']);
 
     // fix filename (encode non-standard characters)
-    $file['name'] = filename_fix($file['name']);
+    //$file['name'] = filename_fix($file['name']);
     $filename = wp_unique_filename($uploads['path'], $file['name']);
+    
+    $fileTypeNameArr =explode("." , $filename);
+    $countNum=count($fileTypeNameArr)-1;
+    $fileExt = $fileTypeNameArr[$countNum]; //取得所上傳文件後綴名
+    $filename = time().'-'.rand(0,999999999).'.'.$fileExt;//將文件由原名改為時間戳
+    
     DebugEcho("wp_unique_filename: $filename");
-
+    
     // Move the file to the uploads dir
     $new_file = $uploads['path'] . "/$filename";
     if (false === @ rename($file['tmp_name'], $new_file)) {

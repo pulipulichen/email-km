@@ -287,8 +287,9 @@ function get_attachment_icons( ) {
 												$file_link       = wp_get_attachment_url($file->ID); //get the url for linkage
 												$file_name_array = explode("/", $file_link);
 												$file_post_mime  = str_replace("/", "-", $file->post_mime_type);
-												$file_name       = array_reverse($file_name_array); //creates an array out of the url and grabs the filename
-												$file_name_adj = str_replace("+", " ", $file_name[0]);
+												//$file_name       = array_reverse($file_name_array); //creates an array out of the url and grabs the filename
+												//$file_name_adj = str_replace("+", " ", $file_name[0]);
+                                                                                                $file_name = get_the_title($file);
 												if ($opts['listview'] == 'yes') {
 																$aa_string .= "<li id='$file->ID'>";
 																$aa_string .= "<a style='font-weight:bold;text-decoration:none;' href='$file_link' $target><span class='ikon kaydet'></span>" . $file->post_title . "</a> ";
@@ -300,7 +301,7 @@ function get_attachment_icons( ) {
 																$aa_string .= "</a>";
 																$aa_string .= "<a class='dItitle' href='$file_link'>";
 																//$aa_string .= $file->post_title;
-																$aa_string .= $file_name_adj;
+																$aa_string .= $file_name;
 																$aa_string .= "</a>";
 																
 																$aa_string .= "</div>";

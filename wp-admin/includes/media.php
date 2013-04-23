@@ -221,7 +221,7 @@ function media_handle_upload($file_id, $post_id, $post_data = array(), $override
 	$url = $file['url'];
 	$type = $file['type'];
 	$file = $file['file'];
-	$title = $name;
+	$title = $name.".".$name_parts['extension'];
 	$content = '';
 
 	// use image exif/iptc data for title and caption defaults if possible

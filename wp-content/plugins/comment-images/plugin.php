@@ -335,7 +335,7 @@ class Comment_Image {
 			 		$html .= __( '<strong>Heads up!</strong> You are attempting to upload an invalid image. If saved, this image will not display with your comment.', 'comment-image' );
 			 	$html .= '</p>';
 				 $html .= "<label for='comment_image_$post_id'>";
-				 	$html .= __( 'Select an image for your comment (GIF, PNG, JPG, JPEG):', 'comment-images' );
+				 	$html .= __( 'Select an image for your comment:', 'comment-images' );
 				 $html .= "</label>";
 				 $html .= "<input type='file' name='comment_image_$post_id' id='comment_image' />";
 			 $html .= '</div><!-- #comment-image-wrapper -->';

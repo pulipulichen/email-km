@@ -7,6 +7,23 @@
  * @since Foghorn 0.1
  */
 ?>
+<?php 
+/*
+if (strpos($_SERVER["REQUEST_URI"], "/file/") !== false) {
+    
+    $article_page = $_SERVER["REQUEST_URI"];
+    $article_page = substr($article_page, 0, strpos($article_page, "/file/") );
+    ?>
+    <script type="text/javascript">
+    //location.href = "<?php echo $article_page; ?>";
+    </script>
+    121212
+    <?php
+}
+*/
+?>
+
+
 
 <article id="post-<?php the_ID(); ?>" <?php post_class('clearfix'); ?>>
 	<header class="entry-header">
@@ -51,7 +68,36 @@
 		</div><!-- .entry-meta -->
 	</header><!-- .entry-header -->
 	<div class="entry-content">
-		<?php the_content(); ?>
+		<?php 
+                if ($post->post_type == "attachment") {
+                    $permelink = get_post_permalink( $post->post_parent);
+                    $parent_title = get_the_title($post->post_parent);
+                    
+                    $attachment_link = wp_get_attachment_link();
+                    ?>
+            <div class="auto-attachments"><div class="dIW2"><div class="dI">
+            <ul>
+                <li>文章連結： <a  href="<?php echo $permelink ?>">
+        <?php echo $parent_title ?>
+    </a></li>
+                <li>檔案名稱： <?php echo $attachment_link ?></li>
+                <li>檔案類型： <?php echo get_post_mime_type($post); ?></li>
+                
+            </ul>
+</div></div><div style="clear:both;"></div></div> 
+                    <?php
+                    if (get_post_mime_type($post) == "text/plain") {
+                        $link = wp_get_attachment_url();
+                        $content = file_get_contents($link);
+                        
+                        echo "<pre>".$content."</pre>";
+                    }
+                }
+                else {
+                    the_content(); 
+                }
+                ?>
+        
         <?php //edit_post_link( __( '編輯文章', 'foghorn' ), '<span class="edit-link">', '</span>' ); ?>
 		<?php wp_link_pages( array( 'before' => '<div class="page-link">' . __( '<span>Pages:</span>', 'foghorn' ), 'after' => '</div>' ) ); ?>
 	</div><!-- .entry-content -->
