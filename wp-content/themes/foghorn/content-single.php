@@ -94,6 +94,22 @@ if (strpos($_SERVER["REQUEST_URI"], "/file/") !== false) {
                     }
                 }
                 else {
+                    
+    $subject = get_the_title();           
+    
+    global $wpdb;
+
+    $id = NULL;
+
+    // see if subject starts with Re:
+    if (preg_match("/(^Re:)(.*)/i", $subject, $matches)) {
+        $subject = trim($matches[2]);
+        
+        $link = "/?s=" . $subject . "&submit=Search&search-type=by-title";
+        ?>
+            <a href="<?php echo $link; ?>" class="search_thread">查看「<?php echo $subject; ?>」討論文章</a>
+        <?php
+    }
                     the_content(); 
                 }
                 ?>

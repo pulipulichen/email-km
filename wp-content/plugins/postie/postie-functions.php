@@ -609,7 +609,9 @@ function GetParentPostForReply(&$subject) {
 
     // see if subject starts with Re:
     if (preg_match("/(^Re:)(.*)/i", $subject, $matches)) {
-        $subject = trim($matches[2]);
+        //不要刪掉Re:
+        //$subject = trim($matches[2]);
+        
         // strip out category info into temporary variable
         $tmpSubject = $subject;
         if (preg_match('/(.+): (.*)/', $tmpSubject, $matches)) {
