@@ -815,7 +815,12 @@ Class SearchEverything {
 	function se_postfilter($postcontent)
 	{
 		global $wpdb;
-		$s = $this->query_instance->query_vars['s'];
+		if (is_object($this->query_instance)) {
+			$s = $this->query_instance->query_vars['s'];
+		}
+		else {
+			$s = $this->query_instance["query_vars"]['s'];
+		}
 		// highlighting
 		if (is_search() && $s != '')
 		{

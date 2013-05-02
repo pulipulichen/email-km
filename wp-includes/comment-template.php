@@ -773,7 +773,12 @@ function comments_open( $post_id = null ) {
 
 	$_post = get_post($post_id);
 
-	$open = ( 'open' == $_post->comment_status );
+	if (is_object($_post)) {
+		$open = ( 'open' == $_post->comment_status );
+	}
+	else {
+		$open = ( 'open' == $_post["comment_status"] );
+	}
 	return apply_filters( 'comments_open', $open, $post_id );
 }
 
@@ -847,10 +852,10 @@ function wp_comment_form_unfiltered_html_nonce() {
  */
 function comments_template( $file = '/comments.php', $separate_comments = false ) {
 	global $wp_query, $withcomments, $post, $wpdb, $id, $comment, $user_login, $user_ID, $user_identity, $overridden_cpage;
-
+       
 	if ( !(is_single() || is_page() || $withcomments) || empty($post) )
 		return;
-
+        
 	if ( empty($file) )
 		$file = '/comments.php';
 
@@ -903,17 +908,20 @@ function comments_template( $file = '/comments.php', $separate_comments = false 
 		set_query_var( 'cpage', 'newest' == get_option('default_comments_page') ? get_comment_pages_count() : 1 );
 		$overridden_cpage = true;
 	}
-
+       
 	if ( !defined('COMMENTS_TEMPLATE') )
 		define('COMMENTS_TEMPLATE', true);
-
+        
 	$include = apply_filters('comments_template', STYLESHEETPATH . $file );
-	if ( file_exists( $include ) )
+	if ( file_exists( $include ) ) {
 		require( $include );
-	elseif ( file_exists( TEMPLATEPATH . $file ) )
+        }
+	elseif ( file_exists( TEMPLATEPATH . $file ) ) {
 		require( TEMPLATEPATH . $file );
-	else // Backward compat code will be removed in a future release
+        }
+	else { // Backward compat code will be removed in a future release
 		require( ABSPATH . WPINC . '/theme-compat/comments.php');
+        }
 }
 
 /**
@@ -1508,9 +1516,10 @@ function wp_list_comments($args = array(), $comments = null ) {
  */
 function comment_form( $args = array(), $post_id = null ) {
 	global $id;
+        echo $post_id;
 
 	if ( null === $post_id )
-		$post_id = $id;
+		$post_id = get_the_ID();
 	else
 		$id = $post_id;
 
@@ -1549,7 +1558,9 @@ function comment_form( $args = array(), $post_id = null ) {
 
 	?>
 		<?php if ( comments_open( $post_id ) ) : ?>
+                
 			<?php do_action( 'comment_form_before' ); ?>
+                bbbbb
 			<div id="respond">
 				<h3 id="reply-title"><?php comment_form_title( $args['title_reply'], $args['title_reply_to'] ); ?> <small><?php cancel_comment_reply_link( $args['cancel_reply_link'] ); ?></small></h3>
 				<?php if ( get_option( 'comment_registration' ) && !is_user_logged_in() ) : ?>

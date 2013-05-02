@@ -3862,7 +3862,7 @@ function wp_checkdate( $month, $day, $year, $source_date ) {
 
 function search_by_title_only( $search, &$wp_query )
 {
-    if ($_GET["search_type"] != "by-title") {
+    if (isset($_GET["search_type"]) && $_GET["search_type"] != "by-title") {
         return $search;
     }
     

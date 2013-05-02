@@ -610,6 +610,7 @@ function GetParentPostForReply(&$subject) {
     // see if subject starts with Re:
     if (preg_match("/(^Re:)(.*)/i", $subject, $matches)) {
         //不要刪掉Re:
+        //$original_subject = $subject;
         //$subject = trim($matches[2]);
         
         // strip out category info into temporary variable
@@ -620,10 +621,11 @@ function GetParentPostForReply(&$subject) {
         } else if (preg_match_all('/\[(.[^\[]*)\]/', $tmpSubject, $matches)) {
             preg_match("/](.[^\[]*)$/", $tmpSubject, $tmpSubject_matches);
             $tmpSubject = trim($tmpSubject_matches[1]);
-        } else if (preg_match_all('/-(.[^-]*)-/', $tmpSubject, $matches)) {
-            preg_match("/-(.[^-]*)$/", $tmpSubject, $tmpSubject_matches);
-            $tmpSubject = trim($tmpSubject_matches[1]);
-        }
+        } 
+        //else if (preg_match_all('/-(.[^-]*)-/', $tmpSubject, $matches)) {
+        //    preg_match("/-(.[^-]*)$/", $tmpSubject, $tmpSubject_matches);
+        //    $tmpSubject = trim($tmpSubject_matches[1]);
+        //}
         /*
         // 不採用這種方式，每一次回覆都是新的一篇
         $checkExistingPostQuery = "SELECT ID FROM $wpdb->posts WHERE '$tmpSubject' = post_title && post_status = 'publish'";
@@ -2424,26 +2426,32 @@ function tag_Categories(&$subject, $defaultCategory, $category_match) {
     $post_categories = array();
     $matchtypes = array();
     $matches = array();
+    $matches_re = array();
+    $has_re = false;
 
+    if (preg_match("/(^Re:)(.*)/i", $subject, $matches_re)) {
+        $has_re = true;
+    }
+    
     if (preg_match_all('/\[(.[^\[]*)\]/', $subject, $matches)) { // [<category1>] [<category2>] <Subject>
         preg_match("/]([^\[]*)$/", $subject, $subject_matches);
         //DebugDump($subject_matches);
         $subject = trim($subject_matches[1]);
         $matchtypes[] = $matches;
     }
-    if (preg_match_all('/-(.[^-]*)-/', $subject, $matches)) { // -<category>- -<category2>- <Subject>
-        preg_match("/-(.[^-]*)$/", $subject, $subject_matches);
-        $subject = trim($subject_matches[1]);
-        $matchtypes[] = $matches;
-    }
-    if (preg_match('/(.+): (.*)/', $subject, $matches)) { // <category>:<Subject>
-        $category = lookup_category($matches[1], $category_match);
-        if (!empty($category)) {
-            DebugEcho("colon category: $category");
-            $subject = trim($matches[2]);
-            $post_categories[] = $category;
-        }
-    }
+    //else if (preg_match_all('/-(.[^-]*)-/', $subject, $matches)) { // -<category>- -<category2>- <Subject>
+    //    preg_match("/-(.[^-]*)$/", $subject, $subject_matches);
+    //    $subject = trim($subject_matches[1]);
+    //    $matchtypes[] = $matches;
+    //}
+    //if (preg_match('/(.+): (.*)/', $subject, $matches)) { // <category>:<Subject>
+    //    $category = lookup_category($matches[1], $category_match);
+    //    if (!empty($category)) {
+    //        DebugEcho("colon category: $category");
+    //        $subject = trim($matches[2]);
+    //        $post_categories[] = $category;
+    //    }
+    //}
 
     foreach ($matchtypes as $matches) {
         if (count($matches)) {
@@ -2459,6 +2467,10 @@ function tag_Categories(&$subject, $defaultCategory, $category_match) {
         $post_categories[] = $defaultCategory;
         $subject = $original_subject;
     }
+    else if ($has_re === true) {
+        $subject = "Re: " . $subject;
+    }
+    
     return $post_categories;
 }
 
