@@ -84,5 +84,7 @@
 	<?php endif; ?>
 
 	<?php comment_form(); ?>
+	
+	<?php echo do_shortcode('[quick-chat height="400" room="'.get_the_ID().'" userlist="1" userlist_position="right" smilies="1" send_button="1" loggedin_visible="1" guests_visible="1" avatars="1" counter="1"]'); ?>
 
 </div><!-- #comments -->

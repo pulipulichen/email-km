@@ -38,6 +38,10 @@ get_header(); ?>
     margin-bottom: 0.5em;
 }
 
+.user-list li.avatar.row {
+    clear: both;
+}
+
 .user-list li.avatar .info {
     font-size: 0.8em;
 }
@@ -79,9 +83,15 @@ function my_group_list_shortcode( $atts ) {
             ."<a id='group".$userGroupID."' name='group".$userGroupID."' />"
             ."<div class='group-list'><ul>";
 
+        $i = 0;
         foreach( $userIDs as $userID ) {
             $user = get_user_by('id', $userID);
-            $content .= "<li class='avatar'>";
+            if ($i % 6 == 0) {
+                $content .= "<li class='avatar row'>";
+            }
+            else {
+                $content .= "<li class='avatar'>";
+            }
             $content .= "<a href='". get_author_posts_url( $user->ID ) . "' class='more-info-icon'>";
             $content .= get_avatar( $user->ID, 70 );
             $content .= $user->display_name . "</a>";
@@ -98,6 +108,7 @@ function my_group_list_shortcode( $atts ) {
             $content .= "</div>";
             $content .= "<!-- add more here --></p>";
             $content .= "</li>";
+            $i++;
         }
         $content .= "</ul></div>";
     } else {
