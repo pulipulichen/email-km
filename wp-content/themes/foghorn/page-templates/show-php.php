@@ -80,11 +80,12 @@ function my_group_list_shortcode( $atts ) {
     if ($userIDs) {
     	
         $content = "<header class='entry-header'><h2 class=\"entry-title\">".$group." (".count($userIDs)."人)"."</h2></header>"
-            ."<a id='group".$userGroupID."' name='group".$userGroupID."' />"
+            ."<a id='group".$userGroupID."' name='group".$userGroupID."'></a>" 
             ."<div class='group-list'><ul>";
 
         $i = 0;
         foreach( $userIDs as $userID ) {
+            $posts_count = count_user_posts( $userID );
             $user = get_user_by('id', $userID);
             if ($i % 6 == 0) {
                 $content .= "<li class='avatar row'>";
@@ -92,9 +93,16 @@ function my_group_list_shortcode( $atts ) {
             else {
                 $content .= "<li class='avatar'>";
             }
-            $content .= "<a href='". get_author_posts_url( $user->ID ) . "' class='more-info-icon'>";
+            
+            if ($posts_count > 0) {
+                $content .= "<a href='". get_author_posts_url( $user->ID ) . "' class='more-info-icon'>";
+            }
+            
             $content .= get_avatar( $user->ID, 70 );
-            $content .= $user->display_name . "</a>";
+            $content .= $user->display_name;
+            if ($posts_count > 0) {
+                $content .= "</a>";
+            }
             $content .= "<div class='info'>發表篇數: ".count_user_posts( $userID );
 
             $userpost = get_posts('showposts=1&author='.$userID);
