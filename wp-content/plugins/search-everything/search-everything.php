@@ -833,10 +833,12 @@ Class SearchEverything {
         			continue; //don't try to highlight this one
 					$term = preg_quote($term);
                                 
+                                // @20130624 Pudding Chen
+                                $pattern = '/'.$term.'/i';
 				if ($highlight_color != '') {
                                     
                                     //$parts = explode($term, $postcontent);
-                                    $postcontent = str_replace($term, 
+                                    $postcontent = preg_replace($pattern, 
                                             '<span class="search-everything-highlight-color" style="background-color:'.$highlight_color.'">'.$term.'</span>'
                                             , $postcontent);
                                     /*
@@ -856,7 +858,7 @@ Class SearchEverything {
 					, $postcontent
 					);
                                      */
-                                    $postcontent = str_replace($term, 
+                                    $postcontent = preg_replace($pattern, 
                                             '<span class="search-everything-highlight" style="'.$highlight_style.'">'.$term.'</span>'
                                             , $postcontent);
                                 }

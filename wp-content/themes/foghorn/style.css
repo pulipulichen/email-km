@@ -425,6 +425,12 @@ body {
 	margin: 0 0 1.4em;
 	text-transform: uppercase;
 }
+
+.page-title span {
+	background-color: yellow;
+        color: black;
+}
+
 .page-title a {
 	font-size: 14px;
 	font-weight: bold;
@@ -902,9 +908,8 @@ img#wpstats {
 	background: #f4f4f4;
 	border-top: 1px solid #ccc;
 	border-bottom: 1px solid #ccc;
-}
-
-
+} 
+ 
 /* =Comments
 ----------------------------------------------- */
 
