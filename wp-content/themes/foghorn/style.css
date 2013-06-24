@@ -1331,6 +1331,12 @@ a.comment-reply-link {
 		border-bottom:1px solid rgba(0,0,0,.08);
 		margin-bottom:8px;
 	}
+        .tags .post-view-count {
+		color: #777777;
+                font-family: arial;
+                font-size: 8px;
+                font-weight: bold;
+	}
 	.single #comments {
 		clear:both;
 		float:right;

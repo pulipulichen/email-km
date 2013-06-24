@@ -85,6 +85,10 @@
 
 	<?php comment_form(); ?>
 	
-	<?php echo do_shortcode('[quick-chat height="400" room="'.get_the_ID().'" userlist="1" userlist_position="right" smilies="1" send_button="1" loggedin_visible="1" guests_visible="1" avatars="1" counter="1"]'); ?>
+	<?php 
+        // @20130623 Pudding Chen
+        // 加入聊天室功能
+        echo do_shortcode('[quick-chat height="400" room="'.get_the_ID().'" userlist="1" userlist_position="right" smilies="1" send_button="1" loggedin_visible="1" guests_visible="1" avatars="1" counter="1"]'); 
+        ?>
 
 </div><!-- #comments -->

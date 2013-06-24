@@ -176,4 +176,11 @@ if (strpos($_SERVER["REQUEST_URI"], "/file/") !== false) {
                 <span class="title">管理</span>
                 <span class="content"><?php edit_post_link( __( '編輯文章', 'foghorn' ), '', '' ); ?></span>
             </div>
+            <div class="tags">
+                <span class="title">點閱數: <span class="post-view-count"><?php 
+                // @20130624 Pudding Chen
+                // 加入文章計數功能
+                echo do_shortcode('[post_view]'); 
+                ?></span></span>
+            </div>
 </footer><!-- .entry-meta -->
