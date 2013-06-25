@@ -78,7 +78,7 @@ function display_posts_list($is_cat = true, $tag) {
             <?php 
             if ($result > 0) {
                 ?>
-            <a href="<?php echo get_category_link( $cat_id ) ?>">
+            <a href="<?php echo get_tag_link( $cat_id ) ?>">
             <?php echo $cat_name ?> 
             </a>(共<?php echo $result ?>篇文章)
                 <?php
@@ -106,7 +106,7 @@ function display_posts_list($is_cat = true, $tag) {
     }
      echo "</ul>";
      if ($result > count($posts)) {
-        echo '<a href="'.get_category_link( $cat_id ).'">瀏覽全部文章...</a>';
+        echo '<a href="'.get_tag_link( $cat_id ).'">瀏覽全部文章...</a>';
     }
 }
 
