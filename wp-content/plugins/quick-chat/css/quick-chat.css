@@ -86,7 +86,7 @@ div.quick-chat-history-links{line-height: 18px; font-size: 90%;}
 input.quick-chat-to-delete-boxes{float:right; margin: 0 4px; padding: 0;}
 
 /* Message time, applies to all messages */
-div.quick-chat-history-timestring{font-style:italic; margin: 0; padding: 0;}
+div.quick-chat-history-timestring{font-style:italic; margin: 0; padding: 0;font-size:xx-small;}
 
 /* Message text, applies to all messages */
 div.quick-chat-history-message{line-height: 20px; word-wrap: break-word;}
@@ -94,6 +94,8 @@ div.quick-chat-history-message{line-height: 20px; word-wrap: break-word;}
 /* Message author alias inside message history and users list (admin users) */
 div.quick-chat-users-container div.quick-chat-admin, div.quick-chat-users-container div.quick-chat-admin a,
 div.quick-chat-admin div.quick-chat-history-alias, div.quick-chat-admin div.quick-chat-history-alias a { color: red;}
+
+div.quick-chat-history-alias { float:left;margin-right: 1em;}
 
 /* Message time (admin users) */
 div.quick-chat-admin div.quick-chat-history-timestring{}
@@ -189,3 +191,4 @@ div.quick-chat-top:after, div.quick-chat-history-links:after, div.quick-chat-con
 div.quick-chat-top, div.quick-chat-history-links, div.quick-chat-container-private-titlebar, div.quick-chat-history-header, div.quick-chat-smilies-container, div.quick-chat-links {display: inline-block;}
 * html div.quick-chat-top, * html div.quick-chat-history-links, * html div.quick-chat-container-private-titlebar, * html div.quick-chat-history-header, * html div.quick-chat-smilies-container, * html div.quick-chat-links {height: 1%;}
 div.quick-chat-top, div.quick-chat-history-links, div.quick-chat-container-private-titlebar, div.quick-chat-history-header, div.quick-chat-smilies-container, div.quick-chat-links {display: block;}
+div.quick-chat-history-links {float:right;}

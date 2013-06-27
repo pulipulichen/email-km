@@ -238,11 +238,11 @@ class Quick_Chat {
             global $current_user;
             get_currentuserinfo();
 
-            if(isset($_COOKIE['quick_chat_alias_'.$current_user->ID])){
-                $this->user_name =  stripslashes($_COOKIE['quick_chat_alias_'.$current_user->ID]);
+            if(isset($_COOKIE['quick_chat_alias_'.$current_user->display_name])){
+                $this->user_name =  stripslashes($_COOKIE['quick_chat_alias_'.$current_user->display_name]);
             } else{
-                setcookie('quick_chat_alias_'.$current_user->ID, $current_user->user_login, 0, COOKIEPATH, COOKIE_DOMAIN);
-                $this->user_name =  $current_user->user_login;
+                setcookie('quick_chat_alias_'.$current_user->ID, $current_user->display_name, 0, COOKIEPATH, COOKIE_DOMAIN);
+                $this->user_name =  $current_user->display_name;
             }
 
             $this->user_id = $current_user->ID;
@@ -524,6 +524,7 @@ class Quick_Chat {
 
         foreach($messages as $v){
             $v->timestring = date_i18n($this->date_format.' - '.$this->time_format, $v->unix_timestamp+$this->gmt_offset);
+            
             $transcript .= $v->alias.' ['.$v->timestring.']: '.$v->message."\n";
         }
 
@@ -590,7 +591,8 @@ class Quick_Chat {
             $messages = $wpdb->get_results($sql);
             if($messages){
                 foreach($messages as $v){
-                    $v->timestring = date_i18n($this->date_format.' - '.$this->time_format, $v->unix_timestamp+$this->gmt_offset);
+                    //$v->timestring = date_i18n($this->date_format.' - '.$this->time_format, $v->unix_timestamp+$this->gmt_offset);
+                    $v->timestring = date_i18n($this->time_format, $v->unix_timestamp+$this->gmt_offset);
 
                     if (function_exists('get_simple_local_avatar')) {
                         $v->avatar = get_simple_local_avatar($v->wpid, $this->options['avatar_size'], '', $v->alias);

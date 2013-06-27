@@ -1,4 +1,4 @@
-// Quick Chat 4.12 - core
+quick-chat-history-timestring// Quick Chat 4.12 - core
 jQuery.fn.quick_chat_insert_at_caret = function(myValue) {
 
     return this.each(function() {
@@ -183,7 +183,20 @@ var quick_chat = jQuery.extend(quick_chat || {}, {
             var replace = '<div class="quick-chat-smile quick-chat-smile-'+quick_chat['smilies'][smile]+'" title="'+smile+'"></div>';
             message_with_smile = message_with_smile.replace(new RegExp(quick_chat.preg_quote(smile), 'g'), replace);
         }
-        var string = '<div class="quick-chat-history-message-alias-container '+status_class+'"><div class="quick-chat-history-header">';
+        var string = '<div class="quick-chat-history-message-alias-container '+status_class+'">';
+        
+        
+        if(quick_chat.user_status == 0)
+            string += '<div class="quick-chat-history-links">';
+
+        if(quick_chat.user_status == 0 && sys_mes == false)
+            string += '<input class="quick-chat-to-delete-boxes" type="checkbox" name="quick-chat-to-delete[]" value="'+single_message.id+'" />';
+
+        if(quick_chat.user_status == 0)
+            string += '</div>';
+
+        
+        string += '<div class="quick-chat-history-header">';
 
         if(avatars == 1 && single_message.avatar != false)
             string += quick_chat.stripslashes(single_message.avatar);
@@ -198,15 +211,6 @@ var quick_chat = jQuery.extend(quick_chat || {}, {
         string += '</div>';
 
         string += '<div class="quick-chat-history-timestring">'+single_message.timestring+'</div></div><div class="quick-chat-history-message">'+message_with_smile+'</div>';
-
-        if(quick_chat.user_status == 0)
-            string += '<div class="quick-chat-history-links">';
-
-        if(quick_chat.user_status == 0 && sys_mes == false)
-            string += '<input class="quick-chat-to-delete-boxes" type="checkbox" name="quick-chat-to-delete[]" value="'+single_message.id+'" />';
-
-        if(quick_chat.user_status == 0)
-            string += '</div>';
 
         string += '</div>';
         return string;
