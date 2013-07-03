@@ -712,6 +712,10 @@ default:
 <?php else : ?>
 <a href="<?php echo esc_url( wp_lostpassword_url() ); ?>" title="<?php esc_attr_e( 'Password Lost and Found' ); ?>"><?php _e( 'Lost your password?' ); ?></a>
 <?php endif; ?>
+<br />
+<a href="mailto:pulipuli.chen+email.km@gmail.com&subject=我想申請EMAIL-KM的帳號&body=我的姓名、電話、Email帳號是：" title="寄信給布丁" style="color:red !important;font-weight: bold;">
+    新進成員沒有帳號嗎？寫信問布丁吧！
+</a>
 </p>
 <?php } ?>
 
