@@ -87,8 +87,10 @@
 	
 	<?php 
         // @20130623 Pudding Chen
+        // @20130703 關閉每篇文章底下的聊天室功能，僅保留導覽列右側的聊天室
         // 加入聊天室功能
-        echo do_shortcode('[quick-chat height="400" room="'.get_the_ID().'" userlist="1" userlist_position="right" smilies="1" send_button="1" loggedin_visible="1" guests_visible="1" avatars="1" counter="1"]'); 
+        //echo do_shortcode('[quick-chat height="400" room="'.get_the_ID().'" userlist="1" userlist_position="right" smilies="1" send_button="1" loggedin_visible="1" guests_visible="1" avatars="1" counter="1"]'); 
+        
         ?>
 
 </div><!-- #comments -->
