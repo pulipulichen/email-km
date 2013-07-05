@@ -40,6 +40,7 @@
  */
 
 function extract_email_address ($string) {
+    $string = strip_tags($string);
     foreach(preg_split('/\s/', $string) as $token) {
         $email = filter_var(filter_var($token, FILTER_SANITIZE_EMAIL), FILTER_VALIDATE_EMAIL);
         if ($email !== false) {
@@ -127,6 +128,11 @@ function auto_tag($post) {
     foreach ($emails AS $email) {
         array_push($post['tags_input'], $email);
     }
+    
+    array_push($post['tags_input'], $post['email_author']);
+    //array_push($post['tags_input'], $post['comment_author']);
+    
+    //$post['post_content'] = $post['post_content'] . "| [" . $post['email_author'] . "] | [" . $post['comment_author'] . "]";
 
     //array_push($post['tags_input'], "postie");
 
