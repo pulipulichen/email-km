@@ -39,6 +39,49 @@
   back. If you return null then the post will not be created.
  */
 
+function extract_email_address ($string) {
+    foreach(preg_split('/\s/', $string) as $token) {
+        $email = filter_var(filter_var($token, FILTER_SANITIZE_EMAIL), FILTER_VALIDATE_EMAIL);
+        if ($email !== false) {
+            
+            //再過濾
+            //echo $email . " || ";
+            if (strpos($email, 'mailto')) {
+                $email = substr($email, strpos($email, 'mailto') + 6);
+            }
+            if (strpos($email, 'Email')) {
+                $email = substr($email, strpos($email, 'Email') + 5);
+            }
+            
+             
+            
+            //取最後
+            //echo strrpos($email, '.tw');
+            if (strrpos($email, '.tw') > 0) {
+                $email = substr($email, 0, strrpos($email, '.tw') + 3);
+            }
+            if (strrpos($email, '.com')) {
+                $email = substr($email, 0, strrpos($email, '.com') + 4);
+            }
+            if (strrpos($email, '.org')) {
+                $email = substr($email, 0, strrpos($email, '.org') + 4);
+            }
+            if (strrpos($email, '.net')) {
+                $email = substr($email, 0, strrpos($email, '.net') + 4);
+            }
+            
+            $emails[] = $email;
+            //echo $email . " | ";
+        }
+    }
+    
+    //去除重複的email
+    $emails = array_unique ($emails);
+    
+    return $emails;
+}
+
+
 function auto_tag($post) {
     
     $title = $post['post_title'];
@@ -77,6 +120,12 @@ function auto_tag($post) {
             array_push($post['tags_input'], $part);  
           }
         }
+    }
+    
+    $content = $post['post_content'];
+    $emails = extract_email_address($content);
+    foreach ($emails AS $email) {
+        array_push($post['tags_input'], $email);
     }
 
     //array_push($post['tags_input'], "postie");

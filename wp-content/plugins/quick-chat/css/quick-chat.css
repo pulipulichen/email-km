@@ -26,7 +26,7 @@ div.quick-chat-smile-warning{background-position: 0 -357px;}
 div.quick-chat-smile-wink{background-position: 0 -374px;}
 
 /* Quick Chat container */
-div.quick-chat-container{margin: 0; padding: 0;}
+div.quick-chat-container{margin: 0; padding: 0; display: none;}
 
 /* Quick Chat container for private chat */
 div.quick-chat-container-private{position: fixed; bottom: 0; right: 0; z-index:10000; margin:0; padding: 2px; width: 250px; background-color: #FFF; border: 1px solid #CCC; padding: 4px; -moz-border-radius: 8px; -webkit-border-radius: 8px; border-radius: 8px;}
