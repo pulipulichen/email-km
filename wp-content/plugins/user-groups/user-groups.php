@@ -82,6 +82,7 @@ class KWS_User_Groups {
 
 	function row_actions(  $actions, $term ) {
 		$actions['view'] = sprintf(__('%sView%s', 'user-groups'), '<a href="'.add_query_arg(array('user-group' => $term->slug), admin_url('users.php')).'">', '</a>');
+                $actions['email'] = sprintf(__('%sEmail%s', 'user-groups'), '<a href="'.add_query_arg(array('user-group' => $term->slug), admin_url('tools.php?page=ezemails')).'">', '</a>');
 		return $actions;
 	}
 

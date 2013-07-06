@@ -364,7 +364,6 @@ default:
 		wp_redirect( add_query_arg( 'paged', $total_pages ) );
 		exit;
 	}
-
 	include('./admin-header.php');
 
 	$messages = array();
@@ -420,7 +419,6 @@ if ( ! empty($messages) ) {
 	foreach ( $messages as $msg )
 		echo $msg;
 } ?>
-
 <div class="wrap">
 <?php screen_icon(); ?>
 <h2>

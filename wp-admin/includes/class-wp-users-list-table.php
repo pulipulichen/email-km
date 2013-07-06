@@ -121,7 +121,7 @@ class WP_Users_List_Table extends WP_List_Table {
 
 	function get_bulk_actions() {
 		$actions = array();
-
+                
 		if ( is_multisite() ) {
 			if ( current_user_can( 'remove_users' ) )
 				$actions['remove'] = __( 'Remove' );
@@ -129,7 +129,7 @@ class WP_Users_List_Table extends WP_List_Table {
 			if ( current_user_can( 'delete_users' ) )
 				$actions['delete'] = __( 'Delete' );
 		}
-
+                
 		return $actions;
 	}
 
