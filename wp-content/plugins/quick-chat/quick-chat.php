@@ -1311,7 +1311,7 @@ class Quick_Chat {
         echo '</div>';
 
         if(!isset($this->options['hide_linkhome'])){
-            echo '<div class="quick-chat-linkhome"><a href="'.self::link.'" target="_blank">'.__('Powered by Quick Chat', 'quick-chat').'</a></div>';
+            //echo '<div class="quick-chat-linkhome"><a href="'.self::link.'" target="_blank">'.__('Powered by Quick Chat', 'quick-chat').'</a></div>';
         }
         $content =  ob_get_contents();
         ob_end_clean();
