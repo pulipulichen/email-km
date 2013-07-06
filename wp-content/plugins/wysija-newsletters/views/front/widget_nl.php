@@ -89,8 +89,10 @@ class WYSIJA_view_front_widget_nl extends WYSIJA_view_front {
             $extra_class = ' '.$params['form_type'].'_wysija';
         }
 
-        $data.='<div class="widget_wysija_cont'.$extra_class.'">';
-
+        $data .= '<span onclick="$(\'.widget_wysija_cont'.$extra_class.'\').show();$(this).hide();$(\'.widget_wysija_cont'.$extra_class.' input:first\').focus();" style="cursor:pointer;">點此輸入訂閱Email</span>';
+        
+        $data.='<div class="widget_wysija_cont'.$extra_class.'" style="display:none;">';
+        
         //if data has been posted the classique php/HTML way we display the result straight in good old HTML
         if(isset($_POST['wysija']['user']['email']) && isset($_POST['formid']) && $form_id_real==$_POST['formid']){
             $data.= str_replace ('class="wysija-msg', 'id="msg-'.$form_id_real.'" class="wysija-msg', $this->messages());
