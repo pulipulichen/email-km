@@ -166,6 +166,10 @@ function get_the_category_list( $separator = '', $parents='', $post_id = false )
 	if ( '' == $separator ) {
 		$thelist .= '<ul class="post-categories">';
 		foreach ( $categories as $category ) {
+                    if ($category->name == "個人專區") {
+                        break;
+                    }
+                    
 			$thelist .= "\n\t<li>";
 			switch ( strtolower( $parents ) ) {
 				case 'multiple':
@@ -188,6 +192,10 @@ function get_the_category_list( $separator = '', $parents='', $post_id = false )
 	} else {
 		$i = 0;
 		foreach ( $categories as $category ) {
+                    if ($category->name == "個人專區") {
+                        break;
+                    }
+                    
 			if ( 0 < $i )
 				$thelist .= $separator;
 			switch ( strtolower( $parents ) ) {

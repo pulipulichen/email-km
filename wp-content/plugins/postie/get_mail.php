@@ -40,6 +40,7 @@ if (function_exists('memory_get_usage'))
 DebugEcho("Error log: " . ini_get('error_log'));
 DebugDump($config);
 
+$has_email = false;
 //loop through messages
 foreach ($emails as $email) {
     DebugEcho("------------------------------------");
@@ -66,15 +67,28 @@ foreach ($emails as $email) {
         EchoInfo("Ignoring email - not authorized.");
     }
     flush();
+    $has_email = true;
 }
 
 if (function_exists('memory_get_usage'))
 {
     DebugEcho("memory at end of e-mail processing:" . memory_get_usage());
-    ?>
+    if ($has_email) {
+        //header("Location:" . get_home_url());
+        ?>
 <script type="text/javascript">
-location.href = "<?php echo $_SERVER["HTTP_REFERER"]  ?>";
+location.href = "<?php echo get_home_url();  ?>";
 </script>
     <?php
+    }
+    else {
+        ?>
+<script type="text/javascript">
+location.href = "<?php echo $_SERVER["HTTP_REFERER"];  ?>";
+</script>
+    <?php
+        //header("Location:" . $_SERVER["HTTP_REFERER"]);
+    }
+    
 }
 ?>

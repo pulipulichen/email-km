@@ -1154,6 +1154,7 @@ function GetContent($part, &$attachments, $post_id, $poster, $config) {
                 break;
         }
     }
+    $meta_return = nl2br($meta_return);
     DebugEcho("meta_return: " . substr($meta_return, 0, 500));
     DebugEcho("====");
     return $meta_return;

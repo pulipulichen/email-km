@@ -135,8 +135,69 @@ function auto_tag($post) {
     //$post['post_content'] = $post['post_content'] . "| [" . $post['email_author'] . "] | [" . $post['comment_author'] . "]";
 
     //array_push($post['tags_input'], "postie");
+    
+    $content = $post["post_content"];
+    $content = preg_replace('#<[^>]+>#', " \r\n", $content);
+    $content = preg_replace("/((\r?\n)|(\r\n?))/", " ", $content);
+    //$lines = explode("\n", $content);
+    //foreach ($lines AS $line) {
+    /*
+    foreach(preg_split("/((\r?\n)|(\r\n?))/", $content) as $line){
+        $line = trim($line);
+        while (strpos($line, "#") !== FALSE) {
+            $space = strposa($line, array(" ", "&nbsp;", "#"), 1);
+            
+            if ($space > 0) {
+                $tag = substr($line, 1, $space - 1);
+                $tag = trim($tag);
+                if (strlen($tag) > 0) {
+                    array_push($post['tags_input'], $tag);
+                }
+                $line = substr($line, $space + 1);
+                $line = trim($line);
+            }
+            else {
+                $tag = substr($line, 1);
+                $tag = trim($tag);
+                if (strlen($tag) > 0) {
+                    array_push($post['tags_input'], $tag);
+                }
+                break;
+            }
+        }
+    }
+     */
+    $lines = explode("#", $content);
+    foreach ($lines AS $line) {
+        //$line = trim($line);
+        $space = strposa($line, array(" ", "&nbsp;", "#"), 0);
+        if ($space !== false) {
+            $tag = substr($line, 0, $space);
+        }
+        else {
+            $tag = $line;
+        }
+        
+        array_push($post['tags_input'], $tag);
+    }
+    
+    // ----------------------
+    // 網頁內容加上換行
+    //if (preg_match('/\<html\>(.*)\<\/html\>/', $post['post_content'])) {
+        $post['post_content'] = nl2br($post['post_content']);
+    //}
 
     return $post;
+}
+
+function strposa($haystack, $needles=array(), $offset=0) {
+        $chr = array();
+        foreach($needles as $needle) {
+                $res = strpos($haystack, $needle, $offset);
+                if ($res !== false) $chr[$needle] = $res;
+        }
+        if(empty($chr)) return false;
+        return min($chr);
 }
 
 add_filter('postie_post', 'auto_tag');

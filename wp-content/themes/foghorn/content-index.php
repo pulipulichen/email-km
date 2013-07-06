@@ -48,13 +48,14 @@
                 );
 
                 ?>
-            <span class="sep"> | </span>
+            
                 <?php $show_sep = false; ?>
             <?php
                 /* translators: used between list items, there is a space after the comma */
                 $categories_list = get_the_category_list( __( ', ', 'foghorn' ) );
                 if ( $categories_list ):
             ?>
+                <span class="sep"> | </span>
             <?php printf( __( '<span class="%1$s">分類:</span> %2$s', 'foghorn' ), 'entry-utility-prep entry-utility-prep-cat-links', $categories_list );
             $show_sep = true; ?>
             <?php endif; // End if categories ?>
