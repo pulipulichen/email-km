@@ -341,9 +341,21 @@ function ezemails_admin_page() {
 <?php
 									foreach ($templates as $name => $body) {
 										$name = stripslashes($name);
+                                                                                /*
 ?>
 										<option value="<?php echo ezemails__validate_id($name); ?>"><?php echo $name; ?></option>
 <?php
+                                                                                */
+                                                                                if (isset($_GET["template"])) {
+                                                                                ?>                                                                      
+                                        <option value="<?php echo $name; ?>"<?php echo ($_GET["template"] == $name) ? ' selected' : '' ; ?>><?php echo $name; ?></option>
+    <?php
+                                                                            }
+                                                                            else {
+    ?>                                                                      
+                                        <option value="<?php echo $name; ?>"<?php echo ($ezemails_default_template == $name) ? ' selected' : '' ; ?>><?php echo $name; ?></option>
+    <?php
+                                                                            }
 									}
 ?>
 									</select>
@@ -358,9 +370,17 @@ function ezemails_admin_page() {
 <?php
 									foreach ($signatures as $name => $body) {
 										$name = stripslashes($name);
+                                                                                if (isset($_GET["signature"])) {
+?>
+										<option value="<?php echo ezemails__validate_id($name); ?>" <?php echo ($_GET["signature"] == $name) ? ' selected' : '' ; ?>><?php echo $name; ?></option>
+<?php
+                                                                                }
+                                                                                else {
 ?>
 										<option value="<?php echo ezemails__validate_id($name); ?>"><?php echo $name; ?></option>
 <?php
+                                                                                }
+
 									}
 ?>
 									</select>
@@ -383,6 +403,29 @@ function ezemails_admin_page() {
 									<label for="ezemails_to_addresses"><?php _e('To: ', 'ezemails' ); ?></label>
 								</th>
 								<td>
+                                                                        <?php 
+                                                                            //<div class="ezemails_address" email="pulipuli.chen@gmail.com" recipient="布丁" type="to">布丁<div class="ezemails_address_remove"></div></div>
+                                                                            
+                                                                            if (isset($_GET["user-group"])) {
+                                                                                $group = $_GET["user-group"];
+                                                                                $term = get_term_by('slug', esc_attr($group), 'user-group');
+                                                                                $user_ids = get_objects_in_term($term->term_id, 'user-group');
+                                                                                //var_dump($user_ids);
+                                                                                foreach($user_ids as $user_id) {
+                                                                                        $user_info = get_userdata($user_id);
+                                                                                        
+                                                                                        $user_email = $user_info->user_email;
+                                                                                        $user_name = $user_info->user_login;
+                                                                                        
+                                                                                        ?>
+                                                                                        <div class="ezemails_address" email="<?php echo $user_email ?>" recipient="<?php echo $user_name ?>" type="to"><?php echo $user_name ?><div class="ezemails_address_remove"></div></div>
+                                                                                        <?php
+                                                                                }
+                                                                            }
+                                                                            
+                                                                             
+                                                                        ?>
+                                                                        
 									<textarea id="ezemails_to_addresses" name="ezemails_to_addresses" class="no-border" rows="1"></textarea>
 								</td>
 							</tr>
@@ -558,9 +601,21 @@ function ezemails_admin_page() {
 <?php
 								foreach ($templates as $name => $body) {
 									$name = stripslashes($name);
-?>
+?>                                                                     
 									<option value="<?php echo $name; ?>"<?php echo ($ezemails_default_template == $name) ? ' selected' : '' ; ?>><?php echo $name; ?></option>
 <?php
+                                                                        /*
+                                                                        if (isset($_GET["template"])) {
+                                                                            ?>                                                                      
+									<option value="<?php echo $name; ?>"<?php echo ($_GET["template"] == $name) ? ' selected' : '' ; ?>><?php echo $name; ?></option>
+<?php
+                                                                        }
+                                                                        else {
+?>                                                                      
+									<option value="<?php echo $name; ?>"<?php echo ($ezemails_default_template == $name) ? ' selected' : '' ; ?>><?php echo $name; ?></option>
+<?php
+                                                                        }
+                                                                         */
 								}
 ?>
 								</select>
