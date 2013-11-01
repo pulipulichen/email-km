@@ -23,7 +23,7 @@ get_header(); ?>
                                 <li><span style="color:red;">不知道同學的帳號嗎？</span>請到「<a href="http://email-km.dlll.nccu.edu.tw/wp-admin/users.php" target="users">全部帳號</a>」去查詢。
                                     沒有你的帳號再<a href="mailto:pulipuli.chen+email.km@gmail.com&subject=我想申請EMAIL-KM的帳號&body=我的姓名、電話、Email帳號是：" 
                                               title="寄信給布丁"> 通知布丁幫同學新增</a>。</li>
-                            </ul
+                            </ul>
                             <div>
                                <?php
                                 echo do_shortcode('[quick-chat height="400" room="default" userlist="1" userlist_position="right" smilies="1" send_button="1" loggedin_visible="1" guests_visible="1" avatars="1" counter="1"]'); 
