@@ -883,6 +883,7 @@ table.widefat .spam a:hover,
 /* TinyMCE */
 
 .wp-admin .wp-editor-wrap .wp-switch-editor {
+        display:none;
 	background-color: #d3e9f2;
 	border-color: #d1e5ee #d1e5ee #d3e9f2;
 	color: #174F69;

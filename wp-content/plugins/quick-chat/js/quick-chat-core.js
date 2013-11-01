@@ -1,6 +1,5 @@
 // Quick Chat 4.12 - core
 jQuery.fn.quick_chat_insert_at_caret = function(myValue) {
-
     return this.each(function() {
 
         if (document.selection) {
@@ -210,7 +209,7 @@ var quick_chat = jQuery.extend(quick_chat || {}, {
 
         string += '</div>';
 
-        string += '<div class="quick-chat-history-timestring">'+single_message.timestring+'aaaaaa</div></div><div class="quick-chat-history-message">'+message_with_smile+'</div>';
+        string += '<div class="quick-chat-history-timestring">'+single_message.timestring+'</div></div><div class="quick-chat-history-message">'+message_with_smile+'</div>';
 
         string += '</div>';
         return string;
@@ -306,8 +305,7 @@ var quick_chat = jQuery.extend(quick_chat || {}, {
                                         }
 
                                     jQuery(history_container).append(quick_chat.single_message_html(updates[i], avatars, false));
-                                    console.log(1);
-
+                                    
                                 } else if(quick_chat.last_timestamp != 0){
                                     var sys_mes = jQuery.parseJSON(quick_chat.stripslashes(updates[i].message));
                                     for (var mes_room_name in sys_mes){
@@ -320,7 +318,7 @@ var quick_chat = jQuery.extend(quick_chat || {}, {
                                                 invitation_received.message = quick_chat.i18n.invitation_received_s.replace('%s', sys_mes[mes_room_name]['private_from']);
 
                                                 jQuery(history_container).append(quick_chat.single_message_html(invitation_received, 0, true));
-                                                console.log(2);
+                                                //console.log(2);
                                             }
                                         } else if(sys_mes[mes_room_name]['private_from'] == quick_chat.user_name){ // Sender
                                             var private_queue_found = false;
@@ -351,7 +349,7 @@ var quick_chat = jQuery.extend(quick_chat || {}, {
 
                                                     jQuery(history_container).append(quick_chat.single_message_html(invitation_sent, 0, true));
                                                     
-                                                    console.log(3);
+                                                    //console.log(3);
                                                 }else{
                                                     alert(quick_chat.i18n.not_allowed_to_initiate_s);
                                                 }

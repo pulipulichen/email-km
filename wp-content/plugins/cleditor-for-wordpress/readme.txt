@@ -2,9 +2,9 @@
 Contributors: seezer
 Donate link:
 Tags: comments, editor, WYSIWYG
-Requires at least: 2.8
-Tested up to: 3.4.1
-Stable tag: 1.4
+Requires at least: 3.0
+Tested up to: 3.5.1
+Stable tag: 1.5
 
 CLEditor is a full-featured WYSIWYG-editor. This plugins adds this editor to comments area.
 
@@ -19,9 +19,14 @@ This plugins adds CLEditor (full-featured WYSIWYG-editor)  to comments area, mak
 
 == Screenshots ==
 
-1. `/tags/1.4/screenshot-1.png`
+1. `/tags/1.5/screenshot-1.png`
 
 == Changelog ==
+
+= 1.5 =
+* Removed extra jQuery lib that went with plugin (no longer needed)
+* Switched to WordPress built-in jQuery lib
+* Updated jQuery, JS and CSS enqueue in accordance with WordPress coding standards
 
 = 1.4 =
 * Correct jQuery and JS enqueue.

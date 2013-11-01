@@ -8,6 +8,11 @@ cpm_get_header( __( 'To-do List', 'cpm' ), $project_id );
     <a href="<?php echo cpm_url_tasklist_index( $project_id ); ?>"><?php _e( '&larr; back', 'cpm' ); ?></a>
     <span class="sep">|</span>
     <?php _e( 'Task List', 'cpm' ) ?> : <?php echo get_the_title( $list->ID ); ?>
+    
+    
+            <script type="text/javascript">
+            document.title = "<?php echo get_the_title( $list->ID ); ?> : "+ document.title;
+            </script>
 </h3>
 
 <ul class="cpm-todolists">

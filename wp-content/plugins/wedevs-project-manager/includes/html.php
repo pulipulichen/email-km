@@ -230,6 +230,14 @@ function cpm_task_list_html( $list, $project_id ) {
             </div>
 
             <h3>
+
+                <div class="cpm-right">
+                    <?php
+                    $complete = $task_obj->get_completeness( $list->ID );
+                    echo cpm_task_completeness( $complete['total'], $complete['completed'] );
+                    ?>
+                    
+                </div>
                 <span class="move"></span>
                 <a href="<?php echo cpm_url_single_tasklist( $project_id, $list->ID ); ?>"><?php echo get_the_title( $list->ID ); ?></a>
 
@@ -240,18 +248,18 @@ function cpm_task_list_html( $list, $project_id ) {
                         </a>
                     </span>
                 <?php } ?>
-
-                <div class="cpm-right">
-                    <?php
-                    $complete = $task_obj->get_completeness( $list->ID );
-                    echo cpm_task_completeness( $complete['total'], $complete['completed'] );
-                    ?>
-                </div>
             </h3>
 
+            <?php 
+                if ($_GET['action'] != 'index' || ($_GET['action'] == 'index' && $tasks['completed'] && $complete['total'] > $complete['completed']) ) {
+                    ?>
             <div class="cpm-entry-detail">
                 <?php echo cpm_get_content( $list->post_content ); ?>
             </div>
+                    <?php
+                }
+            ?>
+            
         </header>
         <div class="cpm-list-edit-form">
             <?php echo cpm_tasklist_form( $project_id, $list ); ?>
@@ -274,6 +282,9 @@ function cpm_task_list_html( $list, $project_id ) {
             ?>
         </ul>
 
+        <?php 
+                if ($_GET['action'] != 'index' || ($_GET['action'] == 'index' && $complete['total'] > $complete['completed']) ) {
+                    ?>
         <ul class="cpm-todos-new">
             <li class="cpm-new-btn">
                 <a href="#" class="cpm-btn add-task"><?php _e( 'Add a to-do', 'cpm' ); ?></a>
@@ -282,11 +293,37 @@ function cpm_task_list_html( $list, $project_id ) {
                 <?php cpm_task_new_form( $list->ID, $project_id ); ?>
             </li>
         </ul>
+                    <?php
+                }
+            ?>
 
+        
+        
+        <?php
+            if ($_GET['action'] == 'index' && $tasks['completed'] ) {
+                
+                if ($complete['total'] > $complete['completed']) {
+                    ?>
+        <a href="<?php echo cpm_url_single_tasklist( $project_id, $list->ID ); ?>" target="_blank"><?php echo count($tasks['completed']); ?> tasks have been completed.</a>    
+                <?php
+                }
+                
+                ?>
+        
+        <ul class="cpm-todo-completed" style="display:none;">
+                <?php
+            }
+            else {
+                ?>
         <ul class="cpm-todo-completed">
+                <?php
+            }
+        ?>
+        
             <?php
             if ( $tasks['completed'] ) {
                 foreach ($tasks['completed'] as $task) {
+                    
                     ?>
                     <li>
                         <?php echo cpm_task_html( $task, $project_id, $list->ID ); ?>

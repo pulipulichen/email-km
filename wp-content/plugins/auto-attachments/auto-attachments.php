@@ -250,6 +250,7 @@ function get_attachment_icons( ) {
 								'post_parent' => get_the_ID(),
 								'post_type' => 'attachment',
 								'numberposts' => -1,
+                                                                /*
 								'post_mime_type' => array(
 												"application/pdf",
 												"application/rar",
@@ -257,6 +258,9 @@ function get_attachment_icons( ) {
 												"application/vnd.ms-powerpoint",
 												"application/vnd.ms-excel",
 												"application/zip",
+                                                                                                "application/x-gzip",
+                                                                                                "multipart/x-gzip",
+                                                                                                "multipart/x-zip",
 												"application/x-rar-compressed",
 												"application/x-tar",
 												"application/x-gzip",
@@ -272,11 +276,21 @@ function get_attachment_icons( ) {
 												"application/mathcad",
 												"application/postscript"
 								),
+                                                                 */
 								'exclude' => $ex_dosya
 								//MIME Type condition (changed into this format with 0.4.1)
 				))) {
+                                                                $listed_file_ids = array();
 								foreach ($files as $file) //setup array for more than one file attachment
 												{
+                                                                    $file_id = $file->ID;
+                                                                    if (in_array($file_id, $listed_file_ids)) {
+                                                                        continue;
+                                                                    }
+                                                                    else {
+                                                                        array_push($listed_file_ids, $file_id); 
+                                                                   }
+                                                                    
 												$fhh = $opts['fhh'];
 												$fhw = $opts['fhw'];
 												if ($opts['newwindow'] == 'yes') {
@@ -284,12 +298,13 @@ function get_attachment_icons( ) {
 												} else {
 																$target = "";
 												}
-												$file_link       = wp_get_attachment_url($file->ID); //get the url for linkage
-												$file_name_array = explode("/", $file_link);
+                                                                                                
+                                                                                                $file_name = get_the_title($file);
+												$file_link       = wp_get_attachment_url($file->ID, $file_name); //get the url for linkage
+                                                                                                $file_name_array = explode("/", $file_link);
 												$file_post_mime  = str_replace("/", "-", $file->post_mime_type);
 												//$file_name       = array_reverse($file_name_array); //creates an array out of the url and grabs the filename
 												//$file_name_adj = str_replace("+", " ", $file_name[0]);
-                                                                                                $file_name = get_the_title($file);
 												if ($opts['listview'] == 'yes') {
 																$aa_string .= "<li id='$file->ID'>";
 																$aa_string .= "<a style='font-weight:bold;text-decoration:none;' href='$file_link' $target><span class='ikon kaydet'></span>" . $file->post_title . "</a> ";

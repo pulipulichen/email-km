@@ -101,17 +101,19 @@ if (strpos($_SERVER["REQUEST_URI"], "/file/") !== false) {
 
     $id = NULL;
 
-    // see if subject starts with Re:
-    if (preg_match("/(^Re:)(.*)/i", $subject, $matches)) {
-        $subject = trim($matches[2]);
-        
-        $link = "/?s=" . $subject . "&submit=Search&search-type=by-title";
-        ?>
-            <a href="<?php echo $link; ?>" class="search_thread">查看「<?php echo $subject; ?>」討論文章</a>
-        <?php
-    }
+                    // see if subject starts with Re:
+                    if (preg_match("/(^Re:)(.*)/i", $subject, $matches)) {
+                        $subject = trim($matches[2]);
+
+                        $link = "/?s=" . $subject . "&submit=Search&search-type=by-title";
+                        ?>
+                            <a href="<?php echo $link; ?>" class="search_thread">查看「<?php echo $subject; ?>」討論文章</a>
+                        <?php
+                    }
+                    
                     the_content(); 
-                }
+                    
+                }   //else {
                 ?>
         
         <?php //edit_post_link( __( '編輯文章', 'foghorn' ), '<span class="edit-link">', '</span>' ); ?>
@@ -181,6 +183,14 @@ if (strpos($_SERVER["REQUEST_URI"], "/file/") !== false) {
                 // @20130624 Pudding Chen
                 // 加入文章計數功能
                 echo do_shortcode('[post_view]'); 
+                ?></span></span>
+            </div>
+            <div class="tags">
+                <span class="title">加入我的最愛:</span> 
+                <span class="content"><?php 
+                if ( function_exists( 'wfp_button' ) ) {
+                    wfp_button(); 
+                }
                 ?></span></span>
             </div>
 </footer><!-- .entry-meta -->

@@ -17,6 +17,9 @@ cpm_get_header( __( 'Messages', 'cpm' ), $project_id );
 <div class="cpm-single">
 
     <h3 class="cpm-entry-title"><?php echo get_the_title( $message_id ); ?></h3>
+    <script type="text/javascript">
+            document.title = "<?php echo get_the_title( $message_id ); ?> : "+ document.title;
+            </script>
 
     <div class="cpm-entry-meta">
         <span class="cpm-date"><?php echo cpm_get_date( $message->post_date, true ); ?></span>

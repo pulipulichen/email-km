@@ -1305,7 +1305,7 @@ class Quick_Chat {
         $content = '';
         ob_start();
         
-        echo '<a href="javascript:$(\'.quick-chat-container\').show();" onclick="$(this).hide();">開啟聊天室</a>';
+        //echo '<a href="javascript:$(\'.quick-chat-container\').show();" onclick="$(this).hide();">開啟聊天室</a>';
         echo '<div class="quick-chat-container" data-quick-chat-id="'.wp_generate_password(12, false, false).'" data-quick-chat-height="'.$height.'" data-quick-chat-room-name="'.$room.'" data-quick-chat-userlist="'.$userlist.'" data-quick-chat-userlist-position="'.$userlist_position.'" data-quick-chat-smilies="'.$smilies.'" data-quick-chat-send-button="'.$send_button.'" data-quick-chat-loggedin-visible="'.$loggedin_visible.'" data-quick-chat-guests-visible="'.$guests_visible.'" data-quick-chat-avatars="'.$avatars.'" data-quick-chat-counter="'.$counter.'">';
             echo '<div class="quick-chat-loading">'.__('LOADING...', 'quick-chat').'</div>';
         echo '</div>';

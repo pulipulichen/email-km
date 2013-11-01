@@ -721,6 +721,11 @@ default:
     新進成員沒有帳號嗎？寫信問布丁吧！
 </a>
 </p>
+        <p style="margin-top:2em;">
+<strong style="font-size: large">實驗室成員預設登入方式：</strong> <br />
+<strong>- 帳號</strong>：Meeting使用E-MAIL的帳號。例如：test@nccu.edu.tw，那帳號就是test。<br />
+<strong>- 密碼</strong>：預設使用password。登入後請自行修改。
+</p>
 <?php } ?>
 
 <script type="text/javascript">
