@@ -119,6 +119,8 @@ class WeDevs_Favorite_Posts {
           `user_id` int(11) unsigned NOT NULL DEFAULT '0',
           `post_id` int(11) unsigned NOT NULL DEFAULT '0',
           `post_type` varchar(20) NOT NULL,
+          `url` text,
+          `title` text
           PRIMARY KEY (`id`),
           KEY `user_id` (`user_id`),
           KEY `post_id` (`post_id`)
@@ -174,6 +176,7 @@ class WeDevs_Favorite_Posts {
          */
         wp_localize_script( 'wfp-scripts', 'wfp', array(
             'ajaxurl' => admin_url( 'admin-ajax.php' ),
+            "title" => "document.title",
             'nonce' => wp_create_nonce( 'wfp_nonce' ),
             'errorMessage' => __( 'Something went wrong', 'wfp' )
         ) );
@@ -193,12 +196,13 @@ class WeDevs_Favorite_Posts {
         }
 
         // so, the user is logged in huh? proceed on
-        $post_id = isset( $_POST['post_id'] ) ? intval( $_POST['post_id'] ) : 0;
+        $post_id = isset( $_POST['post_id'] ) ? $_POST['post_id'] : 0;
         $user_id = get_current_user_id();
+        $title = isset( $_POST['title'] ) ? $_POST['title'] : NULL;
 
         if ( !$this->get_post_status( $post_id, $user_id ) ) {
 
-            $this->insert_favorite( $post_id, $user_id );
+            $this->insert_favorite( $post_id, $user_id, $title );
 
             wp_send_json_success( '<span class="wpf-favorite">&nbsp;</span> ' . __( 'Remove from favorite', 'wfp' ) );
         } else {
@@ -217,9 +221,16 @@ class WeDevs_Favorite_Posts {
      * @return bool|object
      */
     function get_post_status( $post_id, $user_id ) {
-        $sql = "SELECT post_id FROM {$this->table} WHERE post_id = %d AND user_id = %d";
+        if (is_string($post_id)) {
+            $sql = "SELECT post_id FROM {$this->table} WHERE url = %s AND user_id = %d";
+            $result = $this->db->get_row( $this->db->prepare( $sql, $post_id, $user_id ) );
+        }
+        else {
+            $sql = "SELECT post_id FROM {$this->table} WHERE post_id = %d AND user_id = %d";
+            $result = $this->db->get_row( $this->db->prepare( $sql, $post_id, $user_id ) );
+        }
 
-        return $this->db->get_row( $this->db->prepare( $sql, $post_id, $user_id ) );
+        return $result;
     }
 
     /**
@@ -230,22 +241,42 @@ class WeDevs_Favorite_Posts {
      * @param int $vote
      * @return bool
      */
-    public function insert_favorite( $post_id, $user_id ) {
+    public function insert_favorite( $post_id, $user_id, $title = NULL ) {
         $post_type = get_post_field( 'post_type', $post_id );
-
-        return $this->db->insert(
-            $this->table,
-            array(
-                'post_id' => $post_id,
-                'post_type' => $post_type,
-                'user_id' => $user_id,
-            ),
-            array(
-                '%d',
-                '%s',
-                '%d'
-            )
-        );
+        
+        
+        if (is_int($post_id)) {
+            return $this->db->insert(
+                $this->table,
+                array(
+                    'post_id' => $post_id,
+                    'post_type' => $post_type,
+                    'user_id' => $user_id,
+                ),
+                array(
+                    '%d',
+                    '%s',
+                    '%d'
+                )
+            );
+        }
+        else {
+            return $this->db->insert(
+                $this->table,
+                array(
+                    'url' => $post_id,
+                    'post_type' => 'url',
+                    'user_id' => $user_id,
+                    'title' => $title
+                ),
+                array(
+                    '%s',
+                    '%s',
+                    '%d',
+                    '%s'
+                )
+            );
+        }
     }
 
     /**
@@ -275,10 +306,9 @@ class WeDevs_Favorite_Posts {
         $where .= $post_type == 'all' ? '' : " AND post_type = '$post_type'";
 
 
-        $sql = "SELECT post_id, post_type
+        $sql = "SELECT post_id, post_type, url, title
                 FROM {$this->table}
                 $where
-                GROUP BY post_id
                 ORDER BY post_type
                 LIMIT $offset, $count";
 
@@ -333,7 +363,13 @@ class WeDevs_Favorite_Posts {
 
             foreach ($posts as $item) {
                 $extra = $show_remove ? sprintf( $remove_link, $item->post_id, $remove_title ) : '';
-                printf( '<li><a href="%s">%s</a>%s</li>', get_permalink( $item->post_id ), get_the_title( $item->post_id ), $extra );
+                
+                if ($item->post_id != 0) {
+                    printf( '<li><a href="%s">%s</a>%s</li>', get_permalink( $item->post_id ), get_the_title( $item->post_id ), $extra );
+                }
+                else {
+                    printf( '<li><a href="%s">%s</a>%s</li>', $item->url, $item->title, $extra );
+                }
             }
         } else {
             printf( '<li>%s</li>', __( 'Nothing found', 'wfp' ) );
@@ -401,7 +437,21 @@ function wfp_button( $post_id = null ) {
     global $post;
 
     if ( !$post_id ) {
-        $post_id = $post->ID;
+        if (isset($post)) {
+            $post_id = $post->ID;
+        }
+        else {
+            $pageURL = 'http';
+            if ($_SERVER["HTTPS"] == "on") {$pageURL .= "s";}
+            
+            $pageURL .= "://";
+            if ($_SERVER["SERVER_PORT"] != "80") {
+                $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+            } else {
+                $pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+            }
+            $post_id = $pageURL;
+        }
     }
 
     WeDevs_Favorite_Posts::init()->link_button( $post_id );

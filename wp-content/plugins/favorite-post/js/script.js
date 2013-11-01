@@ -10,6 +10,7 @@ jQuery(function($) {
 
         var data = {
             post_id: $self.data('id'),
+            title: document.title,
             nonce: wfp.nonce,
             action: 'wfp_action'
         };
@@ -40,6 +41,7 @@ jQuery(function($) {
 
         var data = {
             post_id: $self.data('id'),
+            title: document.title,
             nonce: wfp.nonce,
             action: 'wfp_action'
         };
