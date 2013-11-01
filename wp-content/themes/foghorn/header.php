@@ -73,7 +73,10 @@
 				}?>
 				</a></span></h1>
                 <?php if ( of_get_option('tagline',false) ) { ?>
-					<h2 id="site-description"><?php bloginfo( 'description' ); ?></h2>
+					<h2 id="site-description"><?php echo get_bloginfo( 'description' ); ?>
+                                            <br />請把資料典藏到EMAIL-KM，寄信到 「<a href="mailto:dlll.email.km@gmail.com">dlll.email.km@gmail.com</a>」 吧！
+                                        </h2>
+                                        
                 <?php } ?>
 			</hgroup>
 
