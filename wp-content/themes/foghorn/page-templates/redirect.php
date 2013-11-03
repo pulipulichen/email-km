@@ -20,6 +20,8 @@ get_header(); ?>
                             <?php 
                                 $page = get_post();
                                 $link = $page->post_content;  
+                                $link = strip_tags($link);
+                                $link = str_replace("&amp;", "&", $link);
                             ?>
 Redirect to <a href="<?php echo $link ?>"><?php echo $link ?></a> ...
 <script type="text/javascript">// <![CDATA[
