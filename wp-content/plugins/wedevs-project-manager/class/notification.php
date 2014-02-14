@@ -132,18 +132,30 @@ class CPM_Notification {
         $author = wp_get_current_user();
         $comment_url = '';
         
+        // 20140215 Pulipuli Chen
+        // 加入標題的設定
+        $title = '';
+        
         switch ($parent_post->post_type) {
             case 'message':
                 $comment_url = cpm_url_single_message( $project_id, $data['comment_post_ID'] );
+                $title = get_post( $data['comment_post_ID'] )->post_title;
                 break;
             
             case 'task_list':
                 $comment_url = cpm_url_single_tasklist( $project_id, $parent_post->ID );
+                $title = get_post($parent_post->ID)->post_title;
                 break;
             
             case 'task':
                 $comment_url = cpm_url_single_task( $project_id, $parent_post->post_parent, $parent_post->ID );
+                $title = get_post($parent_post->ID)->post_title;
                 break;
+        }
+        
+        $fulltitle = $title;
+        if ($title > 50) {
+            $title = substr($title, 0, 50) . '...';
         }
         
         $template_vars = array(
@@ -154,7 +166,9 @@ class CPM_Notification {
             '%AUTHOR_EMAIL%' => $author->user_email,
             '%COMMENT_URL%' => $comment_url,
             '%COMMENT%' => $data['comment_content'],
-            '%IP%' => get_ipaddress()
+            '%IP%' => get_ipaddress(),
+            '%TITLE%' => $title,
+            '%FULL_TITLE%' => $fulltitle
         );
 
         $subject = cpm_get_option( 'new_comment_sub' );
@@ -216,8 +230,23 @@ class CPM_Notification {
 
         $mail_type = cpm_get_option( 'email_type');
         $blogname = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
-        $wp_email = 'no-reply@' . preg_replace( '#^www\.#', '', strtolower( $_SERVER['SERVER_NAME'] ) );
+        
+        // 20140215 不要改用預設的no-reply，而是用建置者的email
+        //$wp_email = 'no-reply@' . preg_replace( '#^www\.#', '', strtolower( $_SERVER['SERVER_NAME'] ) );
+        
+        $current_user = wp_get_current_user();
+        if (isset($current_user)) {
+            $wp_email = $current_user->user_email;
+            $blogname = $current_user->display_name;
+        }
+        else {
+            $wp_email = 'no-reply@' . preg_replace( '#^www\.#', '', strtolower( $_SERVER['SERVER_NAME'] ) );
+        }
         $from = "From: \"$blogname\" <$wp_email>";
+        
+        // 20140215 加上回信時可以使用的cc資料
+        $from = $from . "\nCc: dlll.email.km@gmail.com";
+        
         $headers = "$from\nContent-Type: $mail_type; charset=\"" . get_option( 'blog_charset' ) . "\"\n";
 
         wp_mail( $to, $subject, $message, $headers);
