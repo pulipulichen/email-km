@@ -4,6 +4,8 @@ BASEDIR=$(dirname $0)
 
 DEBUG_LOG=$BASEDIR/debug.log
 
+mkdir $BASEDIR/archive_debug_log
+
 SIZE=`stat -c %s $DEBUG_LOG`
 
 if [ $SIZE -gt 104857600 ]; then
