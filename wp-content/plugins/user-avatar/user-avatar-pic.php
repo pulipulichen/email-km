@@ -799,7 +799,8 @@ class timthumb {
 		fclose($fp);
 		@unlink($tempfile);
 		$this->debug(3, "Locking and replacing cache file.");
-		$lockFile = $this->cachefile . '.lock';
+		//$lockFile = $this->cachefile . '.lock';
+                $lockFile = tempnam(sys_get_temp_dir(), 'timthumb') . '.lock';
 		$fh = fopen($lockFile, 'w');
 		if(! $fh){
 			return $this->error("Could not open the lockfile for writing an image.");
