@@ -7,7 +7,6 @@
  * @since Foghorn 0.1
  */
 ?>
-
 	<div class="content-wrap">
 	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
     

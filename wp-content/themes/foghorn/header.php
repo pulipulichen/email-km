@@ -39,7 +39,7 @@
 		echo ' | ' . sprintf( __( 'Page %s', 'foghorn' ), max( $paged, $page ) );
 
 	?></title>
-<link rel="profile" href="http://gmpg.org/xfn/11" />
+<!-- <link rel="profile" href="http://gmpg.org/xfn/11" /> -->
 <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_url' ); ?>" />
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 <!--[if lt IE 9]>
@@ -64,6 +64,9 @@
 <body <?php body_class(); ?>>
 <div id="page" class="hfeed">
 	<header id="branding" role="banner" class="clearfix">
+            <a href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">
+                <img src="/wp-content/download.php?file=2015/01/1422548078-153282312.png&name=" alt="<?php bloginfo( 'name' ) ?>" style="float:left;margin-right: 1em;" />
+            </a>
 			<hgroup>
 				<h1 id="site-title"><span><a href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">
 				<?php if ( of_get_option('logo', false) ) { ?>

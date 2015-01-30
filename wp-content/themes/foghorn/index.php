@@ -157,8 +157,11 @@ $content = $text;
     var_dump($tag_list);
     */
 get_header(); ?>
-
+ <?php ResponsiveColumnWidgets(); ?>
+<div id="submain">
 		<div id="primary">
+                        
+                   
 			<div id="content" role="main">
            		<?php foghorn_content_nav( 'nav-above' ); ?>
 				<?php /* Start the Loop */ ?>
@@ -172,8 +175,8 @@ get_header(); ?>
 
 			</div><!-- #content -->
 		</div><!-- #primary -->
-        
 <?php if ( of_get_option('layout','layout-2cr') != 'layout-1c') {
 	get_sidebar();
 } ?>
+        </div>
 <?php get_footer(); ?>

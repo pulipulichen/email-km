@@ -236,13 +236,18 @@ body {
 #page {
 	margin: 0 auto;
 	padding: 0 2em;
-	max-width: 1110px;
+	/*max-width: 1110px;*/
 }
 #main {
 	clear: both;
 	padding: .7em 0;
+}
+
+#submain {
+    
 	margin-right:320px;
 }
+
 #primary {
 	float: left;
 	width: 100%;
@@ -1234,7 +1239,7 @@ a.comment-reply-link {
     margin-left: -320px;
 }
 .layout-1c #page {
-	max-width:880px;
+	/*max-width:880px;*/
 }
 .layout-1c #main {
 	margin-right:0;

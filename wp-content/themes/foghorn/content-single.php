@@ -130,6 +130,19 @@ if (strpos($_SERVER["REQUEST_URI"], "/file/") !== false) {
 			</div><!-- #author-description -->
 		</div><!-- #entry-author-info -->
 		<?php endif; ?>
+                
+                <hr />
+                
+                <div class="alert alert-warning" style="box-sizing: border-box;padding: 15px;
+margin-bottom: 20px;
+border: 1px solid transparent;
+border-radius: 4px;color: #8a6d3b;
+background-color: #fcf8e3;
+border-color: #faebcc;">
+                    
+            <?php echo do_shortcode( '[related_posts_by_tax ]' ) ?>
+                    
+                </div>
 </article><!-- #post-<?php the_ID(); ?> -->
 
 <footer class="entry-meta">
@@ -186,11 +199,19 @@ if (strpos($_SERVER["REQUEST_URI"], "/file/") !== false) {
                 ?></span></span>
             </div>
             <div class="tags">
-                <span class="title">加入我的最愛:</span> 
-                <span class="content"><?php 
+                <
+                <?php 
                 if ( function_exists( 'wfp_button' ) ) {
+                    ?>
+                span class="title">加入我的最愛:</span> 
+                <span class="content">    
+                    <?php
                     wfp_button(); 
+                    ?>
+                </span></span>
+                    <?php
                 }
-                ?></span></span>
+                ?>
             </div>
+            
 </footer><!-- .entry-meta -->

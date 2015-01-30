@@ -12,7 +12,7 @@ if (single_cat_title( '', false ) == "個人專區") {
 }
 
 get_header(); ?>
-
+<div id="submain">
 		<section id="primary">
 			<div id="content" role="main">
 
@@ -39,4 +39,5 @@ get_header(); ?>
 <?php if ( of_get_option('layout','layout-2cr') != 'layout-1c') {
 	get_sidebar();
 } ?>
+</div>
 <?php get_footer(); ?>
