@@ -24,7 +24,6 @@ if (strpos($_SERVER["REQUEST_URI"], "/file/") !== false) {
 ?>
 
 
-
 <article id="post-<?php the_ID(); ?>" <?php post_class('clearfix'); ?>>
 	<header class="entry-header">
 		<h1 class="entry-title"><?php the_title(); ?></h1>
@@ -191,6 +190,8 @@ border-color: #faebcc;">
                 <span class="title">管理</span>
                 <span class="content"><?php edit_post_link( __( '編輯文章', 'foghorn' ), '', '' ); ?></span>
             </div>
+            <?php
+            /*
             <div class="tags">
                 <span class="title">點閱數: <span class="post-view-count"><?php 
                 // @20130624 Pudding Chen
@@ -198,20 +199,22 @@ border-color: #faebcc;">
                 echo do_shortcode('[post_view]'); 
                 ?></span></span>
             </div>
-            <div class="tags">
-                <
+            */
+            ?>
+            
                 <?php 
                 if ( function_exists( 'wfp_button' ) ) {
                     ?>
-                span class="title">加入我的最愛:</span> 
+            <div class="tags">
+                <span class="title">加入我的最愛:</span> 
                 <span class="content">    
                     <?php
                     wfp_button(); 
                     ?>
                 </span></span>
+            </div>
                     <?php
                 }
                 ?>
-            </div>
             
 </footer><!-- .entry-meta -->

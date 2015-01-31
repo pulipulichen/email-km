@@ -50,26 +50,35 @@ else if ($_GET["type"] == 'frameset') {
 
 get_header(); ?>
 
+
+<div id="submain">
 		<div id="primary">
             
 			<div id="content" role="main">
+                                <header class="page-header">
+					<h1 class="page-title"><?php
+						printf( __( 'Category: %s', 'foghorn' ), '<span>' .get_the_category_list( __( ', ', 'foghorn' ) ) . '</span>' );
+					?></h1>
 
+					<?php $categorydesc = category_description(); if ( ! empty( $categorydesc ) ) echo apply_filters( 'archive_meta', '<div class="archive-meta">' . $categorydesc . '</div>' ); ?>
+				</header>
+                            
 				<?php if ( have_posts() ) while ( have_posts() ) : the_post(); ?>
                 
                 	<div class="content-wrap clearfix">
 						<?php get_template_part( 'content', 'single' ); ?>
                     </div>
-
 					<?php foghorn_content_nav( 'nav-below' ); ?>
 
 					<?php comments_template( '', true ); ?>
 
 				<?php endwhile; // end of the loop. ?>
-            
+
 			</div><!-- #content -->
 		</div><!-- #primary -->
-
+       
 <?php if ( of_get_option('layout','layout-2cr') != 'layout-1c') {
 	get_sidebar();
 } ?>
+</div>     
 <?php get_footer(); ?>

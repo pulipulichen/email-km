@@ -13,6 +13,7 @@
  */
 
 get_header(); ?>
+<div id="submain">
 		<div id="primary">
 			<div id="content" role="main">
             
@@ -30,4 +31,5 @@ get_header(); ?>
 <?php if ( of_get_option('layout','layout-2cr') != 'layout-1c') {
 	get_sidebar();
 } ?>
+</div>
 <?php get_footer(); ?>

@@ -262,7 +262,7 @@ body {
 	float: right;
 }
 .single .hentry {
-	width:73%;
+	width:80%;
 	float:right;
 }
 .post-wrap {
@@ -343,6 +343,8 @@ body {
 #access {
 	float: right;
 	margin:2px 0 auto;
+        clear:both;
+        /*width: 100%;*/
 }
 
 #access ul {
@@ -394,7 +396,7 @@ body {
 	height: auto;
 	line-height: 1em;
 	padding: 10px 10px;
-	width: 168px;
+	width: 188px;
 }
 #access li:hover > a {
 	color: #3f98db;
@@ -1482,6 +1484,7 @@ a.comment-reply-link {
 	font-size: 1.2em;
 	margin-bottom: 0;
 	float: left;
+        margin-top: 0;
 }
 
 .archive .content-wrap,
@@ -1531,9 +1534,9 @@ a.comment-reply-link {
 	display:inline-block;
 	color:#777777;
 	font-family:arial;
-	font-size:8px;
+	/*font-size:8px;*/
 	font-weight:bold;
-	padding:0px 5px;
+	padding:5px;
 	text-decoration:none;
 	text-shadow:1px 1px 0px #ffffff;
 	margin-bottom: 5px;
@@ -1730,4 +1733,8 @@ a.post-edit-link {
     display: block;
     margin-bottom: 0.5em;
     font-style: italic;
+}
+
+.jcl_widget {
+    line-height: 2em;
 }

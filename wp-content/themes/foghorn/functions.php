@@ -127,9 +127,9 @@ function foghorn_widgets_init() {
 		'name' => __( 'Sidebar', 'foghorn' ),
 		'id' => 'sidebar',
 		'description' => __( 'The right sidebar for posts and pages.', 'foghorn' ),
-		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'before_widget' => '<aside id="%1$s" class="widget %2$s ui tertiary segment">',
 		'after_widget' => "</aside>",
-		'before_title' => '<h1 class="widget-title">',
+		'before_title' => '<h1 class="widget-title ui teal dividing medium  header">',
 		'after_title' => '</h1>',
 	) );
 }
@@ -149,7 +149,10 @@ function foghorn_content_nav( $nav_id ) {
 			 /*<div class="nav-next"><?php previous_posts_link( __( '<span class="meta-nav">&larr;</span> 更新的文章', 'foghorn' ) ); ?></div>
 			<div class="nav-previous"><?php next_posts_link( __( '之前的文章 <span class="meta-nav">&rarr;</span>', 'foghorn' ) ); ?></div>*/
 			?>
-			<?php if ( function_exists( 'page_navi' ) ) page_navi(); ?>
+			<?php 
+                            //if ( function_exists( 'page_navi' ) ) page_navi(); 
+                            if ( function_exists( 'wp_pagenavi' ) ) wp_pagenavi(); 
+                        ?>
 		</nav><!-- #nav-above -->
 	<?php endif;
 }
