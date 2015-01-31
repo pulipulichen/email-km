@@ -189,6 +189,46 @@ border-color: #faebcc;">
             <div class="tags">
                 <span class="title">管理</span>
                 <span class="content"><?php edit_post_link( __( '編輯文章', 'foghorn' ), '', '' ); ?></span>
+                <?php
+                //$cats = get_the_category();
+                //if (in_array('', $haystack))
+                if (substr(get_the_title(), 0, 4) !== 'Re: ') {
+                
+                foreach((get_the_category()) as $category) { 
+                    if ($category->cat_name === "專案") {
+                        echo "<br />";
+                        $closed = false;
+                        //print_r(get_the_tag_list() );
+                        foreach(get_the_tags() AS $tag_key => $tag) { 
+                            //echo $tag->name .'1212';
+                            if ($tag->name === 'closed') {
+                                $closed = true;
+                                break;
+                            }
+                        }
+                        if ($closed === false) {
+                            ?>
+                             <a class="ui labeled icon green button" href="<?php echo get_template_directory_uri(); ?>/project-management/issue-manage.php?post_id=<?php echo get_the_ID(); ?>&close=true">
+                                <i class="checkmark icon"></i>
+                                設定任務完成
+                            </a>
+                            <?php
+                        }
+                        else {
+                            ?>
+                            <a class="ui labeled icon red button" href="<?php echo get_template_directory_uri(); ?>/project-management/issue-manage.php?post_id=<?php echo get_the_ID(); ?>&close=false">
+                                <i class="undo icon"></i>
+                                設定任務未完成
+                            </a>
+                            <?php
+                        }
+                            
+                        break;
+                    }
+                } 
+                
+                }   //if (substr(get_the_title(), 0, 4) === 'Re: ') {
+                ?>
             </div>
             <?php
             /*

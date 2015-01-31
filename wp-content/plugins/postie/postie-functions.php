@@ -216,6 +216,10 @@ function CreatePost($poster, $mimeDecodedEmail, $post_id, &$is_reply, $config, $
     $post_tags = tag_Tags($content, $default_post_tags);
     if ($fulldebug)
         DebugEcho("post tag: $content");
+    
+    if (strtolower(substr($subject, 0, 4)) === "re: ") {
+        $post_tags[] = 'reply';
+    }
 
     $comment_status = tag_AllowCommentsOnPost($content);
     if ($fulldebug)

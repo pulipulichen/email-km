@@ -23,7 +23,24 @@ get_header(); ?>
 	<div id="primary" class="site-content">
 		<div id="content" role="main">
 			<article>
-                            <h1><?php echo get_the_title(); ?></h1>
+                            <h1 class='ui header'>
+                                
+<div class="ui action input" style='float: right;'>
+  <input type="text" placeholder="新增專案名稱..."  id='new_project_name'>
+  <div class="ui icon button" onclick="add_new_project()"><i class="write icon"></i></div>
+  <script>
+  function add_new_project() {
+      var _name = document.getElementById('new_project_name').value;
+      location.href = '/wp-admin/post-new.php?tags=' + encodeURI(_name) + '&category=<?php echo urlencode($cat); ?>';
+  }
+  </script>
+</div>
+                                <div class="content"><?php echo get_the_title(); ?>
+                                    <a class='sub header' href='http://email-km.dlll.nccu.edu.tw/2015/02/ru-he-shi-yong-zhuan-an-guan-li-gong-neng/' style='display:block'>
+                                        <i class='help circle icon'></i>專案管理使用教學
+                                    </a>
+                                </div>
+                            </h1>
 <?php
 $args = array(
         'posts_per_page' => -1,
@@ -40,78 +57,10 @@ $args = array(
 //		),
 	//)
 );
-$postslist = get_posts( $args );
 
-$project_tags = array();
-$skip_tags = array(
-    'email', 'closed'
-);
+include_once './wp-content/themes/foghorn/project-management/count_project_tags.php';
 
-//print_r($postslist);
-
-
-
-foreach ($postslist AS $key => $post) {
-    //echo $post->ID;
-    $tags = wp_get_post_tags($post->ID);
-    //print_r($tags);
-    
-    $date = substr ( $post->post_modified_gmt, 0, 10 );
-    $date = str_replace('-', '', $date);
-    $date = intval($date);
-    //echo $date . '<br />';
-    
-    $author = $post->post_author;
-    
-    $filtered_tags = array();
-    $post_type = 'open';
-    if (substr($post->post_title, 0, 4) === 'Re: ') {
-        $post_type = 'other';
-    }
-            
-    foreach ($tags AS $tags_key => $tag) {
-        $tag_name = $tag->name;
-        
-        if ($tag_name === 'closed') {
-            $post_type = 'closed';
-        }
-        
-        if (in_array($tag_name, $skip_tags)
-                || is_email($tag_name)) {
-            continue;
-        }
-        
-        if (isset($project_tags[$tag_name]) === FALSE) {
-            $project_tags[$tag_name] = array(
-                "open" => array(),
-                "closed" => array(),
-                "other" => array(),
-                'last_modify_date' => $date,
-                'authors' => array()
-            );
-        }
-        
-        if ($project_tags[$tag_name]['last_modify_date'] < $date) {
-            $project_tags[$tag_name]['last_modify_date'] = $date;
-        }
-        
-        if ($tag_name !== 'closed') {
-            $filtered_tags[] = $tag;
-        }
-    }   //foreach ($tags AS $tags_key => $tag) {
-    
-    foreach ($filtered_tags AS $tags_key => $tag) {
-        $tag_name = $tag->name;
-        $project_tags[$tag_name][$post_type][] = $post->ID;
-        
-        if (isset($project_tags[$tag_name]['authors'][$author]) === false) {
-            $project_tags[$tag_name]['authors'][$author] = 1;
-        }
-        else {
-            $project_tags[$tag_name]['authors'][$author]++;
-        }
-    }
-}
+$project_tags = count_project_tags($args);
 
 // -------------------------
 
@@ -133,46 +82,12 @@ foreach ($postslist AS $key => $post) {
 <?php
 foreach ($project_tags AS $key => $project_tag) {
     
-    $last_modified_data = strval($project_tag['last_modify_date']);
-    $last_modified_data_year = substr($last_modified_data, 0, 4);
-    $last_modified_data_month = substr($last_modified_data, 4, 2);
-    $last_modified_data_day = substr($last_modified_data, 6, 2);
-    $last_modified_data = $last_modified_data_year.'-'.$last_modified_data_month.'-'.$last_modified_data_day;
+    $project_tag = filter_project_tag($project_tag);
+    $last_modified_date_string = $project_tag['last_modify_date_string'];
+    $avatars = $project_tag['avatars'];
+    $progress = $project_tag['progress'];
+    $progress_type = $project_tag['progress_type'];
     
-    // ------
-    
-    $avatars = '';
-    foreach ($project_tag['authors'] AS $author_id => $author_count) {
-        $author_name = get_the_author_meta( 'nickname', $author_id );
-        $author_avatar = get_avatar( $author_id, '22');
-        
-        $href = '/author/' . urlencode($author_name) . '/?cat=' . urlencode($cat) . '&tag=' . urlencode($key);
-        
-        $author_avatar = '<a class="ui image label" href="' . $href . '">
-                     '. $author_avatar . ' ' . $author_name 
-                . '<div class="detail">' . $author_count .'</div>
-                  </a> ';
-        $avatars .= $author_avatar;
-    }
-    
-    // ------
-    
-    $progress = (count($project_tag['closed']) / (count($project_tag['closed']) + count($project_tag['open'])));
-    $progress = intval($progress * 100);
-    
-    $progress_type = '';
-    if ($progress > 90) {
-        $progress_type = 'green';
-    }
-    else if ($progress > 70) {
-        $progress_type = 'teal';
-    }
-    else if ($progress > 50) {
-        $progress_type = 'yellow';
-    }
-    else if ($progress > 30) {
-        $progress_type = 'purple';
-    }
     
     ?>
       <tr>
@@ -180,15 +95,31 @@ foreach ($project_tags AS $key => $project_tag) {
           <td><a href="/tag/<?php echo urlencode($key); ?>/?cat=<?php echo urlencode($cat); ?>"><?php echo $key; ?> </a></td>
           
           <!-- 最近更新日期 -->
-          <td data-sort-value="<?php echo $project_tag['last_modify_date']; ?>" class="center aligned"><?php echo $last_modified_data; ?></td>
+          <td data-sort-value="<?php echo $project_tag['last_modify_date']; ?>" class="center aligned"><?php echo $last_modified_date_string; ?></td>
           
           <!-- 參與成員 -->
           <td><?php echo $avatars; ?></td>
           
           <!-- 未完任務 -->
           <td class="center aligned" data-sort-value="<?php echo count($project_tag['open']); ?>">
-              <a class="ui label" href="/?tag=<?php echo urlencode($key); ?>">
-                <i class="radio icon"></i> <?php echo count($project_tag['open']); ?>
+              <?php 
+              if (count($project_tag['open']) > 0) {
+                  ?>
+                  <a class="ui red label" href="/project-management-list?project_tag=<?php echo urlencode($key); ?>&project_type=open">
+                    <i class="radio icon"></i> <?php echo count($project_tag['open']); ?>
+                  </a>
+                  <?php
+              }
+              else {
+                  ?>
+                  <div class="ui label">
+                    <i class="radio icon"></i> <?php echo count($project_tag['open']); ?>
+                  </div>
+                  <?php
+              }
+              ?>
+              <a class="mini ui icon button" href="/wp-admin/post-new.php?tags=<?php echo urlencode($key); ?>&category=<?php echo urlencode($cat); ?>">
+                <i class="write icon"></i>
               </a>
           </td>
           
@@ -197,7 +128,7 @@ foreach ($project_tags AS $key => $project_tag) {
               <?php 
               if (count($project_tag['closed']) > 0) {
                   ?>
-                  <a class="ui label" href="/?tag=<?php echo urlencode($key); ?>+closed">
+                  <a class="ui teal label" href="/project-management-list?project_tag=<?php echo urlencode($key); ?>&project_type=close">
                     <i class="check circle icon"></i> <?php echo count($project_tag['closed']); ?>
                   </a>
                   <?php
@@ -210,15 +141,17 @@ foreach ($project_tags AS $key => $project_tag) {
                   <?php
               }
               ?>
-              
+              <a class="mini ui icon button" href="/wp-admin/post-new.php?tags=<?php echo urlencode($key); ?>,closed&category=<?php echo urlencode($cat); ?>">
+                <i class="write icon"></i>
+              </a>
               
           </td>
           <!-- 其他討論 -->
           <td class="center aligned" data-sort-value="<?php echo count($project_tag['other']); ?>">
-              <div class="ui label">
-                <i class="comment  icon"></i> <?php echo count($project_tag['other']); ?>
+              <a class="ui label" href="/project-management-list?project_tag=<?php echo urlencode($key); ?>&project_type=other">
+                <i class="comment icon"></i> <?php echo count($project_tag['other']); ?>
               </div>              
-          </td>
+          </a>
           
           <!-- 進度 -->
           <td data-sort-value="<?php echo $progress; ?>">

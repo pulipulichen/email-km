@@ -661,6 +661,7 @@ if ( !class_exists( 'Attachments' ) ) :
             if( $metabox['args']['setup_nonce'] )
                 wp_nonce_field( 'attachments_save', 'attachments_nonce' );
 
+            $current_user = wp_get_current_user();
             ?>
 
             <div id="attachments-<?php echo $instance->name; ?>" class="attachments-parent-container<?php if( $instance->append == false ) : ?> attachments-prepend<?php endif; ?>">
@@ -672,7 +673,8 @@ if ( !class_exists( 'Attachments' ) ) :
                         <a class="button attachments-invoke"><?php _e( esc_attr( $instance->button_text ), 'attachments' ); ?></a>
                     </div>
                 <?php endif; ?>
-                <div class="attachments-container attachments-<?php echo $instance->name; ?>"><?php
+                <div class="attachments-container attachments-<?php echo $instance->name; ?>"><div id='cloud_disk_container'></div>
+                    <?php
                         if( isset( $instance->attachments ) && !empty( $instance->attachments ) )
                         {
                             foreach( $instance->attachments as $attachment )
@@ -688,6 +690,13 @@ if ( !class_exists( 'Attachments' ) ) :
                 <?php if( $instance->append == true ) : ?>
                     <div class="attachments-invoke-wrapper">
                         <a class="button attachments-invoke"><?php _e( esc_attr( $instance->button_text ), 'attachments' ); ?></a>
+                        <a class="button load-cloud-disk" onclick='load_cloud_disk("<?php echo $current_user->user_login; ?>")'>載入雲端硬碟</a>
+                        
+                        <script>
+                        function load_cloud_disk(_user) {
+                            document.getElementById('cloud_disk_container').innerHTML = '<iframe src="http://cloud-disk.dlll.nccu.edu.tw/?uid=' + _user + '" height="500" width="100%"></iframe>';
+                        }
+                        </script>
                     </div>
                 <?php endif; ?>
             </div>

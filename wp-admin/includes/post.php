@@ -431,7 +431,7 @@ function get_default_post_to_edit( $post_type = 'post', $create_in_db = false ) 
 	$post_excerpt = '';
 	if ( !empty( $_REQUEST['excerpt'] ) )
 		$post_excerpt = esc_html( stripslashes( $_REQUEST['excerpt'] ));
-
+        
 	if ( $create_in_db ) {
 		$post_id = wp_insert_post( array( 'post_title' => __( 'Auto Draft' ), 'post_type' => $post_type, 'post_status' => 'auto-draft' ) );
 		$post = get_post( $post_id );
