@@ -82,7 +82,7 @@ $project_tags = count_project_tags($args);
 <?php
 foreach ($project_tags AS $key => $project_tag) {
     
-    $project_tag = filter_project_tag($project_tag);
+    $project_tag = filter_project_tag($project_tag, $cat, $key);
     $last_modified_date_string = $project_tag['last_modify_date_string'];
     $avatars = $project_tag['avatars'];
     $progress = $project_tag['progress'];

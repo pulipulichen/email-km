@@ -34,7 +34,7 @@ $args = array(
 include_once './wp-content/themes/foghorn/project-management/count_project_tags.php';
 $project_tags = count_project_tags($args);
 $project = array_pop($project_tags);
-$project = filter_project_tag($project);
+$project = filter_project_tag($project, '專案', $project_tag);
 
 if ($list_type === 'open') {
     //echo '111';

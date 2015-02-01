@@ -121,8 +121,8 @@ class JQCategoriesList extends WP_Widget
                 $instance['con_sym'] = '(-)';
                 break;
             case '3':
-                $instance['ex_sym'] = '<i class="plus icon"></i>';
-                $instance['con_sym'] = '<i class="minus icon"></i>';
+                $instance['ex_sym'] = '[+]';
+                $instance['con_sym'] = '[-]';
                 break;
             default:
                 $instance['ex_sym'] = '>';

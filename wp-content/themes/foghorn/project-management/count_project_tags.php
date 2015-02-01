@@ -78,7 +78,7 @@ foreach ($postslist AS $key => $post) {
 return $project_tags;
 }
 
-function filter_project_tag($project_tag) {
+function filter_project_tag($project_tag, $cat = '', $key = '') {
     
     $last_modified_date = strval($project_tag['last_modify_date']);
     $last_modified_data_year = substr($last_modified_date, 0, 4);
