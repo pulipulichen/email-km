@@ -81,8 +81,20 @@
 				}?>
 				</a></span></h1>
                 <?php if ( of_get_option('tagline',false) ) { ?>
-					<h2 id="site-description"><?php bloginfo( 'description' ); ?></h2>
-                                        典藏資料到EMAIL-KM，請寄信到 「<a href="mailto:dlll.email.km@gmail.com">dlll.email.km@gmail.com</a>」 吧！
+                            <h2 id="site-description">
+                             <div class="inline field">
+					<?php bloginfo( 'description' ); ?>
+
+                                 <div class="ui pointing left teal label" style="text-shadow: rgba(255, 255, 255, 0.8) 0px 0px 0px;
+font-weight: normal;">
+      典藏資料到EMAIL-KM，請寄信到 「<a href="mailto:dlll.email.km@gmail.com">dlll.email.km@gmail.com</a>」 吧！
+</div>
+                             </div>
+                                </h2>
+    
+                                        <div>
+                                        
+                                        </div>
                 <?php } ?>
 			</hgroup>
 
