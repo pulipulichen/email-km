@@ -9,6 +9,7 @@
 
 get_header(); ?>
 
+<div id='submain'>
 		<section id="primary">
 			<div id="content" role="main">
 
@@ -26,9 +27,19 @@ get_header(); ?>
 				<header class="page-header">
 					<h1 class="page-title author"><?php 
 						//printf( __( 'Author Archives: %s', 'foghorn' ), '<span class="vcard"><a class="url fn n" href="' . get_author_posts_url( get_the_author_meta( "ID" ) ) . '" title="' . esc_attr( get_the_author() ) . '" rel="me">' . get_the_author() . '</a></span>' ); 
-						$avatar = get_avatar( get_the_author_meta( "ID" ), 75 );
-						printf( __( '%s 個人專區', 'foghorn' ), '<span class="vcard"><a class="url fn n" href="' . get_author_posts_url( get_the_author_meta( "ID" ) ) . '" title="' . esc_attr( get_the_author() ) . '" rel="me">' . $avatar . "<br />" . get_the_author() . '</a></span>' ); 
-					?></h1>
+						//$avatar = get_avatar( get_the_author_meta( "ID" ), 75 );
+						//printf( __( '%s 個人專區', 'foghorn' ), '<span class="vcard"><a class="url fn n" href="' . get_author_posts_url( get_the_author_meta( "ID" ) ) . '" title="' . esc_attr( get_the_author() ) . '" rel="me">' . $avatar . "<br />" . get_the_author() . '</a></span>' ); 
+                                        
+                                                // 作者EMAIL
+                                                // 作者發表數量
+					?>
+                                        <?php
+                                        if (function_exists('get_author_bio_box')) {
+                                            echo get_author_bio_box();
+                                        }
+                                        ?>
+                                        </h1>
+                                        
 				</header>
 
 				<?php
@@ -40,6 +51,7 @@ get_header(); ?>
 				?>
 
 				<?php
+                                /*
 				// If a user has filled out their description, show a bio on their entries.
 				if ( get_the_author_meta( 'description' ) ) : ?>
 				<div id="author-info">
@@ -51,7 +63,9 @@ get_header(); ?>
 						<?php the_author_meta( 'description' ); ?>
 					</div><!-- #author-description	-->
 				</div><!-- #entry-author-info -->
-				<?php endif; ?>
+				<?php endif; 
+                                */
+                                ?>
 
 				<?php /* Start the Loop */ ?>
 				<?php while ( have_posts() ) : the_post(); ?>
@@ -74,4 +88,7 @@ get_header(); ?>
 <?php if ( of_get_option('layout','layout-2cr') != 'layout-1c') {
 	get_sidebar();
 } ?>
+
+</div>
+
 <?php get_footer(); ?>
