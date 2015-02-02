@@ -690,7 +690,7 @@ if ( !class_exists( 'Attachments' ) ) :
                 <?php if( $instance->append == true ) : ?>
                     <div class="attachments-invoke-wrapper">
                         <a class="button attachments-invoke"><?php _e( esc_attr( $instance->button_text ), 'attachments' ); ?></a>
-                        <a class="button load-cloud-disk" onclick='load_cloud_disk("<?php echo $current_user->user_login; ?>")'>載入雲端硬碟</a>
+                        <a class="button load-cloud-disk" onclick='window.open("http://cloud-disk.dlll.nccu.edu.tw/?uid=<?php echo $current_user->user_login; ?>")'>載入雲端硬碟</a>
                         
                         <script>
                         function load_cloud_disk(_user) {

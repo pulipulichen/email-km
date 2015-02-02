@@ -92,7 +92,7 @@ foreach ($project_tags AS $key => $project_tag) {
     ?>
       <tr>
           <!-- 專案標題 -->
-          <td><a href="/tag/<?php echo urlencode($key); ?>/?cat=<?php echo urlencode($cat); ?>"><?php echo $key; ?> </a></td>
+          <td><a href="/project-management-list?project_tag=<?php echo urlencode($key); ?>&project_type=open"><?php echo $key; ?> </a></td>
           
           <!-- 最近更新日期 -->
           <td data-sort-value="<?php echo $project_tag['last_modify_date']; ?>" class="center aligned"><?php echo $last_modified_date_string; ?></td>
@@ -128,7 +128,7 @@ foreach ($project_tags AS $key => $project_tag) {
               <?php 
               if (count($project_tag['closed']) > 0) {
                   ?>
-                  <a class="ui teal label" href="/project-management-list?project_tag=<?php echo urlencode($key); ?>&project_type=close">
+                  <a class="ui teal label" href="/project-management-list?project_tag=<?php echo urlencode($key); ?>&project_type=closed">
                     <i class="check circle icon"></i> <?php echo count($project_tag['closed']); ?>
                   </a>
                   <?php

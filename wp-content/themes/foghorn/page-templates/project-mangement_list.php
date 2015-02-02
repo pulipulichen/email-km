@@ -17,7 +17,7 @@ if (isset($_GET['project_tag']) === false) {
     //header("Location: /project-management");
 }
 $project_tag = $_GET['project_tag'];
-$project_tag = '測試專案';
+//$project_tag = '測試專案';
 
 $list_type = 'open';
 if (isset($_GET['project_type'])) {
@@ -108,7 +108,7 @@ get_header(); ?>
   </div></h1>
                 </header>
 <div class="ui menu">
-  <a class="<?php if ($list_type==='open') echo 'active'; ?> red item" href='?project_tag=<?php urlencode($project_tag) ?>&project_type=open'>
+  <a class="<?php if ($list_type==='open') echo 'active'; ?> red item" href='?project_tag=<?php echo  urlencode($project_tag) ?>&project_type=open'>
       <i class="radio icon"></i>
       未完任務
       <?php
@@ -124,7 +124,7 @@ get_header(); ?>
       }
       ?>
   </a>
-  <a class="<?php if ($list_type==='closed') echo 'active'; ?> green item" href='?project_tag=<?php urlencode($project_tag) ?>&project_type=closed'>
+  <a class="<?php if ($list_type==='closed') echo 'active'; ?> green item" href='?project_tag=<?php echo urlencode($project_tag) ?>&project_type=closed'>
       <i class="check circle icon"></i>
       完成任務
       <?php
@@ -141,7 +141,7 @@ get_header(); ?>
       ?>
       
   </a>
-    <a class="<?php if ($list_type==='other') echo 'active'; ?> item" href='?project_tag=<?php urlencode($project_tag) ?>&project_type=other'>
+    <a class="<?php if ($list_type==='other') echo 'active'; ?> item" href='?project_tag=<?php echo urlencode($project_tag) ?>&project_type=other'>
       <i class="comment icon"></i>
       其他討論
       <div class="ui label"><?php echo count($project['other']); ?></div>

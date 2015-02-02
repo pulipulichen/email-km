@@ -146,3 +146,8 @@ border:solid 1px #666666;
     
     width: 99%;
 }
+
+.wdm_results .p_content b {
+    background-color: yellow;
+    /*color: red;*/
+}

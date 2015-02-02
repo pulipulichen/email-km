@@ -388,7 +388,7 @@ class wp_Solr {
 			if ( $field_comment == 1 ) {
 				$comments = $document->comments;
 			}
-			$date = date( 'm/d/Y', strtotime( $document->displaydate ) );
+			$date = date( 'Y/m/d', strtotime( $document->displaydate ) );
 
 			if ( property_exists( $document, "categories" ) ) {
 				$cat_arr = $document->categories;
@@ -425,21 +425,54 @@ class wp_Solr {
 
 			}
 			$msg = '';
-			$msg .= "<div id='res$i'><div class='p_title'><a href='$url'>$name</a></div>";
+                        
+                        
+			$msg .= "<div class='' id='res$i'><div class='p_title ui top attached header'>";
+                        
+                        
+                        //---------
+                        
+			$msg .= "<div class='p_misc' style='float:right'>";
+                        
+                        $user = get_user_by('slug', $auth);
+//                        if (is_null($user)) {
+//                            $user = get_user_by('id', $auth);
+//                        }
+//                        
+//                        $args= array(
+//                            'search' => $auth, // or login or nicename in this example
+//                            'search_columns' => array('user_login','user_nicename','display_name')*/
+//                          );
+//                          $user = new WP_User_Query($args);
+                        //$msg .= $user->ID. 'aaaaa';
+                        $avatar = get_avatar($user->ID, 20);
+                        
+                        
+                        $msg .= "<div class='ui image tiny label'> " . $avatar . " <span class='pauthor'>$auth</span></div>";
+                        if ($cat !== "") {
+                            $msg .= "<div class='ui tiny label'> <i class='folder icon'></i> <span class='pcat'> $cat </span></div>";
+                        }
+                        $msg .= "<div class='ui tiny label'> <i class='calendar icon'></i> <span class='pdate'>$date</span></div>";
+                        if ($no_comments > 0) {
+                            $msg .= "<div class='ui tiny label'> <i class='comment icon'></i><span class='pcat'> $no_comments</span> </div>";
+                        }
+                        $msg .= "</div>";
+                        
+                        //---------
+                        
+                        $msg .= "<a href='$url' class='ui header'>$name</a></div>";
+                        
+                        
 			if ( $cont_no == 1 ) {
-				$msg .= "<div class='p_content'>$cont - <a href='$url'>Content match</a></div>";
+				$msg .= "<div class='p_content ui attached segment'>$cont - <a href='$url'>Content match</a></div>";
 			} else {
-				$msg .= "<div class='p_content'>$cont</div>";
+				$msg .= "<div class='p_content ui attached segment'>$cont</div>";
 			}
 			if ( $comm_no == 1 ) {
-				$msg .= "<div class='p_comment'>" . $comments . "-<a href='$url'>Comment match</a></div>";
+				$msg .= "<div class='p_comment ui attached segment'>" . $comments . "-<a href='$url'>Comment match</a></div>";
 			}
-			$msg .= "<div class='p_misc'>
-                                            By <span class='pauthor'>$auth</span>
-                                            in <span class='pcat'>$cat</span>
-                                            <span class='pdate'>$date</span>
-                                            <span class='pcat'> $no_comments -comments</span>
-                                            </div></div><hr>";
+                                
+                        $msg .= "</div><hr>";
 			array_push( $results, $msg );
 			$i = $i + 1;
 		}
@@ -461,7 +494,7 @@ class wp_Solr {
 			$last = $st + $number_of_res;
 		}
 
-		$search_result[] = "<span class='infor'>Showing $fir to $last results out of $found</span>";
+		$search_result[] = "<div class='infor ui success message' style='margin-bottom: 1em; text-align:center;'><div class='content'>總共找到".$found."筆結果，顯示第".$fir."筆到".$last."筆</div></div>";
 
 
 		return $search_result;

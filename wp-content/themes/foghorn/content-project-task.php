@@ -80,7 +80,7 @@ if (isset($_GET['project_type'])) {
         <?php
         if ($list_type === 'open') {
                             ?>
-                             <a class="ui labeled icon green mini button" href="<?php echo get_template_directory_uri(); ?>/project-management/issue-manage.php?post_id=<?php echo get_the_ID(); ?>&close=true&tag=<?php urlencode($_GET['project_tag']) ?>">
+                             <a class="ui labeled icon green mini button" href="<?php echo get_template_directory_uri(); ?>/project-management/issue-manage.php?post_id=<?php echo get_the_ID(); ?>&close=true&tag=<?php echo urlencode($_GET['project_tag']) ?>">
                                 <i class="checkmark icon"></i>
                                 設定任務完成
                             </a>
@@ -88,7 +88,7 @@ if (isset($_GET['project_type'])) {
                         }
                         else if ($list_type === 'closed') {
                             ?>
-            <a class="ui labeled icon red mini button" href="<?php echo get_template_directory_uri(); ?>/project-management/issue-manage.php?post_id=<?php echo get_the_ID(); ?>&close=false&tag=<?php urlencode($_GET['project_tag']) ?>">
+            <a class="ui labeled icon red mini button" href="<?php echo get_template_directory_uri(); ?>/project-management/issue-manage.php?post_id=<?php echo get_the_ID(); ?>&close=false&tag=<?php echo urlencode($_GET['project_tag']) ?>">
                                 <i class="undo icon"></i>
                                 設定任務未完成
                             </a>

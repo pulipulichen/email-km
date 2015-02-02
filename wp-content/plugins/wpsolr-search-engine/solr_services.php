@@ -79,8 +79,16 @@ function fun_search_indexed_data() {
         <div class="ui-widget">
 	<input type="hidden" name="page_id" value="' . $get_page_info->ID . '" />
 	<input type="hidden"  id="ajax_nonce" value="' . $ajax_nonce . '">
-        <input type="text" placeholder="Search ..." value="' . $search_que . '" name="search" id="search_que" class="search-field sfl2" autocomplete="off"/>
-	<input type="submit" value="Search" id="searchsubmit" style="position:relative;width:auto"> <div style="clear:both"></div>
+        <div class="ui action right input center aligned" style="width:50%;">
+            <input type="text" placeholder="Search ..." value="' . $search_que . '" name="search" id="search_que" class="" autocomplete="off"/>
+            <span class="ui teal button" style="width: 50px;">
+                <button type="submit" value="Search" id="searchsubmit" style="" class="min-button"> 搜尋</button>
+            </span>
+            
+        </div>
+        
+        <div style="clear:both"></div>
+        
         </div>
         </form>';
 
@@ -99,9 +107,9 @@ function fun_search_indexed_data() {
 			if ( $final_result[2] == 0 ) {
 				echo "<span class='infor'>No results found for $search_que</span>";
 			} else {
-				echo '<div class="wdm_resultContainer">
-                    <div class="wdm_list">';
-				$sort_select = "<label class='wdm_label'>Sort By</label>
+				echo '<div class="wdm_resultContainer ">
+                    <div class="wdm_list ui segment">';
+				$sort_select = "<label class='wdm_label ui teal ribbon label' style='margin-bottom: 1em;'>排序搜尋結果</label>
                                     <select class='select_field'>
                                     <option value='new'>Newest</option>
                                     <option value='old'>Oldest</option>
@@ -109,7 +117,7 @@ function fun_search_indexed_data() {
                                     <option value='lcomm'>Least Comments</option>
                                     </select>";
 
-				echo '<div>' . $sort_select . '</div>';
+				echo '<div class="ui vertical segment form"><div class="field">' . $sort_select . '</div></div>';
 
 				$res_array = $final_result[3];
 				if ( $final_result[1] != '0' ) {
@@ -121,10 +129,12 @@ function fun_search_indexed_data() {
 
 
 						$groups = '
-                                    <div><label class="wdm_label">Filter Results</label>
+                                    <div class="ui vertical segment"><label class="wdm_label ui teal ribbon label" style="margin-bottom: 1em;">篩選結果</label>
                                     <input type="hidden" name="sel_fac_field" id="sel_fac_field" value="all" >
+                                    <div class="ui tag labels">
+                                    <div class="select_opt ui label" id="all">ALL</div>
                                     <ul class="wdm_ul">
-				    <li class="select_opt" id="all">ALL</li>
+				    
 				    ';
 
 						foreach ( $facets_array as $arr ) {
@@ -135,7 +145,7 @@ function fun_search_indexed_data() {
 									$arr_val = substr( $arr_val, 0, ( strlen( $arr_val ) - 4 ) );
 								}
 								$arr_val = str_replace( '_', ' ', $arr_val );
-								$groups .= "<lh >By $arr_val</lh><br>";
+								$groups .= "<lh ><div class='ui label' style='margin-top:1em;'>By $arr_val</div></lh><br>";
 
 								foreach ( $final_result[1][ $arr ] as $val ) {
 									$name  = $val[0];
@@ -155,7 +165,7 @@ function fun_search_indexed_data() {
 
 				}
 
-				echo '</div>
+				echo '</div></div>
                     <div class="wdm_results">';
 				if ( $final_result[0] != '0' ) {
 					echo $final_result[0];
@@ -178,12 +188,18 @@ function fun_search_indexed_data() {
 					$number_of_res = $solr_form_options['no_res'];
 					if ( $total > $number_of_res ) {
 						$pages = ceil( $total / $number_of_res );
-						echo '<ul id="pagination-flickr" class="wdm_ul">';
+						echo '<div id="pagination-flickr" class="wdm_ul ui pagination menu">';
 						for ( $k = 1; $k <= $pages; $k ++ ) {
-							echo "<li ><a class='paginate' href='#' id='$k'>$k</a></li>";
+                                                    if ($k === 1) {
+                                                        echo "<a class='paginate active item' href='#' id='$k' style='padding: .78571em .95em;margin:0;'>$k</a>";
+                                                    }
+                                                    else {
+                                                        echo "<a class='paginate item' href='#' id='$k' style='padding: .78571em .95em;margin:0;'>$k</a>";
+                                                    }
+							
 						}
 					}
-					echo '</ul></div>';
+					echo '</div></div>';
 
 				}
 
@@ -329,11 +345,16 @@ function return_solr_results() {
 	$paginat_var   = '';
 	if ( $total > $number_of_res ) {
 		$pages = ceil( $total / $number_of_res );
-		$paginat_var .= '<ul id="pagination-flickr"class="wdm_ul">';
+		$paginat_var .= '<div id="pagination-flickr" class="wdm_ul ui pagination menu">' ;
 		for ( $k = 1; $k <= $pages; $k ++ ) {
-			$paginat_var .= "<li ><a class='paginate' href='#' id='$k'>$k</a></li>";
+                        if (intval($num) === $k) {
+                            $paginat_var .= "<a class='paginate active item' href='#' id='$k' style='padding: .78571em .95em;margin:0;'>$k</a>";
+                        }
+                        else {
+                            $paginat_var .= "<a class='paginate  item' href='#' id='$k' style='padding: .78571em .95em;margin:0;'>$k</a>";
+                        }
 		}
-		$paginat_var .= '</ul>';
+		$paginat_var .= '</div>';
 	}
 
 

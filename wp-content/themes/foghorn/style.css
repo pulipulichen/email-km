@@ -242,10 +242,9 @@ body {
 	clear: both;
 	padding: .7em 0;
 }
-
 #submain {
-    
-	margin-right:320px;
+	clear: both;
+	padding-right: 320px;
 }
 
 #primary {
@@ -1233,6 +1232,10 @@ a.comment-reply-link {
     margin-left: 320px;
 	margin-right:0;
 }
+.layout-2c1 #submain {
+    /*margin-left: 320px;*/
+    margin-right:320px;
+}
 .layout-2cl #primary {
 	float:right;
 }
@@ -1246,6 +1249,11 @@ a.comment-reply-link {
 .layout-1c #main {
 	margin-right:0;
 }
+
+.layout-1c #submain {
+	margin-right:0px;
+}
+
 .layout-1c #primary {
 	width:100%;
 }
@@ -1372,8 +1380,16 @@ a.comment-reply-link {
 	#main {
 		margin-right:0;
 	}
+        #submain {
+		margin-right:0;
+                
+    padding-right: 0;
+	}
 	.layout-2cl #main {
 		margin-left:0;
+	}
+        .layout-2cl #submain {
+		margin-left:320px;
 	}
 	#primary {
 		width:100%;

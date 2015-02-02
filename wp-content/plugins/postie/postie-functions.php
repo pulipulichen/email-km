@@ -217,10 +217,11 @@ function CreatePost($poster, $mimeDecodedEmail, $post_id, &$is_reply, $config, $
     if ($fulldebug)
         DebugEcho("post tag: $content");
     
-    if (strtolower(substr($subject, 0, 4)) === "re: ") {
-        $post_tags[] = 'reply';
-    }
-
+//    $delivered_to = $mimeDecodedEmail->headers["delivered-to"];
+//    if (isset($delivered_to)) {
+//        //$post_tags[] = "[[[" . $delivered_to;
+//    }
+    
     $comment_status = tag_AllowCommentsOnPost($content);
     if ($fulldebug)
         DebugEcho("post comment: $content");
@@ -285,6 +286,7 @@ function CreatePost($poster, $mimeDecodedEmail, $post_id, &$is_reply, $config, $
     } else {
         EchoInfo("Reply detected");
         $is_reply = true;
+        $post_tags[] = 'reply';
         // strip out quoted content
         $lines = explode("\n", $content);
         $newContents = '';
@@ -319,6 +321,25 @@ function CreatePost($poster, $mimeDecodedEmail, $post_id, &$is_reply, $config, $
 
     DebugEcho("excerpt: $post_excerpt");
 
+    $skip_needle = array(
+        'dlll.email.km@gmail.com, email',
+        'UniversityE-mail',
+    );
+    $new_post_tags = array();
+    foreach ($post_tags AS $key => $tag) {
+        $pass = true;
+        foreach ($skip_needle AS $s_key => $needle) {
+            if (substr($tag, 0, strlen($needle)) === $needle) {
+                $pass = false;
+                break;
+            }
+        }
+        if ($pass === true) {
+            $new_post_tags[] = $tag;
+        }
+    }
+    $post_tags = $new_post_tags;
+    
     $details = array(
         'post_author' => $poster,
         'comment_author' => $postAuthorDetails['author'],

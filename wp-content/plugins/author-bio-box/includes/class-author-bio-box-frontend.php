@@ -91,15 +91,19 @@ class Author_Bio_Box_Frontend {
 			$settings['text_color']
 		);
 
-		$html = '<div id="author-bio-box" style="' . $styles . '">';
-		$html .= '<h3><a style="color: ' . $settings['title_color'] . ';" href="' . esc_url( get_author_posts_url( $user_id ) ) . '" title="' . esc_attr( __( 'All posts by', 'author-bio-box' ) . ' ' . get_the_author_meta( 'display_name',$user_id ) ) .'" rel="author">' . get_the_author_meta( 'display_name',$user_id ) . '</a></h3>';
-		$html .= '<div class="bio-gravatar">' . get_avatar( $user_id, $gravatar ) . '</div>';
+		$html = '<div id="author-bio-box" style="' . $styles . '; clear:both">';
+                $html .= '<div class="bio-gravatar" style="float:left;">' . get_avatar( $user_id, $gravatar ) . '</div>';
+		$html .= '<h3 style="display:inline-block"><a style="color: ' . $settings['title_color'] . ';" href="' . esc_url( get_author_posts_url( $user_id ) ) . '" title="' . esc_attr( __( 'All posts by', 'author-bio-box' ) . ' ' . get_the_author_meta( 'display_name',$user_id ) ) .'" rel="author">' . get_the_author_meta( 'display_name',$user_id ) . '</a></h3>';
+		
+                $html .= '<span style="margin-left: 1em;">';
 
 		foreach ( $social as $key => $value ) {
 			if ( ! empty( $value ) ) {
 				$html .= '<a target="_blank" href="' . esc_url( $value ) . '" class="bio-icon bio-icon-' . $key . '"></a>';
 			}
 		}
+                
+                $html .= "</span>";
 
 		$html .= '<p class="bio-description">' . apply_filters( 'authorbiobox_author_description', get_the_author_meta( 'description', $user_id ) ) . '</p>';
                 
@@ -107,7 +111,7 @@ class Author_Bio_Box_Frontend {
                 // 加入EMAIL
                 $email = get_the_author_meta('email', $user_id);
                 $html .= '<a style=""  href="mailto:'.$email.'" target="_blank">
-                            <div class="ui labeled icon teal button" style="padding: .6em .8em;">
+                            <div class="ui labeled icon teal button" style="padding: .6em .8em;margin-right:0.5em;">
                                 <i class="mail outline icon"></i>
                                 寄送EMAIL
                             </div>
@@ -118,14 +122,14 @@ class Author_Bio_Box_Frontend {
                 if ($last_login === '') {
                     $last_login = 'NEVER';
                 }
-                $html .= '<div class="ui label" style="padding: .6em .8em;text-shadow:rgba(255, 255, 255, 0.8) 0px 0px 0px;font-weight:normal;">
+                $html .= '<div class="ui label" style="padding: .6em .8em;text-shadow:rgba(255, 255, 255, 0.8) 0px 0px 0px;font-weight:normal;margin-right:0.5em;">
                     <i class="calendar icon"></i> 最後登入時間
                     <a class="detail">'.$last_login.'</a>
 </div>';
                 
                 $post_count = count_user_posts( $user_id , 'post' );
                 //$post_count = get_the_author_meta( 'ID' );
-                $html .= '<div class="ui label" style="padding: .6em .8em;text-shadow:rgba(255, 255, 255, 0.8) 0px 0px 0px;font-weight:normal;">
+                $html .= '<div class="ui label" style="padding: .6em .8em;text-shadow:rgba(255, 255, 255, 0.8) 0px 0px 0px;font-weight:normal;margin-right:0.5em;">
                     <i class="write icon"></i> 已發佈篇數
                     <a class="detail"> '.$post_count.'</a>
 </div>';
