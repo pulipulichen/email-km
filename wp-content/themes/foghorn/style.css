@@ -512,6 +512,18 @@ footer.entry-meta .entry-utility-prep-tag-links,
 	text-decoration:none;
 }
 
+footer.entry-meta .entry-utility-prep-user-links,
+.inline.entry-meta .entry-utility-prep-user-links{
+	display:inline-block;
+	background:#ccc;
+	text-indent:-9999em;
+	width:15px;
+	height:20px;
+	background:url('images/group.png') no-repeat 0 3px;
+	margin:0 4px 0 2px;
+	text-decoration:none;
+}
+
 footer.entry-meta .leave-reply a {
 	text-decoration:none;
 }

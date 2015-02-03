@@ -6,6 +6,8 @@
  * @subpackage Foghorn
  * @since Foghorn 0.1
  */
+
+include_once './wp-content/themes/foghorn/project-management/count_project_tags.php';
 ?>
 	<div class="content-wrap">
 	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
@@ -58,11 +60,9 @@
             <?php printf( __( '<span class="%1$s">分類:</span> %2$s', 'foghorn' ), 'entry-utility-prep entry-utility-prep-cat-links', $categories_list );
             $show_sep = true; ?>
             <?php endif; // End if categories ?>
-        <?php $tag_list = get_the_tag_list( '', ', ' );
-        if ( '' != $tag_list ) {
-            echo '<span class="sep"> | </span>';
-            printf( __( '<span class="%1$s">標籤:</span> %2$s', 'foghorn' ), 'entry-utility-prep entry-utility-prep-tag-links', $tag_list );
-        } ?>
+        <?php 
+            display_post_tags();
+        ?>
 
             <?php if ( comments_open() ) : ?>
             <?php if ( $show_sep ) : ?>

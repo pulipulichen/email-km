@@ -14,7 +14,7 @@
 
 $cat =  '專案';
 if (isset($_GET['project_tag']) === false) {
-    //header("Location: /project-management");
+    header("Location: /project-management");
 }
 $project_tag = $_GET['project_tag'];
 //$project_tag = '測試專案';
