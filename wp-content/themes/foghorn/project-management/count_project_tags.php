@@ -79,12 +79,12 @@ foreach ($postslist AS $key => $post) {
         $tag_name = $tag->name;
         $project_tags[$tag_name][$post_type][] = $post->ID;
         
-        if (isset($project_tags[$tag_name]['authors'][$author]) === false) {
-            $project_tags[$tag_name]['authors'][$author] = 1;
-        }
-        else {
-            $project_tags[$tag_name]['authors'][$author]++;
-        }
+//        if (isset($project_tags[$tag_name]['authors'][$author]) === false) {
+//            $project_tags[$tag_name]['authors'][$author] = 1;
+//        }
+//        else {
+//            $project_tags[$tag_name]['authors'][$author]++;
+//        }
         
         foreach ($group AS $g_key => $user_id) {
             if (isset($project_tags[$tag_name]['authors'][$user_id]) === false) {
