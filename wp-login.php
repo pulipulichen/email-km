@@ -718,14 +718,22 @@ default:
 
 <?php if ( !$interim_login ) { ?>
 <p id="nav">
-<?php if ( isset($_GET['checkemail']) && in_array( $_GET['checkemail'], array('confirm', 'newpass') ) ) : ?>
-<?php elseif ( get_option('users_can_register') ) : ?>
-<a href="<?php echo esc_url( site_url( 'wp-login.php?action=register', 'login' ) ); ?>"><?php _e( 'Register' ); ?></a> |
-<a href="<?php echo esc_url( wp_lostpassword_url() ); ?>" title="<?php esc_attr_e( 'Password Lost and Found' ); ?>"><?php _e( 'Lost your password?' ); ?></a>
-<?php else : ?>
-<a href="<?php echo esc_url( wp_lostpassword_url() ); ?>" title="<?php esc_attr_e( 'Password Lost and Found' ); ?>"><?php _e( 'Lost your password?' ); ?></a>
-<?php endif; ?>
-<br />
+    <?php 
+/**
+ * 停止使用「忘了密碼」功能
+ * @author Pulipuli Chen 20180727 
+ */
+?>
+<!-- 
+    <?php if ( isset($_GET['checkemail']) && in_array( $_GET['checkemail'], array('confirm', 'newpass') ) ) : ?>
+    <?php elseif ( get_option('users_can_register') ) : ?>
+    <a href="<?php echo esc_url( site_url( 'wp-login.php?action=register', 'login' ) ); ?>"><?php _e( 'Register' ); ?></a> |
+    <a href="<?php echo esc_url( wp_lostpassword_url() ); ?>" title="<?php esc_attr_e( 'Password Lost and Found' ); ?>"><?php _e( 'Lost your password?' ); ?></a>
+    <?php else : ?>
+    <a href="<?php echo esc_url( wp_lostpassword_url() ); ?>" title="<?php esc_attr_e( 'Password Lost and Found' ); ?>"><?php _e( 'Lost your password?' ); ?></a>
+    <?php endif; ?>
+    <br />
+-->
 <a href="mailto:pulipuli.chen+email.km@gmail.com&subject=我想申請EMAIL-KM的帳號&body=我的姓名、電話、Email帳號是：" title="寄信給布丁" style="color:red !important;font-weight: bold;">
     新進成員沒有帳號嗎？寫信問布丁吧！
 </a>
