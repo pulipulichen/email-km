@@ -1,103 +1,101 @@
 <?php
 function count_project_tags($args) {
-    $postslist = get_posts( $args );
+    //echo var_dump($args);
+    $postslist = get_posts($args);
+    //echo var_dump($postslist);
 
-$project_tags = array();
-$skip_tags = array(
-    'email', 'closed', 'reply'
-);
+    $project_tags = array();
+    $skip_tags = array(
+        'email', 'closed', 'reply'
+    );
 
 //print_r($postslist);
 
-$skip_email = array(
-    'dlll.email.km@gmail.com'
-);
+    $skip_email = array(
+        'dlll.email.km@gmail.com'
+    );
 
 
-foreach ($postslist AS $key => $post) {
-    //echo $post->ID;
-    $tags = wp_get_post_tags($post->ID);
-    //print_r($tags);
-    
-    $date = substr ( $post->post_modified_gmt, 0, 10 );
-    $date = str_replace('-', '', $date);
-    $date = intval($date);
-    //echo $date . '<br />';
-    
-    $author = $post->post_author;
-    
-    $filtered_tags = array();
-    $post_type = 'open';
-    if (strtolower(substr($post->post_title, 0, 4)) === 're: ') {
-        $post_type = 'other';
-    }
+    foreach ($postslist AS $key => $post) {
+        //echo $post->ID;
+        $tags = wp_get_post_tags($post->ID);
+        //print_r($tags);
 
-    $group = array();
-    foreach ($tags AS $tags_key => $tag) {
-        $tag_name = $tag->name;
-        
-        if ($tag_name === 'closed') {
-            $post_type = 'closed';
+        $date = substr($post->post_modified_gmt, 0, 10);
+        $date = str_replace('-', '', $date);
+        $date = intval($date);
+        //echo $date . '<br />';
+
+        $author = $post->post_author;
+
+        $filtered_tags = array();
+        $post_type = 'open';
+        if (strtolower(substr($post->post_title, 0, 4)) === 're: ') {
+            $post_type = 'other';
         }
-                
-        if (in_array($tag_name, $skip_email) === false 
-                && is_email($tag_name) 
-                && $user = get_user_by_email($tag_name)) {
-            $author = $user->ID;
-            $group[] = $author;
-            //echo $author. ',';
-            //continue;
-        }
-        
-        if (in_array($tag_name, $skip_tags) || is_email($tag_name)) {
-            continue;
-        }
-        
-        if (isset($project_tags[$tag_name]) === FALSE) {
-            $project_tags[$tag_name] = array(
-                "open" => array(),
-                "closed" => array(),
-                "other" => array(),
-                'last_modify_date' => $date,
-                'authors' => array()
-            );
-        }
-        
-        //echo $project_tags[$tag_name]['last_modify_date'] . ' - '. $date . '<br />';
-        if ($project_tags[$tag_name]['last_modify_date'] < $date) {
-            
-            $project_tags[$tag_name]['last_modify_date'] = $date;
-        }
-        
-        if (in_array($tag_name, $skip_tags) === FALSE 
-                && is_email($tag) === FALSE) {
-            $filtered_tags[] = $tag;
-        }
-    }   //foreach ($tags AS $tags_key => $tag) {
-    
-    foreach ($filtered_tags AS $tags_key => $tag) {
-        $tag_name = $tag->name;
-        $project_tags[$tag_name][$post_type][] = $post->ID;
-        
+
+        $group = array();
+        foreach ($tags AS $tags_key => $tag) {
+            $tag_name = $tag->name;
+
+            if ($tag_name === 'closed') {
+                $post_type = 'closed';
+            }
+
+            if (in_array($tag_name, $skip_email) === false && is_email($tag_name) && $user = get_user_by('email', $tag_name)) {
+                $author = $user->ID;
+                $group[] = $author;
+                //echo $author. ',';
+                //continue;
+            }
+
+            if (in_array($tag_name, $skip_tags) || is_email($tag_name)) {
+                continue;
+            }
+
+            if (isset($project_tags[$tag_name]) === FALSE) {
+                $project_tags[$tag_name] = array(
+                    "open" => array(),
+                    "closed" => array(),
+                    "other" => array(),
+                    'last_modify_date' => $date,
+                    'authors' => array()
+                );
+            }
+
+            //echo $project_tags[$tag_name]['last_modify_date'] . ' - '. $date . '<br />';
+            if ($project_tags[$tag_name]['last_modify_date'] < $date) {
+
+                $project_tags[$tag_name]['last_modify_date'] = $date;
+            }
+
+            if (in_array($tag_name, $skip_tags) === FALSE && is_email($tag) === FALSE) {
+                $filtered_tags[] = $tag;
+            }
+        }   //foreach ($tags AS $tags_key => $tag) {
+
+        foreach ($filtered_tags AS $tags_key => $tag) {
+            $tag_name = $tag->name;
+            $project_tags[$tag_name][$post_type][] = $post->ID;
+
 //        if (isset($project_tags[$tag_name]['authors'][$author]) === false) {
 //            $project_tags[$tag_name]['authors'][$author] = 1;
 //        }
 //        else {
 //            $project_tags[$tag_name]['authors'][$author]++;
 //        }
-        
-        foreach ($group AS $g_key => $user_id) {
-            if (isset($project_tags[$tag_name]['authors'][$user_id]) === false) {
-                $project_tags[$tag_name]['authors'][$user_id] = 1;
-            }
-            else {
-                $project_tags[$tag_name]['authors'][$user_id]++;
+
+            foreach ($group AS $g_key => $user_id) {
+                if (isset($project_tags[$tag_name]['authors'][$user_id]) === false) {
+                    $project_tags[$tag_name]['authors'][$user_id] = 1;
+                } else {
+                    $project_tags[$tag_name]['authors'][$user_id] ++;
+                }
             }
         }
     }
-}
 
-return $project_tags;
+    return $project_tags;
 }
 
 function filter_project_tag($project_tag, $cat = '', $key = '') {
@@ -131,8 +129,18 @@ function filter_project_tag($project_tag, $cat = '', $key = '') {
     
     // ------
     
-    $progress = (count($project_tag['closed']) / (count($project_tag['closed']) + count($project_tag['open'])));
-    $progress = intval($progress * 100);
+    $progress = 0;
+    
+    if ((count($project_tag['closed']) + count($project_tag['open'])) > 0) {
+        //echo (count($project_tag['closed']) + count($project_tag['open']));
+        $progress = (count($project_tag['closed']) / (count($project_tag['closed']) + count($project_tag['open'])));
+        //$progress = count($project_tag['closed']);
+        //$progress = ($project_tag['closed']);
+        $progress = intval($progress * 100);
+        //echo $progress;
+        //echo $progress;
+        //echo gettype($progress);
+    }
     
     $progress_type = '';
     if ($progress > 90) {
@@ -151,11 +159,16 @@ function filter_project_tag($project_tag, $cat = '', $key = '') {
     $project_tag['progress'] = $progress;
     $project_tag['progress_type'] = $progress_type;
     
-    return $project_tag;
-    
+    return $project_tag;    
 }
 
-function classify_tags() {
+function classify_tags($author_id = NULL) {
+    
+    $skip_user = array(
+        'dlll.email.km@gmail.com'
+    );
+    
+    ///echo $author_id.']]]';
     $posttags = get_the_tags();
         $tags = array();
         $users = array();
@@ -168,9 +181,12 @@ function classify_tags() {
             }
 
             if (is_email($name) 
-                    && $user = get_user_by_email($name)) {
+                    && $user = get_user_by('email', $name)) {
 
                 $id = $user->ID;
+                if ($id === $author_id) {
+                    continue;
+                }
                 $name = get_the_author_meta('display_name', $id);
                 $link = get_author_posts_url($id);
                 $avatar = get_avatar( $id, 12 );
@@ -200,7 +216,7 @@ function classify_tags() {
     );
 }
 
-function display_post_tags($post_id) {
+function display_post_tags($author_id) {
     $tag_list = get_the_tag_list( '', ', ' );
     $skip_user = array(
         'dlll.email.km@gmail.com'
@@ -208,7 +224,7 @@ function display_post_tags($post_id) {
     
     if ( '' != $tag_list ) {
 
-        $results = classify_tags();
+        $results = classify_tags($author_id);
 
         if ($results['email'] !== false) {
             echo '<span class="sep"> | </span>';

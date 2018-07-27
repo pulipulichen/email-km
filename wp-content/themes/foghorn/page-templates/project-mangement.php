@@ -13,13 +13,14 @@
  */
 
 $cat =  '專案';
+$pm_home = "/project-management/";
+$pm_list = "/project-management/project-management-list";
 
 get_header(); ?>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/js/jquery.tablesorter.min.js"></script>
 
-<div id="submain">
-    
+<div id="submain"> 
 	<div id="primary" class="site-content">
 		<div id="content" role="main">
 			<article>
@@ -36,7 +37,7 @@ get_header(); ?>
   </script>
 </div>
                                 <div class="content"><?php echo get_the_title(); ?>
-                                    <a class='sub header' href='http://email-km.dlll.nccu.edu.tw/2015/02/ru-he-shi-yong-zhuan-an-guan-li-gong-neng/' style='display:block'>
+                                    <a class='sub header' href='/2015/02/ru-he-shi-yong-zhuan-an-guan-li-gong-neng/' style='display:block'>
                                         <i class='help circle icon'></i>專案管理使用教學
                                     </a>
                                 </div>
@@ -92,7 +93,7 @@ foreach ($project_tags AS $key => $project_tag) {
     ?>
       <tr>
           <!-- 專案標題 -->
-          <td><a href="/project-management-list?project_tag=<?php echo urlencode($key); ?>&project_type=open"><?php echo $key; ?> </a></td>
+          <td><a href="<?php echo $pm_list ?>?project_tag=<?php echo urlencode($key); ?>&project_type=open"><?php echo $key; ?> </a></td>
           
           <!-- 最近更新日期 -->
           <td data-sort-value="<?php echo $project_tag['last_modify_date']; ?>" class="center aligned"><?php echo $last_modified_date_string; ?></td>
@@ -105,7 +106,7 @@ foreach ($project_tags AS $key => $project_tag) {
               <?php 
               if (count($project_tag['open']) > 0) {
                   ?>
-                  <a class="ui red label" href="/project-management-list?project_tag=<?php echo urlencode($key); ?>&project_type=open">
+                  <a class="ui red label" href="<?php echo $pm_list ?>?project_tag=<?php echo urlencode($key); ?>&project_type=open">
                     <i class="radio icon"></i> <?php echo count($project_tag['open']); ?>
                   </a>
                   <?php
@@ -128,7 +129,7 @@ foreach ($project_tags AS $key => $project_tag) {
               <?php 
               if (count($project_tag['closed']) > 0) {
                   ?>
-                  <a class="ui teal label" href="/project-management-list?project_tag=<?php echo urlencode($key); ?>&project_type=closed">
+                  <a class="ui teal label" href="<?php echo $pm_list ?>?project_tag=<?php echo urlencode($key); ?>&project_type=closed">
                     <i class="check circle icon"></i> <?php echo count($project_tag['closed']); ?>
                   </a>
                   <?php
@@ -148,7 +149,7 @@ foreach ($project_tags AS $key => $project_tag) {
           </td>
           <!-- 其他討論 -->
           <td class="center aligned" data-sort-value="<?php echo count($project_tag['other']); ?>">
-              <a class="ui label" href="/project-management-list?project_tag=<?php echo urlencode($key); ?>&project_type=other">
+              <a class="ui label" href="<?php echo $pm_list ?>?project_tag=<?php echo urlencode($key); ?>&project_type=other">
                 <i class="comment icon"></i> <?php echo count($project_tag['other']); ?>
               </div>              
           </a>

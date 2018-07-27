@@ -17,5 +17,6 @@
 	<div class="entry-content">
 		<?php the_content(); ?>
             
+            <!--[related_posts_by_tax]-->
 	</div><!-- .entry-content -->
 </article><!-- #post-<?php the_ID(); ?> -->

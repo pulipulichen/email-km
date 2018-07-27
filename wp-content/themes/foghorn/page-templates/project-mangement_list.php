@@ -11,11 +11,16 @@
  * @subpackage Twenty_Twelve
  * @since Twenty Twelve 1.0
  */
-
 $cat =  '專案';
+$pm_home = "/project-management/";
+$pm_list = "/project-management/project-management-list";
+
 if (isset($_GET['project_tag']) === false) {
-    header("Location: /project-management");
+    header("Location: " . $pm_home);
 }
+
+// ------------------------------------------
+
 $project_tag = $_GET['project_tag'];
 //$project_tag = '測試專案';
 
@@ -24,17 +29,24 @@ if (isset($_GET['project_type'])) {
     $list_type = $_GET['project_type'];
 }
 
+//echo $project_tag;
+
 $args = array(
     'posts_per_page' => -1,
+    'category' => '793',
     'tag' => $project_tag,
-    
 );
-
 
 include_once './wp-content/themes/foghorn/project-management/count_project_tags.php';
 $project_tags = count_project_tags($args);
+//echo var_dump($project_tags);
 $project = array_pop($project_tags);
-$project = filter_project_tag($project, '專案', $project_tag);
+
+//$project = "在職專班網站調查";
+$project = filter_project_tag($project, $cat);
+
+$progress = $project['progress'];
+$progress_type = $project['progress_type'];
 
 if ($list_type === 'open') {
     //echo '111';
@@ -64,13 +76,9 @@ query_posts( $args );
 
 // ------------------
 
-$progress = $project['progress'];
-$progress_type = $project['progress_type'];
-
 get_header(); ?>
 
 <div id="submain">
-    
 	<div id="primary" class="site-content">
 			<div id="content" role="main">
             
@@ -87,7 +95,7 @@ get_header(); ?>
   }
   </script>
 </div>
-                        <a class="page-title" href='/project-management'><?php
+                        <a class="page-title" href='<?php echo $pm_home ?>'><?php
                                 printf( __( ' Category: %s', 'foghorn' ), '<span>專案管理</span>' );
                         ?></a>
     <h1 class="page-title ui header">
