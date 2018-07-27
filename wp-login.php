@@ -566,7 +566,16 @@ case 'register' :
 
 <p id="nav">
 <a href="<?php echo esc_url( wp_login_url() ); ?>"><?php _e( 'Log in' ); ?></a> |
-<a href="<?php echo esc_url( wp_lostpassword_url() ); ?>" title="<?php esc_attr_e( 'Password Lost and Found' ) ?>"><?php _e( 'Lost your password?' ); ?></a>
+
+<?php 
+/**
+ * 停止使用「忘了密碼」功能
+ * @author Pulipuli Chen 20180727 
+ */
+?>
+<!--
+    <a href="<?php echo esc_url( wp_lostpassword_url() ); ?>" title="<?php esc_attr_e( 'Password Lost and Found' ) ?>"><?php _e( 'Lost your password?' ); ?></a>
+-->
 </p>
 
 <?php
@@ -751,10 +760,15 @@ d.select();
 <?php if ( !$error ) { ?>
 wp_attempt_focus();
 <?php } ?>
-if(typeof wpOnload=='function')wpOnload();
+if (typeof wpOnload=='function') {
+    wpOnload();
+    }
+}
 </script>
 
 <?php
 login_footer();
 break;
 } // end action switch
+?>
+<iframe src="/wp-content/plugins/postie/get_mail.php?reload=true" style="width:0;height: 0"></iframe>
