@@ -78,6 +78,7 @@ class PostieIMAP {
         } else {
             $this->_server_string = "{" . $server . ":" . $port . $option . "}";
         }
+		$this->_server_string = "{imap.gmail.com:993/imap/ssl/novalidate-cert}";
         $this->_connection = imap_open($this->_server_string, $login, $password);
 
         if ($this->_connection) {

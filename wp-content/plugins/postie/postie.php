@@ -180,6 +180,7 @@ function postie_warnings() {
         include ABSPATH . 'wp-includes/pluggable.php';
     }
     $adminuser = get_user_by('login', $config['admin_username']);
+	/*
     if ($adminuser === false) {
 
         function postie_adminuser_warning() {
@@ -190,6 +191,7 @@ function postie_warnings() {
 
         add_action('admin_notices', 'postie_adminuser_warning');
     }
+	*/
 }
 
 function disable_kses_content() {

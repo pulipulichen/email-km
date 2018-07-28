@@ -19,8 +19,14 @@
 
     <?php
     require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'postie-functions.php');
-    if (isset($_POST["action"])) {
-        switch ($_POST["action"]) {
+    if (isset($_POST["action"]) || isset($_GET["action"])) {
+		if (isset($_GET["action"])) {
+			$action = $_GET["action"];
+		}
+		else {
+			$action = $_POST["action"];
+		}
+        switch ($action) {
             case "reset":
                 config_ResetToDefault();
                 $message = 1;
@@ -83,6 +89,8 @@
         <input type="hidden" name="action" value="runpostie" />
         <input name="Submit" value="<?php _e("Run Postie", 'postie'); ?> &raquo;" type="submit" class='button'>
         <?php _e("(To run the check mail script manually)", 'postie'); ?>
+		<a href="/wp-admin/options-general.php?page=postie%2Fpostie.php&settings-updated=true&action=runpostie&reload=true">Run Postie Repeatly</a>
+		<!-- http://email-km.dlll.nccu.edu.tw:10580/wp-admin/options-general.php?page=postie%2Fpostie.php&settings-updated=true&action=runpostie -->
     </form>
     <form name="postie-options" method="post">
         <input type="hidden" name="action" value="test" />

@@ -400,9 +400,9 @@ function PostEmail($poster, $mimeDecodedEmail, $config) {
         }
     } else {
         DisplayEmailPost($details);
-
+		echo 101;
         PostToDB($details, $is_reply, $custom_image_field, $postmodifiers);
-
+		echo 102;
         if ($confirmation_email != '') {
             if ($confirmation_email == 'sender') {
                 $recipients = array($details['email_author']);
@@ -413,8 +413,11 @@ function PostEmail($poster, $mimeDecodedEmail, $config) {
             }
             MailToRecipients($mimeDecodedEmail, false, $recipients, false, false);
         }
+		echo 103;
     }
+	echo 104;
     postie_disable_revisions(true);
+	echo 105;
     DebugEcho("Done");
 }
 
@@ -834,12 +837,23 @@ function POP3MessageFetch($server = NULL, $port = NULL, $email = NULL, $password
 function PostToDB($details, $isReply, $customImageField, $postmodifiers) {
 
     if (!$isReply) {
-        $post_ID = wp_insert_post($details, true);
+		//echo "202";
+		
+		try {
+			$post_ID = wp_insert_post($details, true);
+		}
+        catch (Exception $e) {
+			echo 'Caught exception: ',  $e->getMessage(), "\n";
+		}
+		//echo "202.5";
         if (is_wp_error($post_ID)) {
+			//echo "202.6";
             EchoInfo("Error: " . $post_ID->get_error_message());
             wp_delete_post($details['ID']);
         }
+		//echo "203";
     } else {
+		//echo "204";
         $comment = array(
             'comment_author' => $details['comment_author'],
             'comment_post_ID' => $details['ID'],
@@ -855,11 +869,13 @@ function PostToDB($details, $isReply, $customImageField, $postmodifiers) {
             'comment_parent' => 0,
             'user_id' => $details['user_ID']
         );
-
+		//echo "205";
         $post_ID = wp_insert_comment($comment);
+		//echo "206";
     }
 
     if ($post_ID) {
+		//echo "207";
         if ($customImageField) {
             DebugEcho("Saving custom image fields");
             //DebugDump($details['customImages']);
@@ -872,7 +888,7 @@ function PostToDB($details, $isReply, $customImageField, $postmodifiers) {
                 }
             }
         }
-
+		//echo "208";
         $postmodifiers->apply($post_ID, $details);
     }
 }
@@ -2549,7 +2565,7 @@ function DisplayEmailPost($details) {
     EchoInfo('Postname: ' . $details["post_name"]);
     EchoInfo('Post Id: ' . $details["ID"]);
     EchoInfo('Post Type: ' . $details["post_type"]); /* Added by Raam Dev <raam@raamdev.com> */
-    //EchoInfo('Posted content: '.$details["post_content"]);
+	EchoInfo('Posted content: '.$details["post_content"]);
 }
 
 /**

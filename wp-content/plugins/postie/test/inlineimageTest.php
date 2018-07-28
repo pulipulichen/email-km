@@ -1,5 +1,4 @@
 <?php
-
 require_once '../mimedecode.php';
 
 class postiefunctions2Test extends PHPUnit_Framework_TestCase {

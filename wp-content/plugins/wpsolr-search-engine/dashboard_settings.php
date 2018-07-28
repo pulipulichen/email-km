@@ -20,11 +20,21 @@ function fun_add_solr_settings() {
 	wp_localize_script( 'dashboard_js1', 'plugin_data', $plugin_vals );
 }
 
+function fun_exec_solr_index() {
+    $solr = new wp_Solr();
+
+    try {
+        $res = $solr->get_solr_status();
+
+        $val = $solr->index_data();
+    } catch (Exception $e) { }
+}
+
 function fun_set_solr_options() {
 
 
 	// Button Index
-	if ( isset( $_POST['solr_index_data'] ) ) {
+	if ( isset( $_POST['solr_index_data'] ) || isset( $_GET['solr_index_data'] ) ) {
 
 		$solr = new wp_Solr();
 
