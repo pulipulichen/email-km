@@ -24,9 +24,13 @@ function fun_search_indexed_data() {
 
 
 	$search_que = '';
+        $original_search_que = '';
 	if ( isset( $_GET['search'] ) ) {
-		$search_que = $_GET['search'];
+            $search_que = $_GET['search'];
+            $original_search_que = $search_que;
+            $search_que = add_chinese_space($search_que);
 	}
+        // 自動把這個文字斷開
 
 	$ad_url        = admin_url();
 	$get_page_info = get_page_by_title( 'Search Results' );
@@ -80,7 +84,7 @@ function fun_search_indexed_data() {
 	<input type="hidden" name="page_id" value="' . $get_page_info->ID . '" />
 	<input type="hidden"  id="ajax_nonce" value="' . $ajax_nonce . '">
         <div class="ui action right input center aligned" style="width:50%;">
-            <input type="text" placeholder="Search ..." value="' . $search_que . '" name="search" id="search_que" class="" autocomplete="off"/>
+            <input type="text" placeholder="Search ..." value="' . $original_search_que . '" name="search" id="search_que" class="" autocomplete="off"/>
             <span class="ui teal button" style="width: 50px;">
                 <button type="submit" value="Search" id="searchsubmit" style="" class="min-button"> 搜尋</button>
             </span>
@@ -149,6 +153,14 @@ function fun_search_indexed_data() {
 
 								foreach ( $final_result[1][ $arr ] as $val ) {
 									$name  = $val[0];
+                                                                        
+                                                                        $needle = ' " , " fields " : { " title " : " ';
+                                                                        if (strpos($name, $needle) !== FALSE) {
+                                                                            $pos_header = strpos($name, $needle) + strlen($needle);
+                                                                            $pos_footer = strpos($name, '" , " caption " : "', $pos_header);
+                                                                            $name = substr($name, $pos_header, $pos_footer - $pos_header);
+                                                                        }
+                                                                        
 									$count = $val[1];
 									$groups .= "<li class='select_opt' id='$field:$name:$count'>$name($count)</li>";
 								}
@@ -335,7 +347,7 @@ function return_solr_results() {
 	$res1  = array();
 	$f_res = '';
 	foreach ( $final_result[3] as $fr ) {
-		$f_res .= $fr;
+            $f_res .= $fr;
 	}
 	$res1[] = $final_result[3];
 
@@ -364,6 +376,36 @@ function return_solr_results() {
 
 
 	die();
+}
+
+function add_chinese_space( $content )
+{
+    if (is_array($content)) {
+    $new_content = array();
+    foreach($content AS $key => $value) {
+      $new_content[$key] = add_chinese_space($value);
+    }
+    return $new_content;
+  }
+  
+    $result = preg_replace_callback(
+        "/([_]|[\W]|([\p{Han}]))/u",
+        function ($matches) {
+      
+      if (preg_match_all("/[0-9\s]/", $matches[0])) {
+        return $matches[0];
+      }
+      else {
+        return " " . $matches[0] . " ";
+      }
+      
+    },
+        $content
+    );
+  $result = preg_replace('@[\x00-\x08\x0B\x0C\x0E-\x1F]@', ' ', $result);  // 避免Solr illegal characters
+  $result = preg_replace("/\s+/", ' ', $result);
+  $result = trim($result);
+  return $result;
 }
 
 add_action( 'wp_ajax_nopriv_return_solr_results', 'return_solr_results' );

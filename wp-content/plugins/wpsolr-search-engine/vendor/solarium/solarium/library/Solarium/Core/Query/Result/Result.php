@@ -100,11 +100,20 @@ class Result implements ResultInterface
         // check status for error (range of 400 and 500)
         $statusNum = floor($response->getStatusCode() / 100);
         if ($statusNum == 4 || $statusNum == 5) {
+	    	
             throw new HttpException(
                 $response->getStatusMessage(),
                 $response->getStatusCode(),
                 $response->getBody()
             );
+	    
+            /*
+            echo "<pre>
+                StatusMessage: ".$response->getStatusMessage()."
+                StatusCode: ".$response->getStatusCode()."
+                Body: ".$response->getBody()."
+                </pre>";
+            */
         }
     }
 

@@ -132,6 +132,13 @@ function solr_search_form( $form ) {
 	} else {
 		$search_que = '';
 	}
+	
+	// 試著把每個中文字斷開
+	//$result = preg_split('/((^\p{P}+)|(\p{P}*\s+\p{P}*)|(\p{P}+$))/', $search_que, -1, PREG_SPLIT_NO_EMPTY);
+	//$search_que = implode(" ", $result);
+	//$search_que = "aaa";
+	
+	
 	$solr_options = get_option( 'wdm_solr_conf_data' );
 
 	if ( $solr_options['host_type'] == 'self_hosted' ) {

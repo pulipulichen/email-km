@@ -272,6 +272,8 @@ class wp_Solr {
 		if ( $fac_count == '' ) {
 			$fac_count = 20;
 		}
+                
+                //echo 'A';
 
 		if ( $options != '' ) {
 
@@ -288,6 +290,9 @@ class wp_Solr {
 			}
 		}
 		$resultset = $client->select( $query );
+                
+                //echo 'B';
+                
 		if ( $options != '' ) {
 			foreach ( $facets_array as $facet ) {
 
@@ -305,6 +310,8 @@ class wp_Solr {
 		} else {
 			$search_result[] = 0;
 		}
+                
+                //echo 'C';
 
 		$bound = '';
 		if ( $facet_options != null || $facet_options != '' ) {
@@ -335,31 +342,44 @@ class wp_Solr {
 			$st = ( ( $start - 1 ) * $number_of_res );
 
 		}
+                
+                //echo 'C2';
 
 		if ( $bound != '' && $bound < $number_of_res ) {
-
 			$query->setStart( $st )->setRows( $bound );
 
 		} else {
 			$query->setStart( $st )->setRows( $number_of_res );
-
 		}
 
+                //echo 'C3';
 
-		$resultset = $client->select( $query );
+                try {
+                    $resultset = $client->select( $query );
+                }
+                catch (Exception $e) {
+                    $search_result[] = 0;
+                    //$search_result[] = 0;
+                    $search_result[] = "<div class='infor ui failed message' style='margin-bottom: 1em;'><pre class='content'>" . $e->xdebug_message . "</pre></div>";
+                    return $search_result;
+                }
 
+                //echo 'D1';
+                
 		$found = $resultset->getNumFound();
 
 		if ( $bound != '' ) {
 			$search_result[] = $bound;
-
-
 		} else {
 			$search_result[] = $found;
-
 		}
+                
+                //echo 'D2';
 
 		$hl = $query->getHighlighting();
+                
+                //echo 'D3';
+                
 		$hl->getField( 'title' )->setSimplePrefix( '<b>' )->setSimplePostfix( '</b>' );
 		$hl->getField( 'content' )->setSimplePrefix( '<b>' )->setSimplePostfix( '</b>' );
 
@@ -371,10 +391,12 @@ class wp_Solr {
 		$resultSet = '';
 		$resultSet = $client->select( $query );
 
+                //echo 'D';
 
 		$results      = array();
 		$highlighting = $resultSet->getHighlighting();
-
+                
+                //echo 'E';
 
 		$i       = 1;
 		$cat_arr = array();
@@ -400,7 +422,11 @@ class wp_Solr {
 
 			$cont = substr( $content, 0, 100 );
 
-			$url = get_permalink( $id );
+                        /**
+                         * @author Pulipuli Chen <pulipuli.chen@gmail.com> 20180803 修正這邊的做法
+                         */
+			//$url = get_permalink( $id );
+                        $url = get_permalink( $id, false );
 
 			$highlightedDoc = $highlighting->getResult( $document->id );
 			$cont_no        = 0;
@@ -475,9 +501,10 @@ class wp_Solr {
                         $msg .= "</div><hr>";
 			array_push( $results, $msg );
 			$i = $i + 1;
-		}
+		}   // foreach ( $resultset as $document ) {
 		//  $msg.='</div>';
 
+                //echo 'F';
 
 		if ( count( $results ) < 0 ) {
 			$search_result[] = 0;
@@ -890,7 +917,7 @@ class wp_Solr {
 			$body     = preg_replace( '/^.*?\<body\>(.*?)\<\/body\>.*$/i', '\1', $response );
 			$body     = str_replace( '\n', ' ', $body );
 		} catch ( Exception $e ) {
-			$body = '';
+			$body = 'AAA';
 		}
 
 		return $body;
