@@ -165,10 +165,12 @@ function get_search_form($echo = true) {
 	</div>
 	</form>';
 
-	if ( $echo )
+	if ( $echo ) {
 		echo apply_filters('get_search_form', $form);
-	else
+        }
+	else {
 		return apply_filters('get_search_form', $form);
+        }
 }
 
 /**

@@ -8,17 +8,25 @@
  */
  
 get_header(); ?>
-
+ 
 	<div id="primary">
 		<div id="content" role="main">
 			<div class="content-wrap clearfix">
                 <article id="post-0" class="post error404 hentry">
                     <header class="entry-header">
-                        <h1 class="entry-title"><?php _e( 'D&rsquo;oh!  You broke the internet!', 'foghorn' ); ?></h1>
+                        <h1 class="entry-title">
+                            <?php //_e( 'D&rsquo;oh!  You broke the internet!', 'foghorn' ); ?>
+                            抱歉，本網頁不存在。
+                        </h1>
                     </header>
     
                     <div class="entry-content">
-                        <p><?php _e( 'Try searching below.  Or perhaps one of the links underneath can help.', 'foghorn' ); ?></p>
+                        <p>
+                            <?php 
+                            //_e( 'Try searching below.  Or perhaps one of the links underneath can help.', 'foghorn' ); 
+                            ?>
+                            請改搜尋其他的關鍵字：
+                        </p>
     
                         <?php get_search_form(); ?>
     
@@ -48,4 +56,4 @@ get_header(); ?>
 <?php if ( of_get_option('layout','layout-2cr') != 'layout-1c') {
 	get_sidebar();
 } ?>
-<?php get_footer(); ?>
+<?php get_footer();
