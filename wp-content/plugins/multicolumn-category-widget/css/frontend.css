@@ -1,3 +1,6 @@
+.widget_multicolumncategorywidget ul {
+	list-style-type: none;
+}
 .widget_multicolumncategorywidget ul.mccw-col-first {
 	display:inline-block;
 	vertical-align:top;

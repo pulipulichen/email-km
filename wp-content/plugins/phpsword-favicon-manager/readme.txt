@@ -3,7 +3,7 @@ Contributors: phpsword
 Donate link: https://69plugins.com/donate/
 Tags: PhpSword, Favicon, WordPress, Plugin, Favicon Icon, Favicon Image, Favicon Code, Favicon Change, Favicon Manager, Short Icon, Addressbar Logo
 Requires at least: 3.0.1
-Tested up to: 4.0.1
+Tested up to: 4.1.1
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html

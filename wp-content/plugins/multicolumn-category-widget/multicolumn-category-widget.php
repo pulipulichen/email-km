@@ -3,15 +3,15 @@
 Plugin Name: Multicolumn Category Widget
 Plugin URI: http://wordpress.org/plugins/multicolumn-category-widget/
 Description: A widget to display categories in multiple columns
-Version: 1.0.10
-Date: 14 Dec 2014
+Version: 1.0.18
+Date: 31 July 2016
 Author: Arno Welzel <privat@arnowelzel.de>
 Author URI: http://arnowelzel.de
 Text Domain: multicolumn-category-widget
 */
 
 /*
-Copyright (C) 2014 Arno Welzel
+Copyright (C) 2014-2016 Arno Welzel
 	
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -139,7 +139,7 @@ class MulticolumnCategoryWidget extends WP_Widget {
 		if(isset($instance['showcount']) && $instance['showcount']==1) $showcount = 1;
 		
 		printf(
-			'<p><label for="%1$s">%2$s:</label> <input class="widefat" id="%1$s" name="%3$s" type="text" value="%4$s" /></p>'.
+			'<p><label for="%1$s">%2$s:</label> <input class="widefat" id="%1$s" name="%3$s" type="text" value="%4$s" placeholder="%13$s" /></p>'.
 			'<p><label for="%5$s">%6$s:</label> <input id="%5$s" name="%7$s" type="text" size="3" value="%8$s" /></p>'.
 			'<p><input id="%9$s" name="%11$s" type="checkbox" value="1" %12$s /> <label for="%9$s">%10$s</label></p>',
 			$this->get_field_id('title'),
@@ -153,7 +153,8 @@ class MulticolumnCategoryWidget extends WP_Widget {
 			$this->get_field_id('showcount'),
 			__('Show post counts', 'multicolumn-category-widget'),
 			$this->get_field_name('showcount'),
-			$showcount==1?'checked="checked"':'');
+			$showcount==1?'checked="checked"':'',
+			__('Categories'));
 	}
 }
 
@@ -169,7 +170,7 @@ function mccw_scripts_init() {
 		'multicolumn-category-widget',
 		plugins_url('css/frontend.css', __FILE__),
 		array(),
-		'1.0.10'
+		'1.0.18'
 	);
 	wp_enqueue_style('multicolumn-category-widget');
 }

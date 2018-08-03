@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Related Posts By Taxonomy
-Version: 0.4.1
+Version: 2.5.1
 Plugin URI: http://keesiemeijer.wordpress.com/related-posts-by-taxonomy/
 Description: Display related posts as thumbnails, links, excerpts or as full posts with a widget or shortcode. Posts with the most terms in common will display at the top.
 Author: keesiemijer
@@ -27,38 +27,67 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/* loads plugin files, adds the shortcode and sets the text domain */
-if ( !function_exists( 'related_posts_by_taxonomy_init' ) ) {
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
+// Plugin Folder Path.
+if ( ! defined( 'RELATED_POSTS_BY_TAXONOMY_PLUGIN_DIR' ) ) {
+	define( 'RELATED_POSTS_BY_TAXONOMY_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+}
+
+// Plugin Folder URL
+if ( ! defined( 'RELATED_POSTS_BY_TAXONOMY_PLUGIN_URL' ) ) {
+	define( 'RELATED_POSTS_BY_TAXONOMY_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+}
+
+/* loads plugin files, adds the shortcode and sets the text domain */
+if ( ! function_exists( 'related_posts_by_taxonomy_init' ) ) {
+
+	/**
+	 * Initialize plugin.
+	 *
+	 * Includes all plugin files and initializes plugin.
+	 */
 	function related_posts_by_taxonomy_init() {
 
 		load_plugin_textdomain( 'related-posts-by-taxonomy', '', dirname( plugin_basename( __FILE__ ) ) . '/lang' );
 
-		// defaults needed for this plugin
-		require_once plugin_dir_path( __FILE__ ) . 'defaults.php';
+		// Deprecated functions and files.
+		require_once RELATED_POSTS_BY_TAXONOMY_PLUGIN_DIR . 'includes/back-compat/deprecated.php';
 
-		// the widget
-		require_once plugin_dir_path( __FILE__ ) . 'widget.php';
+		// Settings used by this plugin.
+		require_once RELATED_POSTS_BY_TAXONOMY_PLUGIN_DIR . 'includes/settings.php';
 
-		// include files only needed on the front end
-		if ( !is_admin() ) {
+		// Functions to query the database
+		require_once RELATED_POSTS_BY_TAXONOMY_PLUGIN_DIR . 'includes/query.php';
 
-			// functions to retrieve related posts from the database
-			require_once plugin_dir_path( __FILE__ ) . 'functions.php';
+		// Functions used in the templates.
+		require_once RELATED_POSTS_BY_TAXONOMY_PLUGIN_DIR . 'includes/template-tags.php';
 
-			// functions for display of the related post thumbnail gallery
-			require_once plugin_dir_path( __FILE__ ) . 'functions-thumbnail.php';
+		// Functions for related posts
+		require_once RELATED_POSTS_BY_TAXONOMY_PLUGIN_DIR . 'includes/functions.php';
 
-			// loads the different templates used for the widget and shortcode
-			require_once plugin_dir_path( __FILE__ ) . 'template-loader.php';
+		// The related post thumbnail gallery.
+		require_once RELATED_POSTS_BY_TAXONOMY_PLUGIN_DIR . 'includes/gallery.php';
 
-			// displays the related posts from the shortcode
-			require_once plugin_dir_path( __FILE__ ) . 'shortcode.php';
-		}
+		// The Shortcode.
+		require_once RELATED_POSTS_BY_TAXONOMY_PLUGIN_DIR . 'includes/shortcode.php';
 
-		add_shortcode( 'related_posts_by_tax', 'km_rpbt_related_posts_by_taxonomy_shortcode' );
+		// loads the different templates used for the widget and shortcode.
+		require_once RELATED_POSTS_BY_TAXONOMY_PLUGIN_DIR . 'includes/template-loader.php';
+
+		// Defaults
+		require_once RELATED_POSTS_BY_TAXONOMY_PLUGIN_DIR . 'includes/class-defaults.php';
+
+		// Plugin.
+		require_once RELATED_POSTS_BY_TAXONOMY_PLUGIN_DIR . 'includes/class-plugin.php';
+
+		// Instantiate the plugin class.
+		$related_posts = new Related_Posts_By_Taxonomy_Plugin();
+		$related_posts->init();
 	}
-
 
 	/* initialize plugin */
 	related_posts_by_taxonomy_init();
