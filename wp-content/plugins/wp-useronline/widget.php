@@ -1,5 +1,4 @@
 <?php
-
 class UserOnline_Widget extends scbWidget {
 	function UserOnline_Widget() {
 		$widget_ops = array( 'description' => __( 'WP-UserOnline users online statistics', 'wp-useronline' ) );

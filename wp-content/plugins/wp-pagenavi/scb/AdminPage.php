@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Administration page base class
  */

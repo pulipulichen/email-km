@@ -28,7 +28,8 @@ This file is part of Collapsing Categories
 */ 
 
 
-$url = get_settings('siteurl');
+//$url = get_settings('siteurl');
+$url = get_option('siteurl');
 global $collapsCatVersion;
 $collapsCatVersion = '2.0.5';
 

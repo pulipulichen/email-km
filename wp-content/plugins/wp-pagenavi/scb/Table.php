@@ -1,5 +1,4 @@
 <?php
-
 // Takes care of creating, updating and deleting database tables
 
 class scbTable {

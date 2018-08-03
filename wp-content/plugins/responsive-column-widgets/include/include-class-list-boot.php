@@ -1,4 +1,4 @@
-<?php 
+<?php
 $_aClassFiles = array( 
 	"ResponsiveColumnWidgets_Bootstrap"	=>	ResponsiveColumnWidgets_Registry::$sDirPath . "/include/class/boot/ResponsiveColumnWidgets_Bootstrap.php", 
 	"ResponsiveColumnWidgets_Cleaner"	=>	ResponsiveColumnWidgets_Registry::$sDirPath . "/include/class/boot/ResponsiveColumnWidgets_Cleaner.php", 

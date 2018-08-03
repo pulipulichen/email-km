@@ -89,7 +89,10 @@
 			static $agent = null;
 
 			if ( empty($agent) ) {
-				$agent = $_SERVER['HTTP_USER_AGENT'];
+				$agent;
+				if (isset($_SERVER['HTTP_USER_AGENT']) ) {
+					$agent = $_SERVER['HTTP_USER_AGENT'];
+				}
 
 				if ( stripos($agent, 'Firefox') ) {
 					$agent = 'Firefox';
@@ -115,14 +118,24 @@
 		
 		public function get_Referred($default_referr = false) {
 		
+			$http_referer = null;
+			if (isset($_SERVER['HTTP_REFERER'])) {
+				$http_referer = $_SERVER['HTTP_REFERER'];
+			}
+			
 			if( $default_referr ) {
-				if( !$this->db->escape(strip_tags($_SERVER['HTTP_REFERER'])) ) {
+				if( !$this->db->escape(strip_tags($http_referer)) ) {
 					return get_bloginfo('url');
 				} else {
-					return $this->db->escape(strip_tags($_SERVER['HTTP_REFERER']));
+					return $this->db->escape(strip_tags($http_referer));
 				}
 			} else {
-				return $this->db->escape(strip_tags($_SERVER['HTTP_REFERER']));
+				if (isset($_SERVER['HTTP_REFERER'])) {
+					return $this->db->escape(strip_tags($http_referer));
+				}
+				else {
+					return $this->db->escape("");;
+				}
 			}
 		}
 		

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Attachments text field
  *

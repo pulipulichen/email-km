@@ -411,7 +411,8 @@ function get_attachment_icons( ) {
 												foreach ($galeriresim as $galerir) //setup array for more than one file attachment
 																{
 																$file_link       = wp_get_attachment_url($galerir->ID); //get the url for linkage
-																$file_name_array = explode("/", $galrerir_link);
+																//$file_name_array = explode("/", $galrerir_link);
+																$file_name_array = array();
 																$file_name_array2 = explode("/", $galerir->guid);
 																$file_name = $file_name_array2[count($file_name_array2)-1];
 																$aath            = wp_get_attachment_image_src($galerir->ID, 'aa_thumb');

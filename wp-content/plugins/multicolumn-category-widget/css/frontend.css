@@ -1,0 +1,17 @@
+.widget_multicolumncategorywidget ul.mccw-col-first {
+	display:inline-block;
+	vertical-align:top;
+	padding-right:2em;
+}
+.widget_multicolumncategorywidget ul.mccw-col {
+	display:inline-block;
+	vertical-align:top;
+	padding-right:2em;
+}
+.widget_multicolumncategorywidget ul.mccw-col-last {
+	display:inline-block;
+	vertical-align:top;
+}
+.widget_multicolumncategorywidget .postcount {
+	font-style:italic;
+}

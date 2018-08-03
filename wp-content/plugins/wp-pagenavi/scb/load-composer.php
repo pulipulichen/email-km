@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Pass through version to use when Composer handles classes load.
  *

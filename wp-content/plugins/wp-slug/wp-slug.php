@@ -29,7 +29,8 @@ class wp_slug{
 
 		add_filter('title_save_pre', array(&$this,'get_from_title'), 0);
 		add_filter('name_save_pre', array(&$this,'put_to_name'), 0);
-		if($wp_version > 2.4 && strpos($_SERVER['REQUEST_URI'], 'admin-ajax.php') && $_POST['action'] === 'sample-permalink'){
+		if($wp_version > 2.4 && strpos($_SERVER['REQUEST_URI'], 'admin-ajax.php') 
+			&& (isset($_POST['action']) && $_POST['action'] === 'sample-permalink') ){
 			add_filter('sanitize_title', array(&$this,'w25_ajax_slug'),0);
 			//register_shutdown_function('remove_filter', 'sanitize_title', array(&$this,'w25_ajax_slug'), 0);
 			register_shutdown_function(array(&$this,'w25_ajax_remove'));

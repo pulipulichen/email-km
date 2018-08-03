@@ -37,10 +37,10 @@ function aa_meta_save($post_id)
 	// authentication checks
 
 	// make sure data came from our meta box
-	if (!wp_verify_nonce($_POST['my_meta_noncename'],__FILE__)) return $post_id;
+	if (isset($_POST['my_meta_noncename']) && !wp_verify_nonce($_POST['my_meta_noncename'],__FILE__)) return $post_id;
 
 	// check user permissions
-	if ($_POST['post_type'] == 'page') 
+	if (isset($_POST['post_type']) && $_POST['post_type'] === 'page') 
 	{
 		if (!current_user_can('edit_page', $post_id)) return $post_id;
 	}
@@ -53,7 +53,11 @@ function aa_meta_save($post_id)
 
 	$current_data = get_post_meta($post_id, 'aa_page_meta', TRUE);	
  
-	$new_data = $_POST['aa_page_meta'];
+	$new_data = "";
+	if (isset($_POST['aa_page_meta'])) {
+		$new_data = $_POST['aa_page_meta'];
+	}
+	
 
 	my_meta_clean($new_data);
 	

@@ -52,7 +52,7 @@ $limit_login_options =
 		  'client_type' => LIMIT_LOGIN_DIRECT_ADDR
 
 		  /* Lock out after this many tries */
-		  , 'allowed_retries' => 4
+		  , 'allowed_retries' => 40
 
 		  /* Lock out for this many seconds */
 		  , 'lockout_duration' => 1200 // 20 minutes
@@ -73,7 +73,7 @@ $limit_login_options =
 		  , 'lockout_notify' => 'log'
 
 		  /* If notify by email, do so after this number of lockouts */
-		  , 'notify_email_after' => 4
+		  , 'notify_email_after' => 20
 		  );
 
 $limit_login_my_error_shown = false; /* have we shown our stuff? */

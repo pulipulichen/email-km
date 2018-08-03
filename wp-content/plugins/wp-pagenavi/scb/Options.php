@@ -1,5 +1,4 @@
 <?php
-
 // Container for an array of options
 
 class scbOptions {

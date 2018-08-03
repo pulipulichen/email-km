@@ -1,0 +1,3 @@
+.recent-posts-widget-with-thumbnails ul li { overflow: hidden; margin: 0 0 1.5em; }
+.recent-posts-widget-with-thumbnails ul li img { display: inline; float: left; margin: .3em .75em .75em 0; }
+#recent-posts-widget-with-thumbnails-2 img { width: 55px; height: 55px; }

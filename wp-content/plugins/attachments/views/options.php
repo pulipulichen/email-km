@@ -1,5 +1,4 @@
 <?php
-
     // instantiate our migration class
     include_once( ATTACHMENTS_DIR . '/classes/class.attachments.migrate.php' );
     $migrator = new AttachmentsMigrate();

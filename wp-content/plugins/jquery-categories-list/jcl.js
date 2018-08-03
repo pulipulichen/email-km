@@ -37,7 +37,7 @@ jQuery(function()
         if(!jQuery(this).siblings('.parent_expand').length)
             elementsClicked = 'a.jcl_link';
         
-        console.log(jQuery(this).siblings('.parent_expand').length);
+        //console.log(jQuery(this).siblings('.parent_expand').length);
 
         jQuery(this).on('click', elementsClicked, function(e){
              if (jQuery(this).siblings('ul').children('li').length) e.preventDefault()

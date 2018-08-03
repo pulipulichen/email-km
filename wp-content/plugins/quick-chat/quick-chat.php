@@ -573,23 +573,27 @@ class Quick_Chat {
     public function update_messages_ajax_handler(){
         global $wpdb;
         $quick_chat_messages_table_name = $wpdb->prefix . 'quick_chat_messages';
+
         ob_start();
         header( "Content-Type: application/json" );
         header("Cache-Control: no-cache, must-revalidate");
         header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
 
         $rooms = implode('", "', $wpdb->escape((array)$_POST['rooms']));
+
         $startTime = time();
         while((time()-$startTime)<=20){
             $sql = 'SELECT id, wpid, room, timestamp, UNIX_TIMESTAMP(timestamp) AS unix_timestamp, alias, status, message FROM '
                                                     .$quick_chat_messages_table_name.' WHERE room IN ("'.$rooms.'") '
                                                     .' AND timestamp > FROM_UNIXTIME('.$wpdb->escape($_POST['last_timestamp']).') '
                                                     .' ORDER BY unix_timestamp ASC';
+
             $messages = $wpdb->get_results($sql);
             if($messages){
                 foreach($messages as $v){
                     //$v->timestring = date_i18n($this->date_format.' - '.$this->time_format, $v->unix_timestamp+$this->gmt_offset);
                     $v->timestring = date_i18n($this->time_format, $v->unix_timestamp+$this->gmt_offset);
+
                     if (function_exists('get_simple_local_avatar')) {
                         $v->avatar = get_simple_local_avatar($v->wpid, $this->options['avatar_size'], '', $v->alias);
                     } else {
@@ -597,7 +601,7 @@ class Quick_Chat {
                     }
                 }
                 $response = json_encode(array('no_participation' => $this->no_participation, 'success'=> 1,'messages'=>$messages));
-                
+
                 echo $response;
                 ob_flush(); flush();
                 exit;
@@ -605,10 +609,11 @@ class Quick_Chat {
                 sleep($this->options['timeout_refresh_messages']);
             }
         }
+
         $response = json_encode(array('no_participation' => $this->no_participation, 'success'=> 0));
+
         echo $response;
         ob_flush(); flush();
-echo "test 4 | ";
         exit;
     }
 
