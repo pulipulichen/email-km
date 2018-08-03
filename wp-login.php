@@ -717,6 +717,13 @@ default:
 </form>
 
 <?php if ( !$interim_login ) { ?>
+<p style="margin-top:2em;">
+<strong style="font-size: large">實驗室成員預設登入方式：</strong> <br />
+<ul>
+    <li style="list-style: disc;"><strong>帳號</strong>：Meeting使用E-MAIL的帳號。例如：test@nccu.edu.tw，那帳號就是test。</li>
+    <li style="list-style: disc;"><strong>密碼</strong>：預設使用password。登入後請自行修改。</li>
+</ul>
+</p>
 <p id="nav">
     <?php 
 /**
@@ -734,15 +741,17 @@ default:
     <?php endif; ?>
     <br />
 -->
-<a href="mailto:pulipuli.chen+email.km@gmail.com&subject=我想申請EMAIL-KM的帳號&body=我的姓名、電話、Email帳號是：" title="寄信給布丁" style="color:red !important;font-weight: bold;">
+<ul>
+    <li style="list-style: disc;"><a href="mailto:pulipuli.chen+email.km@gmail.com&subject=我想申請EMAIL-KM的帳號&body=我的姓名、電話、Email帳號是：" title="寄信給布丁" style="color:red !important;font-weight: bold;">
     新進成員沒有帳號嗎？寫信問布丁吧！
-</a>
+</a></li>
+    <li style="list-style: disc;"><a href="http://cloud-ldap-2014.dlll.nccu.edu.tw/cmd.php?cmd=login_form&server_id=1" target="ldap">
+    實驗室管理者用：DLLL實驗室單一帳號管理系統(LDAP)
+</a></li>
+</ul>
+
 </p>
-        <p style="margin-top:2em;">
-<strong style="font-size: large">實驗室成員預設登入方式：</strong> <br />
-<strong>- 帳號</strong>：Meeting使用E-MAIL的帳號。例如：test@nccu.edu.tw，那帳號就是test。<br />
-<strong>- 密碼</strong>：預設使用password。登入後請自行修改。
-</p>
+       
 <?php } ?>
 
 <script type="text/javascript">
